@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Proposta · Flavio Jr Barbearia</title>
+<meta name="description" content="O app da Flavio Jr Barbearia: agendamento pelo celular, Clube de assinatura, fidelidade, agenda e caixa. 30 dias grátis.">
+<meta name="author" content="Weverson Silva · Torque.tec">
+<meta name="theme-color" content="#0a0a0b">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Torque.tec">
+<meta property="og:title" content="Proposta · Flavio Jr Barbearia">
+<meta property="og:description" content="O app da barbearia com a sua cara: agendamento, Clube, fidelidade, agenda e caixa. 30 dias grátis.">
+<meta property="og:url" content="https://blast019.github.io/proposta-/flavio/proposta/">
+<meta property="og:image" content="https://blast019.github.io/proposta-/flavio/icon-512.png">
+<meta property="og:locale" content="pt_BR">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Archivo:wght@400;500;600;700;800&family=Archivo+Narrow:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: folheto de uma coluna (até 860px) no preto e prata da Flavio Jr; capa com o logo, quem sou eu, o que o app faz, dois planos lado a lado, como começa e contato. */
+:root{
+  --bg:#0a0a0b; --sup:#141416; --sup2:#1c1c1f; --linha:#2d2d32;
+  --creme:#eeeef0; --suave:#9b9ba3; --tomate:#d3d6dc; --tomate-esc:#80848c; --verde:#4aa36a; --verde-bg:#16291c;
+  --ambar:#e7ad41; --ambar-bg:#33270f; --azul:#6fa8dc; --roxo:#c7b4ff;
+  --marca:"Cinzel","Trajan Pro","Times New Roman",serif;
+  --corpo:"Archivo","Segoe UI",system-ui,sans-serif;
+  --estreita:"Archivo Narrow","Arial Narrow","Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--creme);font:16px/1.6 var(--corpo);-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+.poste{height:2px;background:linear-gradient(90deg,transparent,#d3d6dc 30%,#ffffff 50%,#d3d6dc 70%,transparent)}
+.pagina{max-width:860px;margin:0 auto;padding-inline:20px;padding-block:32px 64px;display:flex;flex-direction:column;gap:56px}
+h1,h2,h3{margin:0;text-wrap:balance}
+h2{font:800 clamp(26px,4.2vw,34px)/1.1 var(--corpo);letter-spacing:-.4px}
+p{margin:0}
+.rotulo{font:700 12.5px/1 var(--estreita);letter-spacing:.16em;text-transform:uppercase;color:var(--tomate)}
+.suave{color:var(--suave)}
+.secao{display:flex;flex-direction:column;gap:20px}
+.secao>header{display:flex;flex-direction:column;gap:8px;max-width:62ch}
+a{color:var(--creme)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--tomate);outline-offset:3px}
+
+/* Capa */
+.capa{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+.capa img{width:170px;height:170px;border-radius:20px;border:1px solid #3a3a40;box-shadow:0 14px 40px rgba(0,0,0,.6)}
+.capa .para{font:700 13px/1 var(--estreita);letter-spacing:.16em;text-transform:uppercase;color:var(--suave)}
+.capa h1{font:800 clamp(34px,5.6vw,52px)/1.02 var(--corpo);letter-spacing:-1px;margin-top:10px}
+.capa h1 .script{display:block;font:600 clamp(40px,7vw,64px)/1.05 var(--marca);letter-spacing:3px;margin-top:6px;background:linear-gradient(180deg,#ffffff 0%,#a7abb2 55%,#e9eaed 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.capa .intro{margin-top:16px;color:var(--suave);font-size:17.5px;max-width:48ch}
+.gratis{margin-top:20px;display:inline-flex;align-items:center;gap:10px;background:linear-gradient(180deg,#f4f5f7,#b9bdc4);color:#0a0a0b;border-radius:12px;padding:10px 16px;font-weight:600}
+.gratis b{font:800 21px/1 var(--corpo)}
+
+/* Quem sou eu */
+.eu{background:var(--sup);border:1px solid var(--linha);border-radius:18px;padding:24px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start}
+.eu .av{width:56px;height:56px;border-radius:50%;background:var(--creme);color:var(--bg);display:grid;place-items:center;font:800 22px/1 var(--corpo)}
+.eu h2{font-size:24px}
+.eu p+p{margin-top:10px}
+.eu .marcaT{font-weight:800;color:var(--creme)}
+.eu .marcaT span{color:var(--tomate)}
+
+/* O que o app faz */
+.lados{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.lado{background:var(--sup);border:1px solid var(--linha);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.lado h3{font:800 20px/1.2 var(--corpo);display:flex;align-items:center;gap:10px}
+.lado h3 small{font:700 11.5px/1 var(--estreita);letter-spacing:.12em;text-transform:uppercase;color:var(--bg);background:var(--creme);padding:5px 8px;border-radius:99px}
+.lado h3 small.b{background:var(--tomate);color:#0a0a0b}
+.lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.lista li{position:relative;padding-left:24px;font-size:15px;line-height:1.45;color:var(--creme)}
+.lista li::before{content:"";position:absolute;left:0;top:5px;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffffff,#c4c7cd 55%,#6f737a)}
+.lista li span{color:var(--suave)}
+.demo{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;background:linear-gradient(120deg,#222226,var(--sup) 70%);border:1px solid var(--linha);border-radius:16px;padding:18px 20px}
+.demo p{max-width:46ch}
+
+/* Planos */
+.planos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:stretch}
+.plano{background:var(--sup);border:1px solid var(--linha);border-radius:18px;padding:24px 22px;display:flex;flex-direction:column;gap:16px;position:relative}
+.plano.destaque{border:2px solid var(--tomate);box-shadow:0 14px 40px rgba(0,0,0,.4)}
+.selo{position:absolute;top:-13px;left:22px;background:var(--tomate);color:#0a0a0b;font:700 12px/1 var(--estreita);letter-spacing:.1em;text-transform:uppercase;padding:7px 12px;border-radius:99px}
+.plano h3{font:800 24px/1.1 var(--corpo)}
+.plano .p{color:var(--suave);font-size:15px;margin-top:4px}
+.preco{display:flex;align-items:baseline;gap:6px}
+.preco small{font:700 18px/1 var(--corpo)}
+.preco b{font:800 48px/1 var(--corpo);letter-spacing:-1px;font-variant-numeric:tabular-nums}
+.preco span{color:var(--suave)}
+.lista li.mais{font-weight:600}
+.lista li.mais::before{background:var(--verde)}
+.atencao{background:var(--ambar-bg);border-left:4px solid var(--ambar);border-radius:10px;padding:12px 14px;font-size:14px;line-height:1.5}
+.conta{margin-top:auto;background:var(--sup2);border-radius:12px;padding:12px 14px;font-size:14px;color:var(--suave)}
+.conta b{color:var(--creme)}
+.nota{font-size:14.5px;color:var(--suave);max-width:72ch}
+
+/* Como começa */
+.passos{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;counter-reset:p}
+.passos li{counter-increment:p;background:var(--sup);border:1px solid var(--linha);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.passos li::before{content:counter(p);font:800 15px/1 var(--corpo);color:#0a0a0b;background:var(--tomate);width:28px;height:28px;border-radius:50%;display:grid;place-items:center}
+.passos b{font:700 17px/1.2 var(--corpo)}
+.passos span{font-size:14.5px;color:var(--suave)}
+
+/* Incluso */
+.inclui{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.inclui div{border-top:3px solid var(--tomate);padding-top:12px}
+.inclui b{display:block;font:700 18px/1.2 var(--corpo);margin-bottom:4px}
+.inclui span{font-size:15px;color:var(--suave)}
+.letras{font-size:13.5px;color:var(--suave);display:flex;flex-direction:column;gap:6px;max-width:74ch}
+
+/* Botões e contato */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:12px 18px;font:600 15px/1 var(--corpo);text-decoration:none;border:1px solid var(--linha);color:var(--creme);background:var(--sup2);cursor:pointer}
+.btn.pri{background:linear-gradient(180deg,#f4f5f7,#b9bdc4);border-color:#d3d6dc;color:#0a0a0b}
+.btn.zap{background:#25d366;border-color:#25d366;color:#0b2e1a}
+.contato{background:var(--creme);color:var(--bg);border-radius:20px;padding:28px 26px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
+.contato h2{color:var(--bg)}
+.contato p{color:#5a4034;margin-top:6px}
+.fone{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.fone .num{font:800 24px/1 var(--corpo);user-select:all;font-variant-numeric:tabular-nums}
+.botoes{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.contato .btn:not(.zap){background:transparent;color:var(--bg);border-color:#bba58e}
+.rodape{text-align:center;font-size:13px;color:var(--suave)}
+
+@media (max-width:760px){
+  .capa{grid-template-columns:1fr}
+  .capa img{width:130px;height:130px}
+  .lados,.planos,.inclui{grid-template-columns:1fr}
+  .passos{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .eu{grid-template-columns:1fr}
+  .contato{grid-template-columns:1fr}
+  .fone{align-items:flex-start}.botoes{justify-content:flex-start}
+  .pagina{gap:44px}
+}
+</style>
+</head>
+<body>
+<div class="poste" aria-hidden="true"></div>
+<main class="pagina">
+
+  <section class="capa" aria-labelledby="t">
+    <img src="../icon-512.png" alt="Logo da Flavio Jr Barbearia" width="170" height="170">
+    <div>
+      <span class="para">Proposta para a</span>
+      <h1 id="t">Barbearia <span class="script">Flavio Jr</span></h1>
+      <p class="intro">Um app com a cara da sua barbearia: seus clientes marcam pelo celular, o Clube de assinatura roda sozinho e você controla agenda, folgas e caixa na palma da mão.</p>
+      <div class="gratis"><b>30 dias grátis</b> pra testar sem compromisso</div>
+    </div>
+  </section>
+
+  <section class="eu" aria-labelledby="e">
+    <span class="av" aria-hidden="true">W</span>
+    <div>
+      <span class="rotulo">Quem fez</span>
+      <h2 id="e">Fala, Flavio! Aqui é o Weverson</h2>
+      <p style="margin-top:10px">Sou aqui de Uberlândia e crio sistemas: sou o criador da <span class="marcaT">Torque<span>.tec</span></span>, uma plataforma de gestão para negócios de serviço, como barbearia, salão, estética e lava-jato.</p>
+      <p class="suave">Esse mesmo sistema já roda num lava-jato aqui de Uberlândia, com agendamento, assinatura e avisos no celular dos clientes. O app que você viu na demonstração foi montado com as suas cores e o seu logo, pensado pro dia a dia da barbearia.</p>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="f">
+    <header><span class="rotulo">O que o app faz</span><h2 id="f">Dois lados, um app só</h2></header>
+    <div class="lados">
+      <div class="lado">
+        <h3><small>Seus clientes</small></h3>
+        <ul class="lista">
+          <li>Marcam o horário sozinhos: serviço, barbeiro e hora livre <span>(sem precisar te chamar no WhatsApp)</span></li>
+          <li>Remarcam, cancelam e avisam “vou me atrasar”, e você fica sabendo na hora</li>
+          <li>Veem os cortes do Clube que ainda têm no mês</li>
+          <li>Cartão fidelidade com selos: o 10º corte é por conta da casa</li>
+          <li>Instalam no celular com o ícone da Flavio Jr</li>
+        </ul>
+      </div>
+      <div class="lado">
+        <h3><small class="b">Você e sua equipe</small></h3>
+        <ul class="lista">
+          <li>Fila do dia: chegou, na cadeira, finalizar e cobrar, inclusive bebida e pomada</li>
+          <li>Agenda por barbeiro e marcação de quem ligou</li>
+          <li>“Hoje não vou atender” ou “só a partir das 12h”: o app bloqueia e mostra quem avisar</li>
+          <li>Clube: quem está em dia, quem atrasou, cobrança pronta</li>
+          <li>Caixa do dia e do mês, com comissão de cada barbeiro</li>
+          <li>Clientes sumidos há mais de 30 dias, com convite pronto pra voltar</li>
+          <li>Você mesmo muda preços, serviços, horários e as regras do Clube</li>
+        </ul>
+      </div>
+    </div>
+    <div class="demo">
+      <p><b>Ainda não mexeu na demonstração?</b> <span class="suave">No topo tem “Cliente” e “Barbearia” pra ver os dois lados. Os dados são de exemplo, pode clicar à vontade.</span></p>
+      <a class="btn pri" href="../">Abrir a demonstração</a>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="p">
+    <header><span class="rotulo">Planos</span><h2 id="p">Escolha como quer usar</h2>
+      <p class="suave">Nos 30 dias grátis você usa o plano Completo. No fim, decide qual quer manter.</p></header>
+    <div class="planos">
+      <article class="plano" aria-labelledby="pe">
+        <div><h3 id="pe">Essencial</h3><p class="p">O app completo da barbearia, com mensagens prontas no WhatsApp.</p></div>
+        <div class="preco"><small>R$</small><b>149,90</b><span>/mês</span></div>
+        <ul class="lista">
+          <li>Agendamento pelo app dos clientes</li>
+          <li>Agenda por barbeiro, folgas e imprevistos</li>
+          <li>Clube de assinatura e cartão fidelidade</li>
+          <li>Caixa com comissão por barbeiro</li>
+          <li>Lista de clientes e clientes sumidos</li>
+          <li>Lembrete, cobrança e convite com mensagem pronta no WhatsApp, em um toque</li>
+        </ul>
+      </article>
+      <article class="plano destaque" aria-labelledby="pc">
+        <span class="selo">Recomendado</span>
+        <div><h3 id="pc">Completo</h3><p class="p">Tudo do Essencial, e o app avisa sozinho.</p></div>
+        <div class="preco"><small>R$</small><b>179,90</b><span>/mês</span></div>
+        <ul class="lista">
+          <li>Tudo o que está no Essencial</li>
+          <li class="mais">Lembrete automático no celular do cliente, 1 dia e 2 horas antes do horário</li>
+          <li class="mais">Aviso quando os cortes do Clube estão pra vencer</li>
+          <li class="mais">Aviso no seu celular quando alguém agenda, cancela ou vai atrasar</li>
+          <li class="mais">Menos falta e menos tempo mandando mensagem</li>
+        </ul>
+        <div class="atencao"><b>Importante:</b> o aviso automático chega no celular de quem instalou o app da Flavio Jr e tocou em “Permitir avisos”. É uma vez só e leva menos de 1 minuto. Quem não ativar continua recebendo o lembrete pelo WhatsApp, com a mensagem pronta.</div>
+        <div class="conta">Um corte com barba que deixa de ser perdido por falta já paga a diferença de <b>R$ 30,00</b>.</div>
+      </article>
+    </div>
+    <p class="nota">Os dois planos incluem o cadastro inicial feito por mim, suporte pelo WhatsApp e atualizações. Cobrança por barbearia, não por barbeiro. Sem fidelidade: dá pra trocar de plano ou cancelar quando quiser.</p>
+  </section>
+
+  <section class="secao" aria-labelledby="c">
+    <header><span class="rotulo">Como começa</span><h2 id="c">Em poucos dias, sem trabalho pra você</h2></header>
+    <ol class="passos">
+      <li><b>Você aceita</b><span>Me responde no WhatsApp e a gente combina o dia.</span></li>
+      <li><b>Eu preparo</b><span>Cadastro seus serviços, preços, barbeiros, horários e o Clube.</span></li>
+      <li><b>Te mostro</b><span>Em poucos minutos você aprende a agenda, a fila e o caixa.</span></li>
+      <li><b>30 dias grátis</b><span>Você usa no dia a dia e só depois escolhe o plano.</span></li>
+    </ol>
+  </section>
+
+  <section class="secao" aria-labelledby="i">
+    <header><span class="rotulo">Incluso nos dois planos</span><h2 id="i">Você não fica na mão</h2></header>
+    <div class="inclui">
+      <div><b>Suporte direto</b><span>Dúvida ou ajuste é comigo, pelo WhatsApp.</span></div>
+      <div><b>Atualizações</b><span>Melhoria nova entra sem custo a mais.</span></div>
+      <div><b>Seus dados</b><span>Os dados são da barbearia, com acesso só seu e da sua equipe.</span></div>
+    </div>
+    <div class="letras">
+      <p>Funciona no navegador do celular e do computador, e instala na tela inicial como um aplicativo, com o ícone da Flavio Jr.</p>
+      <p>Avisos automáticos (plano Completo): chegam no celular de quem instalou o app e permitiu os avisos. No iPhone, instalar na tela inicial é obrigatório (iOS 16.4 ou mais novo). O envio automático direto pelo WhatsApp exige a API paga do WhatsApp e não está incluso; por isso as mensagens do WhatsApp saem prontas, e você só toca em enviar.</p>
+    </div>
+  </section>
+
+  <section class="contato" aria-labelledby="z">
+    <div>
+      <h2 id="z">Bora começar os 30 dias grátis?</h2>
+      <p>É só me chamar. Eu preparo tudo e você começa a usar ainda essa semana.</p>
+      <p style="font-size:14px;margin-top:10px">Weverson Silva · Torque.tec</p>
+    </div>
+    <div class="fone">
+      <span class="num" id="numero">(34) 99884-3340</span>
+      <div class="botoes">
+        <a class="btn zap" href="https://api.whatsapp.com/send?phone=5534998843340&amp;text=Fala%2C%20Weverson!%20Vi%20a%20proposta%20do%20app%20da%20Flavio%20Jr%20e%20quero%20come%C3%A7ar%20os%2030%20dias%20gr%C3%A1tis%20%F0%9F%92%88" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+        <button class="btn" type="button" id="copiar">Copiar número</button>
+      </div>
+    </div>
+  </section>
+
+  <p class="rodape">Torque.tec · sistemas para negócios de serviço</p>
+</main>
+<script>
+document.getElementById('copiar').addEventListener('click', function(){
+  var b = this;
+  var ok = function(){ b.textContent = 'Número copiado'; setTimeout(function(){ b.textContent = 'Copiar número'; }, 2000); };
+  var selecionar = function(){ var r = document.createRange(); r.selectNodeContents(document.getElementById('numero')); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Selecionado: copie'; };
+  try { navigator.clipboard.writeText('34998843340').then(ok, selecionar); } catch (e) { selecionar(); }
+});
+</script>
+</body>
+</html>
