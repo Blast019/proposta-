@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wylma Espaço Mulher</title>
+<meta name="description" content="Agende seu horário no Wylma Espaço Mulher: cabelo, depilação, estética e maquiagem. Pacotes, ficha de cuidados e lembretes.">
+<meta name="theme-color" content="#6b2f7a">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Wylma Espaço Mulher">
+<meta property="og:title" content="Wylma Espaço Mulher · App do espaço">
+<meta property="og:description" content="Agende seu horário no Wylma Espaço Mulher: cabelo, depilação, estética e maquiagem. Pacotes, ficha de cuidados e lembretes.">
+<meta property="og:url" content="https://blast019.github.io/proposta-/wylma/">
+<meta property="og:image" content="https://blast019.github.io/proposta-/wylma/icon-512.png">
+<meta property="og:locale" content="pt_BR">
+<meta name="robots" content="noindex">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Wylma">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<style>html{padding-top:env(safe-area-inset-top,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500;1,600;1,700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+<style>
+/* Layout: app de celular numa coluna (até 520px), claro e delicado como a marca da Wylma: lilás, ameixa e rosa-blush; títulos em itálico serifado, nome em letra cursiva, barra de abas fixa embaixo. */
+:root{
+  --bg:#fbf6fa; --sup:#ffffff; --sup2:#f6edf5; --linha:#ecdcea; --tinta:#2f1a36; --suave:#836f88;
+  --ameixa:#6b2f7a; --ameixa-esc:#4d1f59; --lilas:#a46bb5; --rosa:#e7a9c8; --blush:#fcecf4;
+  --ok:#2f8a5b; --ok-bg:#e3f4ea; --aviso:#9a6400; --aviso-bg:#fdf0d6; --alerta:#bd3a53; --alerta-bg:#fce6ea;
+  --cursiva:"Great Vibes","Brush Script MT",cursive;
+  --titulo:"Cormorant Garamond","Georgia",serif;
+  --corpo:"Nunito Sans","Segoe UI",system-ui,sans-serif;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{color:var(--tinta);font:15px/1.5 var(--corpo);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--lilas);outline-offset:2px}
+.app{max-width:520px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:var(--bg);border-inline:1px solid var(--linha)}
+@media (max-width:540px){.app{border-inline:0}}
+
+/* Cabeçalho */
+.topo{padding:14px 16px 16px;background:radial-gradient(120% 120% at 100% 0%,#f3d9ea 0%,#f7ecf5 45%,var(--bg) 100%);position:relative;overflow:hidden}
+.topo::after{content:"";position:absolute;right:-60px;top:-70px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(164,107,181,.22),transparent 70%);pointer-events:none}
+.demo{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;position:relative;z-index:1}
+.demo small{font:700 10.5px/1 var(--corpo);letter-spacing:.16em;text-transform:uppercase;color:var(--suave)}
+.troca{display:flex;background:rgba(255,255,255,.7);border:1px solid var(--linha);border-radius:99px;padding:3px}
+.troca button{border:0;background:none;padding:6px 12px;border-radius:99px;font:700 13px/1 var(--corpo);color:var(--suave)}
+.troca button[aria-pressed="true"]{background:var(--ameixa);color:#fff}
+.marca{display:flex;flex-direction:column;align-items:flex-start;position:relative;z-index:1}
+.marca .w{font:400 52px/0.95 var(--cursiva);color:var(--ameixa)}
+.marca .e{font:700 11.5px/1 var(--corpo);letter-spacing:.42em;text-transform:uppercase;color:var(--lilas);margin:2px 0 0 6px}
+
+main{flex:1;padding:18px 16px 24px;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{margin:0;text-wrap:balance}
+h1{font:italic 700 30px/1.05 var(--titulo);color:var(--ameixa-esc)}
+h2{font:800 11.5px/1 var(--corpo);letter-spacing:.14em;text-transform:uppercase;color:var(--suave)}
+p{margin:0}
+.suave{color:var(--suave)}
+.bloco{display:flex;flex-direction:column;gap:10px}
+.cartao{background:var(--sup);border:1px solid var(--linha);border-radius:18px;padding:15px;box-shadow:0 1px 2px rgba(107,47,122,.04),0 8px 24px rgba(107,47,122,.05)}
+.linha{display:flex;align-items:center;gap:10px;justify-content:space-between}
+.num{font-variant-numeric:tabular-nums}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--linha);background:var(--sup);border-radius:12px;padding:10px 14px;font-weight:700;font-size:14px;line-height:1;color:var(--tinta)}
+.btn.pri{background:var(--ameixa);border-color:var(--ameixa);color:#fff}
+.btn.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.btn.cheio{width:100%;padding:14px}
+.btn.peq{padding:7px 11px;font-size:13px;border-radius:10px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.acoes{display:flex;flex-wrap:wrap;gap:8px}
+
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--linha);background:var(--sup);border-radius:99px;padding:8px 13px;font-weight:700;font-size:13.5px;line-height:1;white-space:nowrap;color:var(--tinta)}
+.chip[aria-pressed="true"]{background:var(--ameixa);color:#fff;border-color:var(--ameixa)}
+@media (hover:hover) and (pointer:fine){.chips{flex-wrap:wrap;overflow:visible}}
+
+.st{display:inline-flex;align-items:center;gap:5px;font:800 11px/1 var(--corpo);letter-spacing:.05em;text-transform:uppercase;padding:5px 8px;border-radius:99px;white-space:nowrap}
+.st.agendado{border:1px solid var(--linha);color:var(--suave)}
+.st.chegou{background:var(--aviso-bg);color:var(--aviso)}
+.st.atendendo{background:var(--ameixa);color:#fff}
+.st.pago{background:var(--ok-bg);color:var(--ok)}
+.st.faltou,.st.cancelado{color:var(--suave);text-decoration:line-through}
+.st.pac{background:var(--blush);color:var(--ameixa)}
+.st.atraso{background:var(--aviso-bg);color:var(--aviso)}
+.st.alerta{background:var(--alerta-bg);color:var(--alerta);text-transform:none;letter-spacing:0;font-size:12px}
+
+/* Cliente */
+.ola{font:400 40px/1 var(--cursiva);color:var(--ameixa)}
+.prox{background:linear-gradient(150deg,var(--ameixa),#8d4a9c 60%,#b0679f);color:#fff;border-radius:20px;padding:17px;display:flex;flex-direction:column;gap:12px;box-shadow:0 12px 30px rgba(107,47,122,.25)}
+.prox h2{color:rgba(255,255,255,.75)}
+.prox .quando{font:italic 700 38px/1 var(--titulo)}
+.prox .quando span{font:700 15px/1 var(--corpo);opacity:.8;margin-left:8px;font-style:normal}
+.prox .btn{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3);color:#fff}
+.promo{border-radius:20px;overflow:hidden;background:var(--sup);border:1px solid var(--linha);box-shadow:0 8px 24px rgba(107,47,122,.08)}
+.promo img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;max-width:100%}
+.promo .txt{padding:14px;display:flex;flex-direction:column;gap:10px}
+.promo .tag{align-self:flex-start;font:800 10.5px/1 var(--corpo);letter-spacing:.14em;text-transform:uppercase;color:var(--ameixa);background:var(--blush);padding:6px 9px;border-radius:99px}
+.aviso-cli{display:flex;gap:12px;align-items:center;background:var(--blush);border:1px solid #f3cfe2;border-radius:16px;padding:13px 14px}
+.aviso-cli .ic{flex:none;width:38px;height:38px;border-radius:12px;background:#fff;display:grid;place-items:center;color:var(--ameixa)}
+.aviso-cli .ic svg{width:20px;height:20px}
+.aviso-cli p{flex:1;min-width:0;font-size:14px;line-height:1.35}
+.bolinhas{display:flex;gap:6px;flex-wrap:wrap}
+.bolinhas i{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--rosa);display:block}
+.bolinhas i.ok{background:linear-gradient(135deg,var(--lilas),var(--ameixa));border-color:var(--ameixa)}
+
+.lista{display:flex;flex-direction:column;gap:8px}
+.op{display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;width:100%;background:var(--sup);border:1px solid var(--linha);border-radius:14px;padding:12px 14px}
+.op[aria-pressed="true"]{border-color:var(--ameixa);box-shadow:inset 0 0 0 1px var(--ameixa);background:#fdf8fc}
+.op b{display:block;font-size:15px}
+.op small{color:var(--suave);font-size:13px}
+.op .preco{font:800 15px/1 var(--corpo);white-space:nowrap;color:var(--ameixa-esc)}
+.op .preco small{display:block;font-size:11px;font-weight:600;text-align:right}
+.horas{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.hora{border:1px solid var(--linha);background:var(--sup);border-radius:12px;padding:11px 0;font:800 15px/1 var(--corpo);font-variant-numeric:tabular-nums}
+.hora[aria-pressed="true"]{background:var(--ameixa);border-color:var(--ameixa);color:#fff}
+.dia{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:58px;padding:9px 10px;border-radius:14px}
+.dia small{font:800 10.5px/1 var(--corpo);letter-spacing:.1em;text-transform:uppercase;opacity:.75}
+.dia b{font:italic 700 22px/1 var(--titulo)}
+.resumo{position:sticky;bottom:72px;background:#fff;border:1px solid var(--linha);border-radius:16px;padding:12px;display:flex;gap:12px;align-items:center;justify-content:space-between;box-shadow:0 -10px 30px rgba(107,47,122,.12)}
+.resumo p{font-size:13.5px;line-height:1.35;min-width:0}
+.brinde{color:var(--ok);font-weight:800}
+
+/* Equipe */
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.kpi{background:var(--sup);border:1px solid var(--linha);border-radius:14px;padding:12px 10px}
+.kpi small{display:block;font:800 10.5px/1.2 var(--corpo);letter-spacing:.1em;text-transform:uppercase;color:var(--suave)}
+.kpi b{display:block;font:italic 700 24px/1.1 var(--titulo);color:var(--ameixa-esc);font-variant-numeric:tabular-nums;margin-top:6px}
+.aviso{display:flex;gap:10px;align-items:flex-start;background:var(--sup);border:1px solid var(--linha);border-left:3px solid var(--lilas);border-radius:12px;padding:11px 12px;font-size:14px}
+.aviso .x{margin-left:auto;background:none;border:0;color:var(--ameixa);font-weight:800;font-size:13px;white-space:nowrap}
+.fila{display:flex;flex-direction:column;gap:8px}
+.at{display:grid;grid-template-columns:56px 1fr;gap:12px;background:var(--sup);border:1px solid var(--linha);border-radius:14px;padding:12px}
+.at.feito{opacity:.6}
+.at .h{font:italic 700 20px/1 var(--titulo);color:var(--ameixa-esc);font-variant-numeric:tabular-nums;padding-top:2px}
+.at .h small{display:block;font:700 12px/1 var(--corpo);color:var(--suave);margin-top:5px;font-style:normal}
+.at .q{display:flex;flex-direction:column;gap:6px;min-width:0}
+.at .q b{font-size:15.5px}
+.at .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--suave)}
+.prof{display:inline-flex;align-items:center;gap:6px}
+.prof i{width:8px;height:8px;border-radius:50%}
+.grade{display:grid;gap:4px;align-items:stretch}
+.grade .hh{font:700 12px/1 var(--corpo);color:var(--suave);padding-top:6px;font-variant-numeric:tabular-nums}
+.grade .cab{font:800 12px/1 var(--corpo);letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:6px 0}
+.livre{border:1px dashed var(--linha);border-radius:10px;background:none;color:var(--suave);font-size:12px;min-height:40px}
+.livre:hover{border-color:var(--lilas);color:var(--ameixa)}
+.bloc{border-radius:10px;padding:6px 8px;background:var(--blush);border:0;border-left:3px solid var(--lilas);font-size:12.5px;line-height:1.25;overflow:hidden;min-height:40px;text-align:left}
+.bloc b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bloc.pago{border-left-color:var(--ok);background:#f2faf5}.bloc.atendendo{border-left-color:var(--ameixa)}.bloc.chegou{border-left-color:var(--aviso)}
+.bloqueado{border-radius:10px;min-height:40px;display:grid;place-items:center;font-size:11.5px;color:var(--suave);background:repeating-linear-gradient(-45deg,var(--sup) 0 6px,var(--sup2) 6px 12px)}
+.barras{display:flex;align-items:flex-end;gap:3px;height:120px;padding-top:6px}
+.barras i{flex:1;background:linear-gradient(180deg,var(--lilas),var(--ameixa));border-radius:4px 4px 0 0;min-height:2px;opacity:.85}
+.barras i.hoje{background:var(--rosa)}
+.tab{width:100%;border-collapse:collapse;font-size:14px}
+.tab td{padding:9px 0;border-bottom:1px solid var(--linha);vertical-align:top}
+.tab td:last-child{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.tab tr:last-child td{border-bottom:0}
+.busca{width:100%;background:var(--sup);border:1px solid var(--linha);border-radius:14px;padding:12px 14px;color:var(--tinta);font:inherit}
+.cli{display:flex;align-items:center;gap:12px;background:var(--sup);border:1px solid var(--linha);border-radius:14px;padding:11px 12px}
+.av{flex:none;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--blush),#f1d3e6);display:grid;place-items:center;font:italic 700 17px/1 var(--titulo);color:var(--ameixa)}
+.cli .q{flex:1;min-width:0}
+.cli .q b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cli .q small{color:var(--suave);font-size:13px;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.hsel{background:var(--sup);border:1px solid var(--linha);border-radius:8px;padding:6px 4px;color:var(--tinta);font:700 14px/1 var(--corpo);font-variant-numeric:tabular-nums}
+.marcar{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.35}
+.marcar input{width:20px;height:20px;accent-color:var(--ameixa);flex:none;margin:0}
+.fotos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fotos figure{margin:0;display:flex;flex-direction:column;gap:4px}
+.fotos img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;max-width:100%;border:1px solid var(--linha)}
+.fotos figcaption{font:800 10.5px/1 var(--corpo);letter-spacing:.12em;text-transform:uppercase;color:var(--suave);text-align:center}
+.foto-unica{width:100%;border-radius:14px;max-width:100%;border:1px solid var(--linha)}
+.sobe{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;aspect-ratio:1;border:1.5px dashed var(--rosa);border-radius:12px;background:var(--blush);color:var(--ameixa);font-weight:800;font-size:13px;cursor:pointer;text-align:center;padding:8px}
+.sobe input{position:absolute;width:1px;height:1px;opacity:0}
+
+.abas{position:sticky;bottom:0;display:grid;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-top:1px solid var(--linha);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
+.abas button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 2px;font:700 11px/1 var(--corpo);color:var(--suave);border-radius:12px}
+.abas button svg{width:22px;height:22px}
+.abas button[aria-current="page"]{color:var(--ameixa)}
+.abas button[aria-current="page"] svg{color:var(--ameixa)}
+
+.fundo-modal{position:fixed;inset:0;background:rgba(47,26,54,.45);display:flex;align-items:flex-end;justify-content:center;z-index:20}
+.modal{width:100%;max-width:520px;max-height:90vh;overflow:auto;background:var(--sup);border-radius:22px 22px 0 0;padding:20px 16px calc(18px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:14px}
+.modal h3{font:italic 700 26px/1.1 var(--titulo);color:var(--ameixa-esc)}
+.zap{background:#efeae2;border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.zap .bal{align-self:flex-end;background:#d9fdd3;color:#111b21;border-radius:10px 10px 2px 10px;padding:9px 11px;font-size:14px;max-width:92%;white-space:pre-wrap}
+.campo{display:flex;flex-direction:column;gap:6px}
+.campo label{font:800 11px/1 var(--corpo);letter-spacing:.1em;text-transform:uppercase;color:var(--suave)}
+.campo select,.campo input,.campo textarea{background:var(--sup);border:1px solid var(--linha);border-radius:12px;padding:11px 12px;color:var(--tinta);font:inherit}
+.campo textarea{min-height:70px;resize:vertical}
+.qtd{display:flex;align-items:center;gap:10px}
+.qtd button{width:32px;height:32px;border-radius:10px;border:1px solid var(--linha);background:var(--sup);font-weight:800}
+.total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--linha);padding-top:12px}
+.total b{font:italic 700 32px/1 var(--titulo);color:var(--ameixa-esc);font-variant-numeric:tabular-nums}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ameixa-esc);color:#fff;font-weight:700;font-size:14px;padding:11px 16px;border-radius:14px;z-index:30;box-shadow:0 10px 30px rgba(47,26,54,.3);max-width:calc(100% - 32px);text-align:center}
+.rodape{font-size:12px;color:var(--suave);text-align:center;padding:4px 16px 14px}
+.rodape button{background:none;border:0;color:var(--suave);text-decoration:underline;font-size:12px}
+.kpi b,.at .h,.prox .quando,.total b,.dia b{font-variant-numeric:lining-nums tabular-nums}
+.vazio{text-align:center;color:var(--suave);padding:20px 10px;border:1px dashed var(--linha);border-radius:14px}
+@media (prefers-reduced-motion:no-preference){.st.atendendo{animation:pulsa 1.6s ease-in-out infinite}}
+@keyframes pulsa{50%{opacity:.65}}
+</style>
+</head>
+<body>
+
+
+<div class="app">
+  <header class="topo">
+    <div class="demo">
+      <small>Demonstração</small>
+      <div class="troca" role="group" aria-label="Ver como">
+        <button type="button" id="modoCliente" data-modo="cliente">Cliente</button>
+        <button type="button" id="modoDono" data-modo="dono">Espaço</button>
+      </div>
+    </div>
+    <div class="marca"><span class="w">Wylma</span><span class="e">Espaço Mulher</span></div>
+  </header>
+  <main id="tela"></main>
+  <p class="rodape">Dados de exemplo · sistema <b>Torque</b> · <button type="button" id="recomecar">Recomeçar demonstração</button></p>
+  <nav class="abas" id="abas" aria-label="Seções"></nav>
+</div>
+<div id="camada"></div>
+
+<script>
+(function(){
+'use strict';
+const IMG_PROMO='promo.jpg', IMG_LABIOS='labios.jpg';
+/* ---------- utilidades ---------- */
+const pad=n=>String(n).padStart(2,'0');
+const ymd=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const deYmd=s=>{const[a,m,d]=s.split('-').map(Number);return new Date(a,m-1,d)};
+const somaDias=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const paraMin=h=>{const[a,b]=h.split(':').map(Number);return a*60+b};
+const paraHora=m=>pad(Math.floor(m/60))+':'+pad(m%60);
+const brl=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const brl0=v=>brl(v).replace(/,00$/,'');
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const DS=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],DSL=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+const MES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const hojeD=()=>{const d=new Date();d.setHours(0,0,0,0);return d};
+const HOJE=ymd(hojeD());
+function rotDia(s){const d=deYmd(s),dif=Math.round((d-hojeD())/864e5);
+  if(dif===0)return'Hoje';if(dif===1)return'Amanhã';if(dif===-1)return'Ontem';return DS[d.getDay()]+', '+d.getDate()+' '+MES[d.getMonth()]}
+const dataCurta=s=>{const d=deYmd(s);return pad(d.getDate())+'/'+MES[d.getMonth()]};
+const diasDesde=s=>Math.round((hojeD()-deYmd(s))/864e5);
+const primeiro=n=>n.split(' ')[0];
+const iniciais=n=>n.split(' ').map(p=>p[0]).slice(0,2).join('');
+function semente(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const copia=o=>JSON.parse(JSON.stringify(o));
+
+/* ---------- catálogo de exemplo (a Wylma muda tudo em Ajustes) ---------- */
+const CATS=['Cabelo','Depilação','Estética','Maquiagem'];
+const DEF_SERV=[
+ {id:'progressiva',cat:'Cabelo',nome:'Progressiva',min:180,preco:180,apartir:true,retorno:90},
+ {id:'escova',cat:'Cabelo',nome:'Escova modelada',min:60,preco:50},
+ {id:'hidratacao',cat:'Cabelo',nome:'Hidratação profunda',min:60,preco:60,retorno:15},
+ {id:'buco',cat:'Depilação',nome:'Buço',min:30,preco:15,retorno:21},
+ {id:'axilas',cat:'Depilação',nome:'Axilas',min:30,preco:25,retorno:28},
+ {id:'virilha',cat:'Depilação',nome:'Virilha',min:30,preco:50,retorno:28},
+ {id:'perna',cat:'Depilação',nome:'Perna inteira',min:60,preco:70,retorno:30},
+ {id:'gloss',cat:'Estética',nome:'Nutri Gloss labial',min:60,preco:120,retorno:45,destaque:'Queridinho'},
+ {id:'clareamento',cat:'Estética',nome:'Clareamento de axilas ou íntima',min:60,preco:80},
+ {id:'spa',cat:'Estética',nome:'Spa dos pés',min:60,preco:70,retorno:30},
+ {id:'massagem',cat:'Estética',nome:'Massagem relaxante',min:60,preco:100},
+ {id:'make',cat:'Maquiagem',nome:'Maquiagem social',min:60,preco:120},
+ {id:'noiva',cat:'Maquiagem',nome:'Maquiagem de noiva',min:120,preco:350,apartir:true}
+];
+const DEF_PROF=[{id:'wylma',nome:'Wylma',cor:'#6b2f7a',com:0},{id:'carla',nome:'Carla',cor:'#d0739b',com:40}];
+const CORES_PROF=['#4f8fbf','#2f8a5b','#c98a1c','#8a5cc0'];
+const DEF_PAC=[
+ {id:'p-clar',nome:'Clareamento · 5 sessões',serv:'clareamento',sessoes:5,preco:350},
+ {id:'p-gloss',nome:'Nutri Gloss · 3 sessões',serv:'gloss',sessoes:3,preco:320},
+ {id:'p-mass',nome:'Massagem · 4 sessões',serv:'massagem',sessoes:4,preco:360}
+];
+const EXTRAS=[{id:'kit',nome:'Kit home care',preco:89},{id:'labial',nome:'Hidratante labial',preco:35}];
+const DEF_EXP=[null,[540,1140],[540,1140],[540,1140],[540,1140],[540,1140],[480,960]];
+const DEF_PROMO={ativa:true,titulo:'Liberte-se',texto:'Agende sua depilação com cera e ganhe uma sessão de clareamento das axilas ou íntima.'};
+const PASSO=30;
+let SERV,PROF,PACS,EXP,PROMO;
+function expediente(d){const e=EXP[d.getDay()];return e?e.slice():null}
+const sv=id=>SERV.find(s=>s.id===id);
+const pf=id=>PROF.find(b=>b.id===id);
+const pc=id=>PACS.find(p=>p.id===id);
+const servAtivos=()=>SERV.filter(s=>s.ativo!==false);
+
+/* ---------- dados de exemplo ---------- */
+const NOMES=['Ana Paula','Juliana','Camila','Fernanda','Patrícia','Larissa','Beatriz','Mariana','Aline','Vanessa','Débora','Letícia','Renata','Gabriela','Tatiane','Bruna','Isabela','Natália','Priscila','Jéssica','Carolina','Michele'];
+let S;
+function gerar(){
+  SERV=copia(DEF_SERV);PROF=copia(DEF_PROF);PACS=copia(DEF_PAC);EXP=copia(DEF_EXP);PROMO=copia(DEF_PROMO);
+  const R=semente(2026),sorteia=a=>a[Math.floor(R()*a.length)],mesHoje=pad(hojeD().getMonth()+1);
+  const clientes=NOMES.map((n,i)=>({id:'c'+i,nome:n,fone:'(34) 9'+(8000+Math.floor(R()*1999))+'-'+(1000+Math.floor(R()*8999)),
+    aniv:([3,7,12].includes(i)?mesHoje:pad(1+Math.floor(R()*12)))+'-'+pad(1+Math.floor(R()*27)),saude:null,pacotes:[]}));
+  clientes[4].saude={alergia:'Alergia a cera de abelha',gestante:false,sensivel:true,diabetes:false,acidos:false,obs:'',em:HOJE};
+  clientes[9].saude={alergia:'',gestante:true,sensivel:false,diabetes:false,acidos:false,obs:'5 meses',em:HOJE};
+  clientes[0].pacotes.push({id:'k1',pac:'p-clar',nome:'Clareamento · 5 sessões',serv:'clareamento',sessoes:5,usadas:2,em:ymd(somaDias(hojeD(),-15))});
+  [[6,'p-gloss',1],[11,'p-mass',2],[14,'p-clar',4],[17,'p-mass',0]].forEach(([i,p,u],n)=>{const P=DEF_PAC.find(x=>x.id===p);clientes[i].pacotes.push({id:'k'+(n+2),pac:p,nome:P.nome,serv:P.serv,sessoes:P.sessoes,usadas:u,em:ymd(somaDias(hojeD(),-10-n*6))})});
+  const ag=[],lanc=[];let seq=1;
+  const livre=(prof,data,ini,dur)=>{const e=expediente(deYmd(data));if(!e||ini<e[0]||ini+dur>e[1])return false;
+    return!ag.some(a=>a.prof===prof&&a.data===data&&!['cancelado','faltou'].includes(a.status)&&ini<paraMin(a.hora)+sv(a.serv).min&&paraMin(a.hora)<ini+dur)};
+  const novo=o=>{const a=Object.assign({id:'a'+(seq++),extras:{},atraso:0,origem:'balcao',pacote:null,fotos:null},o);ag.push(a);return a};
+  const formas=['Pix','Pix','Pix','Dinheiro','Débito','Crédito'];
+  const dia=(k,h)=>{let d=somaDias(hojeD(),k);while(!expediente(d))d=somaDias(d,k<0?-1:1);return ymd(d)};
+  // história da cliente da demonstração (Ana Paula)
+  novo({cli:'c0',serv:'escova',prof:'carla',data:dia(-42),hora:'10:00',status:'pago',valor:50,forma:'Pix',origem:'app'});
+  novo({cli:'c0',serv:'axilas',prof:'wylma',data:dia(-33),hora:'16:00',status:'pago',valor:25,forma:'Pix',origem:'app'});
+  novo({cli:'c0',serv:'gloss',prof:'wylma',data:dia(-20),hora:'15:00',status:'pago',valor:120,forma:'Crédito',origem:'app',fotos:{combo:'@labios'}});
+  novo({cli:'c0',serv:'clareamento',prof:'wylma',data:dia(-14),hora:'11:00',status:'pago',valor:0,forma:'Pacote',pacote:'k1',origem:'app'});
+  novo({cli:'c0',serv:'clareamento',prof:'wylma',data:dia(-7),hora:'11:00',status:'pago',valor:0,forma:'Pacote',pacote:'k1',origem:'app'});
+  novo({cli:'c0',serv:'escova',prof:'wylma',data:dia(2),hora:'17:00',status:'agendado',valor:50,origem:'app'});
+  lanc.push({id:'l1',data:clientes[0].pacotes[0].em,tipo:'Pacote',desc:'Clareamento · 5 sessões · Ana Paula',valor:350,forma:'Pix'});
+  const pesos=['escova','escova','hidratacao','buco','axilas','axilas','virilha','perna','gloss','spa','massagem','make','progressiva','clareamento','escova','axilas'];
+  for(let k=-34;k<=7;k++){
+    const dd=somaDias(hojeD(),k),data=ymd(dd),e=expediente(dd);if(!e)continue;
+    const taxa=k<0?0.55:k===0?0.68:0.3-k*0.02;
+    for(const p of PROF){
+      for(let t=e[0];t<e[1];t+=PASSO){
+        if(R()>taxa)continue;
+        let s=sorteia(pesos);if(p.id==='carla'&&['gloss','clareamento','massagem'].includes(s))s='escova';
+        if(!livre(p.id,data,t,sv(s).min))continue;
+        let c=sorteia(clientes.slice(1));for(let n=0;n<12&&ag.some(x=>x.data===data&&x.cli===c.id);n++)c=sorteia(clientes.slice(1));
+        if(['c13','c19'].includes(c.id)&&k>-50)continue;   // duas clientes sumidas
+        const a=novo({cli:c.id,serv:s,prof:p.id,data,hora:paraHora(t),status:k<0?(R()<0.04?'faltou':'pago'):'agendado',valor:sv(s).preco,origem:R()<0.6?'app':'balcao'});
+        if(a.status==='pago'){a.forma=sorteia(formas);if(R()<0.12)a.extras.kit=1;if(R()<0.1)a.extras.labial=1}
+      }
+    }
+  }
+  ['c13','c19'].forEach((id,i)=>novo({cli:id,serv:'progressiva',prof:'wylma',data:dia(-60-i*9),hora:'09:00',status:'pago',valor:180,forma:'Pix'}));
+  const hojeAg=ag.filter(a=>a.data===HOJE).sort((x,y)=>paraMin(x.hora)-paraMin(y.hora));
+  PROF.forEach(p=>{const l=hojeAg.filter(a=>a.prof===p.id);const feitos=Math.floor(l.length*0.4);
+    l.forEach((a,i)=>{if(i<feitos){a.status='pago';a.forma=sorteia(formas)}else if(i===feitos)a.status=p.id==='wylma'?'atendendo':'chegou'})});
+  const atrasada=hojeAg.find(a=>a.status==='agendado');if(atrasada)atrasada.atraso=10;
+  const sens=hojeAg.find(a=>a.status==='agendado'&&a.cli!==(atrasada&&atrasada.cli));if(sens&&!hojeAg.some(x=>x.cli==='c4'))sens.cli='c4';
+  const avisos=[];
+  if(atrasada)avisos.push({id:'v1',txt:clientes.find(c=>c.id===atrasada.cli).nome+' avisou que vai atrasar 10 min ('+atrasada.hora+')'});
+  const fut=ag.find(a=>a.data!==HOJE&&a.status==='agendado'&&a.origem==='app'&&a.cli!=='c0');
+  if(fut)avisos.push({id:'v2',txt:clientes.find(c=>c.id===fut.cli).nome+' agendou pelo app: '+sv(fut.serv).nome+', '+rotDia(fut.data).toLowerCase()+' às '+fut.hora});
+  avisos.push({id:'v3',txt:'Mariana pediu o pacote Nutri Gloss · 3 sessões pelo app'});
+  return{dia:HOJE,modo:'cliente',aba:{cliente:'inicio',dono:'hoje'},clientes,ag,lanc,avisos,seq,eu:'c0',
+    serv:SERV,prof:PROF,pacs:PACS,exp:EXP,promo:PROMO,bloqueios:[],pedidos:[{id:'q1',cli:'c7',pac:'p-gloss'}],
+    fluxo:{cat:null,serv:null,prof:'qualquer',data:null,hora:null,remarca:null},filtroProf:'todos',diaAgenda:HOJE,periodo:'mes',filtroCli:'todas',busca:''};
+}
+function salvar(){try{localStorage.setItem('wylma-demo1',JSON.stringify(S))}catch(e){}}
+function abrir(){try{const x=JSON.parse(localStorage.getItem('wylma-demo1'));if(x&&x.dia===HOJE&&x.ag&&x.serv)return x}catch(e){}return gerar()}
+function ligar(){SERV=S.serv;PROF=S.prof;PACS=S.pacs;EXP=S.exp;PROMO=S.promo}
+S=abrir();ligar();
+
+const cl=id=>S.clientes.find(c=>c.id===id);
+const ativoAg=a=>!['cancelado','faltou'].includes(a.status);
+const bloqueioEm=(prof,data,ini,dur)=>S.bloqueios.find(b=>b.data===data&&(b.prof==='todos'||b.prof===prof)&&ini<b.fim&&b.ini<ini+dur);
+function livre(prof,data,ini,dur,ignora){const e=expediente(deYmd(data));if(!e||ini<e[0]||ini+dur>e[1])return false;
+  if(bloqueioEm(prof,data,ini,dur))return false;
+  return!S.ag.some(a=>a.id!==ignora&&a.prof===prof&&a.data===data&&ativoAg(a)&&ini<paraMin(a.hora)+sv(a.serv).min&&paraMin(a.hora)<ini+dur)}
+const totalAg=a=>a.valor+Object.entries(a.extras||{}).reduce((s,[k,q])=>s+EXTRAS.find(x=>x.id===k).preco*q,0);
+function ultimo(cid){const l=S.ag.filter(a=>a.cli===cid&&a.status==='pago').map(a=>a.data).sort();return l[l.length-1]||null}
+const pacotesAtivos=c=>c.pacotes.filter(k=>k.usadas<k.sessoes);
+const pacoteDoServ=(c,serv)=>pacotesAtivos(c).find(k=>k.serv===serv);
+/* retoques: serviço com prazo de retorno cuja última vez já passou (ou está a 3 dias) do prazo */
+function retoques(cid){
+  const out=[];
+  for(const s of SERV){if(!s.retorno||s.ativo===false)continue;
+    const l=S.ag.filter(a=>a.cli===cid&&a.serv===s.id&&a.status==='pago').map(a=>a.data).sort().pop();if(!l)continue;
+    if(S.ag.some(a=>a.cli===cid&&a.serv===s.id&&a.status==='agendado'&&a.data>=HOJE))continue;
+    const d=diasDesde(l);if(d>=s.retorno-3)out.push({serv:s,dias:d,ultimo:l});}
+  return out.sort((a,b)=>(b.dias-b.serv.retorno)-(a.dias-a.serv.retorno));
+}
+function alertasSaude(c){if(!c.saude)return[];const s=c.saude,l=[];
+  if(s.alergia)l.push(s.alergia);if(s.gestante)l.push('Gestante ou amamentando');if(s.sensivel)l.push('Pele sensível');if(s.diabetes)l.push('Diabetes');if(s.acidos)l.push('Usa ácidos na pele');return l}
+/* como falar do retoque: "da sua depilação de axilas" / "do seu atendimento de hidratação profunda" */
+const deRetoque=s=>(s.cat==='Depilação'?'da sua depilação de ':'do seu atendimento de ')+s.nome.toLowerCase();
+const anivMes=c=>c.aniv.slice(0,2)===pad(hojeD().getMonth()+1);
+const fotoSrc=f=>f==='@labios'?IMG_LABIOS:f;
+
+/* ---------- ícones ---------- */
+const sv1='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">';
+const IC={
+ inicio:sv1+'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
+ agendar:sv1+'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>',
+ horarios:sv1+'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+ pacotes:sv1+'<rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18M12 8c-2-4-6-4-6-1.5S10 8 12 8zm0 0c2-4 6-4 6-1.5S14 8 12 8z"/></svg>',
+ hoje:sv1+'<path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg>',
+ agenda:sv1+'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M12 10v11"/></svg>',
+ clientes:sv1+'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18 14.8c2 .7 3.2 2.4 3.5 5.2"/></svg>',
+ caixa:sv1+'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+ ajustes:sv1+'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>',
+ ficha:sv1+'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>',
+ retoque:sv1+'<path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4"/></svg>'
+};
+const ABAS={cliente:[['inicio','Início'],['agendar','Agendar'],['horarios','Horários'],['pacotes','Pacotes']],
+            dono:[['hoje','Hoje'],['agenda','Agenda'],['clientes','Clientes'],['pacotes','Pacotes'],['caixa','Caixa'],['ajustes','Ajustes']]};
+
+/* ---------- desenho ---------- */
+const tela=document.getElementById('tela'),abas=document.getElementById('abas'),camada=document.getElementById('camada');
+function desenhar(){
+  document.querySelectorAll('.troca button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.modo===S.modo));
+  const lista=ABAS[S.modo],atual=S.aba[S.modo];
+  abas.style.gridTemplateColumns='repeat('+lista.length+',1fr)';
+  abas.innerHTML=lista.map(([id,r])=>'<button type="button" data-aba="'+id+'"'+(id===atual?' aria-current="page"':'')+'>'+IC[id]+r+'</button>').join('');
+  tela.innerHTML=(S.modo==='cliente'?{inicio:cInicio,agendar:cAgendar,horarios:cHorarios,pacotes:cPacotes}:{hoje:dHoje,agenda:dAgenda,clientes:dClientes,pacotes:dPacotes,caixa:dCaixa,ajustes:dAjustes})[atual]();
+  salvar();
+}
+const st=s=>'<span class="st '+s+'">'+({agendado:'Agendado',chegou:'Chegou',atendendo:'Em atendimento',pago:'Pago',faltou:'Não veio',cancelado:'Cancelado'}[s])+'</span>';
+const profTag=id=>{const b=pf(id);return'<span class="prof"><i style="background:'+b.cor+'"></i>'+esc(b.nome)+'</span>'};
+const bolinhas=k=>'<span class="bolinhas" aria-label="'+k.usadas+' de '+k.sessoes+' sessões usadas">'+Array.from({length:k.sessoes},(_,i)=>'<i class="'+(i<k.usadas?'ok':'')+'"></i>').join('')+'</span>';
+const opServ=(s,act,sel)=>'<button class="op" aria-pressed="'+(sel===s.id)+'" data-act="'+act+'" data-id="'+s.id+'"><span><b>'+esc(s.nome)+'</b><small>'+(s.min<60?s.min+' min':(s.min/60+'').replace('.',',')+' h')+(s.destaque?' · '+s.destaque:'')+'</small></span><span class="preco">'+(s.apartir?'<small>a partir de</small>':'')+brl(s.preco)+'</span></button>';
+
+/* ===== Cliente ===== */
+function meusFuturos(){return S.ag.filter(a=>a.cli===S.eu&&a.status==='agendado'&&a.data>=HOJE).sort((x,y)=>(x.data+x.hora).localeCompare(y.data+y.hora))}
+function cInicio(){
+  const eu=cl(S.eu),p=meusFuturos()[0],rt=retoques(S.eu),pac=pacotesAtivos(eu);
+  let h='<section><span class="ola">Oi, '+esc(primeiro(eu.nome))+'!</span><p class="suave">Que bom ter você por aqui. Seu momento de cuidado começa agora.</p></section>';
+  if(p)h+='<section class="prox" aria-label="Seu próximo horário"><div class="linha"><h2>Seu próximo horário</h2>'+(p.pacote?'<span class="st pac">Do pacote</span>':'')+'</div>'+
+    '<div class="quando num">'+p.hora+'<span>'+rotDia(p.data)+'</span></div><p>'+esc(sv(p.serv).nome)+' com <b>'+esc(pf(p.prof).nome)+'</b>'+(p.atraso?' · avisou atraso de '+p.atraso+' min':'')+'</p>'+
+    '<div class="acoes"><button class="btn peq" data-act="atrasar" data-id="'+p.id+'">Vou me atrasar</button><button class="btn peq" data-act="remarcar" data-id="'+p.id+'">Remarcar</button><button class="btn peq" data-act="cancelar" data-id="'+p.id+'">Cancelar</button></div></section>';
+  else h+='<section class="prox"><h2>Nenhum horário marcado</h2><p>Escolha o serviço, a profissional e o horário em poucos toques.</p><button class="btn cheio" style="background:#fff;color:var(--ameixa)" data-aba="agendar">Agendar agora</button></section>';
+  if(!eu.saude)h+='<section class="aviso-cli"><span class="ic">'+IC.ficha+'</span><p><b>Sua ficha de cuidados</b><br><span class="suave">Alergias, gestação, pele sensível. Leva 1 minuto e deixa seu atendimento mais seguro.</span></p><button class="btn peq pri" data-act="ficha">Preencher</button></section>';
+  if(PROMO.ativa)h+='<section class="promo" aria-label="Promoção"><img src="'+IMG_PROMO+'" alt="Campanha '+esc(PROMO.titulo)+': depilação com cera"><div class="txt"><span class="tag">Promoção do mês</span><p>'+esc(PROMO.texto)+'</p><button class="btn pri cheio" data-act="escolherCat" data-id="Depilação">Agendar depilação</button></div></section>';
+  if(rt.length){const r=rt[0];h+='<section class="aviso-cli"><span class="ic">'+IC.retoque+'</span><p><b>Hora de retocar</b><br><span class="suave">Já faz '+r.dias+' dias '+esc(deRetoque(r.serv))+'.</span></p><button class="btn peq pri" data-act="escolherServ" data-id="'+r.serv.id+'">Agendar</button></section>';}
+  if(pac.length)h+='<section class="cartao bloco"><div class="linha"><h2>Meus pacotes</h2><button class="btn peq" data-aba="pacotes">Ver</button></div>'+pac.map(k=>'<div class="linha"><span><b>'+esc(k.nome)+'</b><br><span class="suave" style="font-size:13px">'+(k.sessoes-k.usadas)+' de '+k.sessoes+' sessões restantes</span></span>'+bolinhas(k)+'</div>').join('')+'</section>';
+  const ult=S.ag.filter(a=>a.cli===S.eu&&a.fotos).sort((x,y)=>y.data.localeCompare(x.data))[0];
+  if(ult)h+='<section class="cartao bloco"><div class="linha"><h2>Seu antes e depois</h2><span class="suave" style="font-size:13px">'+dataCurta(ult.data)+'</span></div><img class="foto-unica" src="'+fotoSrc(ult.fotos.combo||ult.fotos.depois)+'" alt="Antes e depois: '+esc(sv(ult.serv).nome)+'"><p class="suave" style="font-size:13px">'+esc(sv(ult.serv).nome)+' com '+esc(pf(ult.prof).nome)+'. Só você e o espaço veem suas fotos.</p></section>';
+  return h;
+}
+function diasAbertos(){const l=[];let d=hojeD();while(l.length<12){const x=ymd(d);if(expediente(d)&&!S.bloqueios.some(b=>b.data===x&&b.prof==='todos'&&b.diaTodo))l.push(x);d=somaDias(d,1)}return l}
+function horasLivres(data,serv,prof){
+  const e=expediente(deYmd(data));if(!e)return[];const dur=sv(serv).min,agora=new Date(),out=[];
+  for(let t=e[0];t+dur<=e[1];t+=PASSO){
+    if(data===HOJE&&t<agora.getHours()*60+agora.getMinutes()+60)continue;
+    const ps=prof==='qualquer'?PROF.map(b=>b.id):[prof];
+    const ok=ps.find(b=>livre(b,data,t,dur,S.fluxo.remarca));if(ok)out.push({h:paraHora(t),p:ok});
+  }return out;
+}
+function cAgendar(){
+  const F=S.fluxo;if(!F.cat)F.cat=F.serv?sv(F.serv).cat:CATS[0];
+  if(F.serv&&!F.data)F.data=diasAbertos().find(d=>horasLivres(d,F.serv,F.prof).length);
+  let h='<section class="bloco"><h1>'+(F.remarca?'Remarcar horário':'Agendar')+'</h1>'+(F.remarca?'<p class="suave">Escolha o novo dia e horário. O antigo é liberado quando você confirmar.</p>':'')+'</section>';
+  h+='<section class="bloco"><h2>1 · O que você quer fazer</h2><div class="chips">'+CATS.map(c=>'<button class="chip" aria-pressed="'+(F.cat===c)+'" data-act="fCat" data-id="'+c+'">'+c+'</button>').join('')+'</div>'+
+    (PROMO.ativa&&F.cat==='Depilação'?'<p class="aviso" style="border-left-color:var(--ok)"><span><b class="brinde">'+esc(PROMO.titulo)+':</b> agendando depilação você ganha uma sessão de clareamento.</span></p>':'')+
+    '<div class="lista">'+servAtivos().filter(s=>s.cat===F.cat).map(s=>opServ(s,'fServ',F.serv)).join('')+'</div></section>';
+  if(F.serv){
+    h+='<section class="bloco"><h2>2 · Com quem</h2><div class="chips">'+[['qualquer','Tanto faz']].concat(PROF.map(b=>[b.id,b.nome])).map(([id,n])=>'<button class="chip" aria-pressed="'+(F.prof===id)+'" data-act="fProf" data-id="'+id+'">'+esc(n)+'</button>').join('')+'</div></section>';
+    h+='<section class="bloco"><h2>3 · Dia</h2><div class="chips">'+diasAbertos().map(d=>{const x=deYmd(d);return'<button class="chip dia" aria-pressed="'+(F.data===d)+'" data-act="fDia" data-id="'+d+'"><small>'+(d===HOJE?'Hoje':DS[x.getDay()])+'</small><b>'+x.getDate()+'</b></button>'}).join('')+'</div></section>';
+    const hs=F.data?horasLivres(F.data,F.serv,F.prof):[];
+    h+='<section class="bloco"><h2>4 · Horário</h2>'+(hs.length?'<div class="horas">'+hs.map(x=>'<button class="hora" aria-pressed="'+(F.hora===x.h)+'" data-act="fHora" data-id="'+x.h+'" data-p="'+x.p+'">'+x.h+'</button>').join('')+'</div>':'<p class="vazio">Sem horário livre neste dia. Tente outro dia ou outra profissional.</p>')+'</section>';
+  }
+  if(F.serv&&F.hora){const s=sv(F.serv),eu=cl(S.eu),k=pacoteDoServ(eu,s.id);
+    h+='<div class="resumo"><p><b>'+esc(s.nome)+'</b> com '+esc(pf(F.profEsc).nome)+'<br>'+rotDia(F.data)+' às '+F.hora+' · '+(k?'<b>do seu pacote</b>':brl(s.preco)+(s.apartir?' (a partir de)':''))+(PROMO.ativa&&s.cat==='Depilação'&&!F.remarca?'<br><span class="brinde">+ 1 sessão de clareamento de brinde</span>':'')+'</p><button class="btn pri" data-act="confirmar">Confirmar</button></div>';}
+  return h;
+}
+function cHorarios(){
+  const fut=meusFuturos(),pas=S.ag.filter(a=>a.cli===S.eu&&a.status==='pago').sort((x,y)=>(y.data+y.hora).localeCompare(x.data+x.hora)).slice(0,10);
+  let h='<section class="bloco"><h1>Meus horários</h1></section><section class="bloco"><h2>Próximos</h2>';
+  h+=fut.length?'<div class="fila">'+fut.map(a=>'<div class="at"><div class="h">'+a.hora+'<small>'+rotDia(a.data)+'</small></div><div class="q"><b>'+esc(sv(a.serv).nome)+'</b><div class="meta">'+profTag(a.prof)+(a.pacote?'<span class="st pac">Do pacote</span>':'<span>'+brl(a.valor)+'</span>')+'</div><div class="acoes"><button class="btn peq" data-act="remarcar" data-id="'+a.id+'">Remarcar</button><button class="btn peq" data-act="cancelar" data-id="'+a.id+'">Cancelar</button></div></div></div>').join('')+'</div>':'<p class="vazio">Nenhum horário marcado.</p>';
+  h+='</section><section class="bloco"><h2>Meu histórico</h2>'+(pas.length?'<div class="fila">'+pas.map(a=>'<div class="at"><div class="h">'+deYmd(a.data).getDate()+'<small>'+MES[deYmd(a.data).getMonth()]+'</small></div><div class="q"><b>'+esc(sv(a.serv).nome)+'</b><div class="meta">'+profTag(a.prof)+(a.pacote?'<span class="st pac">Pacote</span>':'<span>'+brl(totalAg(a))+'</span>')+'</div>'+(a.fotos?'<div class="acoes"><button class="btn peq" data-act="verFotos" data-id="'+a.id+'">Ver antes e depois</button></div>':'')+'</div></div>').join('')+'</div>':'<p class="vazio">Seus atendimentos aparecem aqui.</p>')+'</section>';
+  return h;
+}
+function cPacotes(){
+  const eu=cl(S.eu);
+  let h='<section class="bloco"><h1>Pacotes</h1><p class="suave">Sessões compradas juntas saem mais em conta, e você acompanha cada uma por aqui.</p></section>';
+  h+='<section class="bloco"><h2>Meus pacotes</h2>'+(eu.pacotes.length?eu.pacotes.map(k=>'<div class="cartao bloco"><div class="linha"><b>'+esc(k.nome)+'</b>'+(k.usadas>=k.sessoes?'<span class="st pago">Concluído</span>':'<span class="st pac">'+(k.sessoes-k.usadas)+(k.sessoes-k.usadas===1?' restante':' restantes')+'</span>')+'</div>'+bolinhas(k)+(k.usadas<k.sessoes?'<button class="btn pri cheio" data-act="escolherServ" data-id="'+k.serv+'">Agendar próxima sessão</button>':'')+'</div>').join(''):'<p class="vazio">Você ainda não tem pacotes.</p>')+'</section>';
+  h+='<section class="bloco"><h2>Pacotes disponíveis</h2><div class="lista">'+PACS.filter(p=>p.ativo!==false).map(p=>{const s=sv(p.serv),cheio=s.preco*p.sessoes;return'<div class="op"><span><b>'+esc(p.nome)+'</b><small>'+(cheio>p.preco?'Economia de '+brl(cheio-p.preco):'')+'</small></span><span class="acoes" style="align-items:center"><span class="preco">'+brl(p.preco)+'</span><button class="btn peq pri" data-act="pedirPacote" data-id="'+p.id+'">Quero</button></span></div>'}).join('')+'</div></section>';
+  return h;
+}
+
+/* ===== Espaço (dona e equipe) ===== */
+function dHoje(){
+  const l=S.ag.filter(a=>a.data===HOJE&&(S.filtroProf==='todos'||a.prof===S.filtroProf)).sort((x,y)=>paraMin(x.hora)-paraMin(y.hora));
+  const pagos=l.filter(a=>a.status==='pago'),fat=pagos.reduce((s,a)=>s+totalAg(a),0),ativos=l.filter(ativoAg),prox=ativos.find(a=>a.status==='agendado');
+  const nRet=S.clientes.filter(c=>retoques(c.id).length).length,nAniv=S.clientes.filter(anivMes).length;
+  let h='<section class="bloco"><div class="linha"><div><h1>Hoje</h1><p class="suave">'+DSL[hojeD().getDay()]+', '+hojeD().getDate()+' de '+MES[hojeD().getMonth()]+'</p></div><button class="btn peq" data-act="novoBloqueio">Mudar horário</button></div></section>';
+  const conf=S.ag.filter(a=>a.conflito&&a.status==='agendado');
+  if(conf.length)h+='<section class="bloco"><h2>Clientes para avisar</h2>'+conf.map(a=>'<div class="aviso"><span><b>'+esc(cl(a.cli).nome)+'</b> · '+rotDia(a.data)+' às '+a.hora+'</span><button class="x" data-act="avisarConflito" data-id="'+a.id+'">Avisar</button></div>').join('')+'</section>';
+  S.bloqueios.filter(b=>b.data===HOJE).forEach(b=>{h+='<div class="aviso"><span>Hoje: <b>'+descBloq(b)+'</b> · '+(b.prof==='todos'?'espaço todo':esc(pf(b.prof).nome))+'</span><button class="x" data-act="tirarBloqueio" data-id="'+b.id+'">Desfazer</button></div>'});
+  if(!expediente(hojeD()))return h+'<p class="vazio">Hoje o espaço fica fechado. Veja a semana na aba Agenda.</p>';
+  h+='<section class="kpis"><div class="kpi"><small>Faturado</small><b>'+brl0(fat)+'</b></div><div class="kpi"><small>Atendidas</small><b>'+pagos.length+'/'+ativos.length+'</b></div><div class="kpi"><small>Próxima</small><b>'+(prox?prox.hora:'—')+'</b></div></section>';
+  if(S.avisos.length)h+='<section class="bloco"><h2>Avisos das clientes</h2>'+S.avisos.map(v=>'<div class="aviso"><span>'+esc(v.txt)+'</span><button class="x" data-act="okAviso" data-id="'+v.id+'">Ok</button></div>').join('')+'</section>';
+  h+='<section class="acoes"><button class="btn peq" data-act="irClientes" data-id="retocar">'+nRet+' para retocar</button><button class="btn peq" data-act="irClientes" data-id="aniv">'+nAniv+' aniversariantes</button></section>';
+  h+='<section class="bloco"><h2>Agenda de hoje</h2><div class="chips">'+[['todos','Todas']].concat(PROF.map(b=>[b.id,b.nome])).map(([id,n])=>'<button class="chip" aria-pressed="'+(S.filtroProf===id)+'" data-act="filtroProf" data-id="'+id+'">'+esc(n)+'</button>').join('')+'</div><div class="fila">';
+  h+=l.map(a=>{const c=cl(a.cli),al=alertasSaude(c);let bt='';
+    if(a.status==='agendado')bt='<button class="btn peq" data-act="status" data-st="chegou" data-id="'+a.id+'">Chegou</button><button class="btn peq" data-act="status" data-st="faltou" data-id="'+a.id+'">Não veio</button>';
+    else if(a.status==='chegou')bt='<button class="btn peq pri" data-act="status" data-st="atendendo" data-id="'+a.id+'">Começar atendimento</button>';
+    else if(a.status==='atendendo')bt='<button class="btn peq ok" data-act="finalizar" data-id="'+a.id+'">Finalizar e cobrar</button>';
+    return'<div class="at'+(['pago','faltou','cancelado'].includes(a.status)?' feito':'')+'"><div class="h">'+a.hora+'<small>'+sv(a.serv).min+' min</small></div><div class="q"><div class="linha"><b>'+esc(c.nome)+'</b>'+st(a.status)+'</div>'+
+      '<div class="meta"><span>'+esc(sv(a.serv).nome)+'</span>'+profTag(a.prof)+(a.pacote?'<span class="st pac">Pacote</span>':'')+(a.atraso&&a.status==='agendado'?'<span class="st atraso">+'+a.atraso+' min</span>':'')+(a.status==='pago'?'<span>'+(a.forma==='Pacote'?'':brl(totalAg(a))+' · ')+a.forma+'</span>':'')+'</div>'+
+      (al.length&&a.status!=='pago'?'<div class="meta">'+al.map(x=>'<span class="st alerta">'+esc(x)+'</span>').join('')+'</div>':'')+(bt?'<div class="acoes">'+bt+'</div>':'')+'</div></div>'}).join('')||'<p class="vazio">Ninguém marcado.</p>';
+  return h+'</div></section>';
+}
+function dAgenda(){
+  const dias=diasAbertos();if(!dias.includes(S.diaAgenda))S.diaAgenda=dias[0];const d=S.diaAgenda,e=expediente(deYmd(d)),linhas=(e[1]-e[0])/PASSO;
+  let h='<section class="bloco"><h1>Agenda</h1><div class="chips">'+dias.map(x=>{const y=deYmd(x);return'<button class="chip dia" aria-pressed="'+(x===d)+'" data-act="diaAgenda" data-id="'+x+'"><small>'+(x===HOJE?'Hoje':DS[y.getDay()])+'</small><b>'+y.getDate()+'</b></button>'}).join('')+'</div></section>';
+  h+='<section class="grade" style="grid-template-columns:44px repeat('+PROF.length+',minmax(0,1fr));grid-template-rows:auto repeat('+linhas+',minmax(44px,auto))"><span></span>'+PROF.map(b=>'<span class="cab" style="color:'+b.cor+'">'+esc(b.nome)+'</span>').join('');
+  for(let i=0;i<linhas;i++)h+='<span class="hh" style="grid-row:'+(i+2)+';grid-column:1">'+paraHora(e[0]+i*PASSO)+'</span>';
+  PROF.forEach((b,bi)=>{const cob=new Set();
+    S.ag.filter(a=>a.data===d&&a.prof===b.id&&ativoAg(a)).forEach(a=>{const r=(paraMin(a.hora)-e[0])/PASSO,n=sv(a.serv).min/PASSO;if(r<0)return;for(let k=0;k<n;k++)cob.add(r+k);
+      h+='<button class="bloc '+a.status+'" style="grid-row:'+(r+2)+' / span '+n+';grid-column:'+(bi+2)+'" data-act="verAg" data-id="'+a.id+'"><b>'+esc(cl(a.cli).nome)+'</b>'+esc(sv(a.serv).nome)+'</button>'});
+    for(let i=0;i<linhas;i++)if(!cob.has(i)&&bloqueioEm(b.id,d,e[0]+i*PASSO,PASSO)){cob.add(i);h+='<span class="bloqueado" style="grid-row:'+(i+2)+';grid-column:'+(bi+2)+'">Bloqueado</span>'}
+    for(let i=0;i<linhas;i++)if(!cob.has(i))h+='<button class="livre" style="grid-row:'+(i+2)+';grid-column:'+(bi+2)+'" data-act="novoBalcao" data-p="'+b.id+'" data-h="'+paraHora(e[0]+i*PASSO)+'" aria-label="Marcar '+paraHora(e[0]+i*PASSO)+' com '+esc(b.nome)+'">+</button>';
+  });
+  return h+'</section><p class="suave" style="font-size:13px">Toque num horário livre para marcar quem ligou ou mandou mensagem. A cliente recebe o aviso no app.</p>';
+}
+function dClientes(){
+  const q=S.busca.trim().toLowerCase(),F=S.filtroCli;
+  let l=S.clientes.map(c=>({c,u:ultimo(c.id),rt:retoques(c.id)}));
+  const n={retocar:l.filter(x=>x.rt.length).length,aniv:l.filter(x=>anivMes(x.c)).length,pacote:l.filter(x=>pacotesAtivos(x.c).length).length,sumidas:l.filter(x=>x.u&&diasDesde(x.u)>45).length};
+  if(F==='retocar')l=l.filter(x=>x.rt.length);if(F==='aniv')l=l.filter(x=>anivMes(x.c));if(F==='pacote')l=l.filter(x=>pacotesAtivos(x.c).length);if(F==='sumidas')l=l.filter(x=>x.u&&diasDesde(x.u)>45);
+  if(q)l=l.filter(x=>x.c.nome.toLowerCase().includes(q)||x.c.fone.replace(/\D/g,'').includes(q.replace(/\D/g,'')||'#'));
+  l.sort((a,b)=>F==='aniv'?a.c.aniv.localeCompare(b.c.aniv):(b.u||'').localeCompare(a.u||''));
+  let h='<section class="bloco"><h1>Clientes</h1><input class="busca" id="busca" type="search" placeholder="Buscar por nome ou WhatsApp" value="'+esc(S.busca)+'" aria-label="Buscar cliente"><div class="chips">'+
+    [['todas','Todas · '+S.clientes.length],['retocar','Hora de retocar · '+n.retocar],['aniv','Aniversariantes · '+n.aniv],['pacote','Com pacote · '+n.pacote],['sumidas','Sumidas · '+n.sumidas]].map(([id,t])=>'<button class="chip" aria-pressed="'+(F===id)+'" data-act="filtroCli" data-id="'+id+'">'+t+'</button>').join('')+'</div></section>';
+  const dica={retocar:'Clientes cujo retoque venceu ou vence em até 3 dias. Um toque manda o convite pronto.',aniv:'Aniversariantes do mês. Um toque manda os parabéns com um mimo.',sumidas:'Sem vir há mais de 45 dias. Um toque manda um "estamos com saudade".'}[F];
+  if(dica)h+='<p class="suave" style="font-size:13.5px">'+dica+'</p>';
+  h+='<div class="lista">'+l.map(({c,u,rt})=>{const al=alertasSaude(c),k=pacotesAtivos(c)[0];return'<div class="cli"><span class="av">'+esc(iniciais(c.nome))+'</span><div class="q"><b>'+esc(c.nome)+'</b><small>'+
+    (F==='retocar'&&rt.length?esc(rt[0].serv.nome)+' há '+rt[0].dias+' dias':F==='aniv'?'Aniversário '+c.aniv.slice(3)+'/'+c.aniv.slice(0,2):(u?'Última visita '+(diasDesde(u)===0?'hoje':'há '+diasDesde(u)+' dias'):'Ainda não veio'))+
+    (k?'<span class="st pac">Pacote '+(k.sessoes-k.usadas)+'×</span>':'')+(al.length?'<span class="st alerta">Ficha: atenção</span>':'')+'</small></div><span class="acoes" style="flex-wrap:nowrap"><button class="btn peq" data-act="verCliente" data-id="'+c.id+'">Ficha</button><button class="btn peq pri" data-act="zapCliente" data-id="'+c.id+'">WhatsApp</button></span></div>'}).join('')+'</div>';
+  return l.length?h:h+'<p class="vazio">Nenhuma cliente encontrada.</p>';
+}
+function dPacotes(){
+  const ativos=[];S.clientes.forEach(c=>c.pacotes.forEach(k=>{if(k.usadas<k.sessoes)ativos.push({c,k})}));
+  const mes=HOJE.slice(0,7),vendido=S.lanc.filter(x=>x.tipo==='Pacote'&&x.data.slice(0,7)===mes).reduce((s,x)=>s+x.valor,0);
+  let h='<section class="bloco"><div class="linha"><h1>Pacotes</h1><button class="btn peq pri" data-act="venderPacote">Vender pacote</button></div></section>';
+  h+='<section class="kpis"><div class="kpi"><small>Ativos</small><b>'+ativos.length+'</b></div><div class="kpi"><small>Sessões a fazer</small><b>'+ativos.reduce((s,x)=>s+x.k.sessoes-x.k.usadas,0)+'</b></div><div class="kpi"><small>Vendido no mês</small><b>'+brl0(vendido)+'</b></div></section>';
+  if(S.pedidos.length)h+='<section class="bloco"><h2>Pedidos pelo app</h2>'+S.pedidos.map(p=>'<div class="aviso"><span><b>'+esc(cl(p.cli).nome)+'</b> quer o pacote '+esc(pc(p.pac).nome)+'</span><button class="x" data-act="venderPacote" data-cli="'+p.cli+'" data-pac="'+p.pac+'" data-q="'+p.id+'">Vender</button></div>').join('')+'</section>';
+  h+='<section class="bloco"><h2>Em andamento</h2>'+(ativos.length?'<div class="lista">'+ativos.map(({c,k})=>'<div class="cli"><span class="av">'+esc(iniciais(c.nome))+'</span><div class="q"><b>'+esc(c.nome)+'</b><small>'+esc(k.nome)+' · '+k.usadas+' de '+k.sessoes+'</small></div>'+bolinhas(k)+'</div>').join('')+'</div>':'<p class="vazio">Nenhum pacote em andamento.</p>')+'</section>';
+  return h;
+}
+function dCaixa(){
+  const h0=hojeD(),ini=S.periodo==='hoje'?HOJE:S.periodo==='7'?ymd(somaDias(h0,-6)):ymd(new Date(h0.getFullYear(),h0.getMonth(),1));
+  const l=S.ag.filter(a=>a.status==='pago'&&a.data>=ini&&a.data<=HOJE),lp=S.lanc.filter(x=>x.data>=ini&&x.data<=HOJE);
+  const serv=l.reduce((s,a)=>s+totalAg(a),0),pacV=lp.reduce((s,x)=>s+x.valor,0),tot=serv+pacV,cobrados=l.filter(a=>a.forma!=='Pacote');
+  let h='<section class="bloco"><h1>Caixa</h1><div class="chips">'+[['hoje','Hoje'],['7','7 dias'],['mes','Este mês']].map(([id,n])=>'<button class="chip" aria-pressed="'+(S.periodo===id)+'" data-act="periodo" data-id="'+id+'">'+n+'</button>').join('')+'</div></section>';
+  h+='<section class="kpis"><div class="kpi"><small>Entrou</small><b>'+brl0(tot)+'</b></div><div class="kpi"><small>Atendimentos</small><b>'+l.length+'</b></div><div class="kpi"><small>Ticket médio</small><b>'+(cobrados.length?brl0(Math.round(cobrados.reduce((s,a)=>s+totalAg(a),0)/cobrados.length)):'—')+'</b></div></section>';
+  if(S.periodo!=='hoje'){const dias=[];for(let d=deYmd(ini);ymd(d)<=HOJE;d=somaDias(d,1))dias.push(ymd(d));
+    const v=dias.map(x=>l.filter(a=>a.data===x).reduce((s,a)=>s+totalAg(a),0)+lp.filter(y=>y.data===x).reduce((s,y)=>s+y.valor,0)),mx=Math.max(...v,1);
+    h+='<section class="cartao bloco"><div class="linha"><h2>Por dia</h2><span class="suave num" style="font-size:13px">maior: '+brl0(mx)+'</span></div><div class="barras" role="img" aria-label="Entradas por dia">'+v.map((x,i)=>'<i class="'+(dias[i]===HOJE?'hoje':'')+'" style="height:'+(x/mx*100)+'%" title="'+rotDia(dias[i])+': '+brl(x)+'"></i>').join('')+'</div></section>';}
+  const cats={};l.forEach(a=>{const c=sv(a.serv).cat;cats[c]=(cats[c]||0)+a.valor});
+  h+='<section class="cartao bloco"><h2>Por tipo de serviço</h2><table class="tab">'+CATS.filter(c=>cats[c]).map(c=>'<tr><td>'+c+'</td><td>'+brl(cats[c])+'</td></tr>').join('')+(pacV?'<tr><td>Pacotes vendidos</td><td>'+brl(pacV)+'</td></tr>':'')+'</table></section>';
+  h+='<section class="cartao bloco"><h2>Por profissional</h2><table class="tab">'+PROF.map(b=>{const v=l.filter(a=>a.prof===b.id).reduce((s,a)=>s+a.valor,0);return'<tr><td>'+profTag(b.id)+(b.com?' <span class="suave" style="font-size:12.5px">· comissão '+b.com+'%: '+brl(v*b.com/100)+'</span>':'')+'</td><td>'+brl(v)+'</td></tr>'}).join('')+'</table></section>';
+  const fs={};l.forEach(a=>{if(a.forma!=='Pacote')fs[a.forma]=(fs[a.forma]||0)+totalAg(a)});lp.forEach(x=>fs[x.forma]=(fs[x.forma]||0)+x.valor);
+  h+='<section class="cartao bloco"><h2>Formas de pagamento</h2><table class="tab">'+Object.entries(fs).sort((a,b)=>b[1]-a[1]).map(([f,v])=>'<tr><td>'+f+'</td><td>'+brl(v)+'</td></tr>').join('')+'</table></section>';
+  h+='<section class="cartao bloco"><h2>Vendas de produtos</h2><table class="tab">'+EXTRAS.map(x=>{const q=l.reduce((s,a)=>s+(a.extras[x.id]||0),0);return'<tr><td>'+x.nome+' <span class="suave">× '+q+'</span></td><td>'+brl(q*x.preco)+'</td></tr>'}).join('')+'</table></section>';
+  return h;
+}
+/* ===== Ajustes: a própria Wylma muda tudo ===== */
+const opHoras=(sel,min,max)=>{let o='';for(let t=min;t<=max;t+=PASSO)o+='<option value="'+t+'"'+(t===sel?' selected':'')+'>'+paraHora(t)+'</option>';return o};
+const descBloq=b=>({dia:'Não vai abrir',apos:'Só a partir das '+paraHora(b.fim),ate:'Só até as '+paraHora(b.ini),faixa:'Fechado das '+paraHora(b.ini)+' às '+paraHora(b.fim)}[b.tipo]);
+function dAjustes(){
+  let h='<section class="bloco"><h1>Ajustes</h1><p class="suave">Você muda tudo daqui, na hora. O app das clientes atualiza sozinho.</p></section>';
+  h+='<section class="cartao bloco"><h2>Promoção do mês</h2><img class="foto-unica" src="'+IMG_PROMO+'" alt="Imagem da campanha"><div class="campo"><label for="prTit">Título</label><input id="prTit" value="'+esc(PROMO.titulo)+'"></div><div class="campo"><label for="prTxt">Texto que as clientes veem</label><textarea id="prTxt">'+esc(PROMO.texto)+'</textarea></div>'+
+    '<label class="marcar"><input type="checkbox" id="prAtiva"'+(PROMO.ativa?' checked':'')+'> Mostrar no app das clientes (quem agendar depilação ganha 1 sessão de clareamento)</label><button class="btn pri cheio" data-act="salvarPromo">Salvar promoção</button></section>';
+  const futs=S.bloqueios.filter(b=>b.data>=HOJE).sort((x,y)=>(x.data+paraHora(x.ini)).localeCompare(y.data+paraHora(y.ini)));
+  h+='<section class="cartao bloco"><h2>Folgas e imprevistos</h2><button class="btn pri cheio" data-act="novoBloqueio">Não vou atender / mudar horário</button>'+
+    (futs.length?'<table class="tab">'+futs.map(b=>'<tr><td><b>'+rotDia(b.data)+'</b> · '+descBloq(b)+'<br><span class="suave" style="font-size:13px">'+(b.prof==='todos'?'Espaço todo':esc(pf(b.prof).nome))+' · '+esc(b.motivo)+'</span></td><td><button class="btn peq" data-act="tirarBloqueio" data-id="'+b.id+'">Liberar</button></td></tr>').join('')+'</table>':'<p class="suave" style="font-size:13.5px">Nenhuma folga marcada. Horário bloqueado some do app na hora, e quem já estava marcada aparece para você avisar.</p>')+'</section>';
+  h+='<section class="cartao bloco"><h2>Horário de funcionamento</h2><table class="tab">'+[1,2,3,4,5,6,0].map(w=>{const e=EXP[w];
+    return'<tr><td>'+DSL[w]+'</td><td>'+(e?'<select class="hsel" data-exp="1" data-w="'+w+'" data-p="0" aria-label="'+DSL[w]+': abre">'+opHoras(e[0],360,1290)+'</select> – <select class="hsel" data-exp="1" data-w="'+w+'" data-p="1" aria-label="'+DSL[w]+': fecha">'+opHoras(e[1],390,1320)+'</select> ':'<span class="suave">Fechado</span> ')+'<button class="btn peq" data-act="expToggle" data-w="'+w+'">'+(e?'Fechar':'Abrir')+'</button></td></tr>'}).join('')+'</table></section>';
+  h+='<section class="cartao bloco"><h2>Serviços e preços</h2>'+CATS.map(cat=>'<p style="font:italic 700 18px/1 var(--titulo);color:var(--ameixa);margin-top:6px">'+cat+'</p><table class="tab">'+SERV.filter(s=>s.cat===cat).map(s=>'<tr><td>'+(s.ativo===false?'<span class="suave" style="text-decoration:line-through">'+esc(s.nome)+'</span>':'<b>'+esc(s.nome)+'</b>')+'<br><span class="suave" style="font-size:13px">'+s.min+' min'+(s.retorno?' · retoque em '+s.retorno+' dias':'')+'</span></td><td>'+(s.apartir?'<span class="suave" style="font-size:12px">a partir de </span>':'')+brl(s.preco)+'<br><button class="btn peq" data-act="editServ" data-id="'+s.id+'">Editar</button></td></tr>').join('')+'</table>').join('')+'<button class="btn cheio" data-act="editServ" data-id="novo">+ Cadastrar serviço</button></section>';
+  h+='<section class="cartao bloco"><h2>Pacotes à venda</h2><table class="tab">'+PACS.map(p=>'<tr><td><b>'+esc(p.nome)+'</b><br><span class="suave" style="font-size:13px">'+p.sessoes+' sessões de '+esc(sv(p.serv).nome)+'</span></td><td>'+brl(p.preco)+'<br><button class="btn peq" data-act="editPac" data-id="'+p.id+'">Editar</button></td></tr>').join('')+'</table><button class="btn cheio" data-act="editPac" data-id="novo">+ Criar pacote</button></section>';
+  h+='<section class="cartao bloco"><h2>Profissionais</h2><table class="tab">'+PROF.map(b=>'<tr><td>'+profTag(b.id)+'</td><td>'+(b.com?'comissão '+b.com+'%':'sem comissão')+' <button class="btn peq" data-act="editProf" data-id="'+b.id+'">Editar</button></td></tr>').join('')+'</table><button class="btn cheio" data-act="editProf" data-id="novo">+ Profissional</button></section>';
+  return h;
+}
+
+/* ---------- janelas ---------- */
+function janela(html){camada.innerHTML='<div class="fundo-modal" data-act="fechar"><div class="modal" role="dialog" aria-modal="true">'+html+'</div></div>';const b=camada.querySelector('.modal button,.modal input');if(b)b.focus()}
+function fechar(){camada.innerHTML=''}
+function aviso(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2800)}
+function zap(c,txt){janela('<h3>Mensagem para '+esc(primeiro(c.nome))+'</h3><p class="suave" style="font-size:13.5px">No app de verdade, este botão abre o WhatsApp de '+esc(c.fone)+' com a mensagem pronta. É só tocar em enviar.</p><div class="zap"><div class="bal">'+esc(txt)+'</div></div><button class="btn cheio" data-act="fechar">Fechar</button>')}
+function janelaFotos(a){const f=a.fotos;
+  janela('<h3>Antes e depois</h3><p class="suave">'+esc(sv(a.serv).nome)+' · '+dataCurta(a.data)+' com '+esc(pf(a.prof).nome)+'</p>'+(f.combo?'<img class="foto-unica" src="'+fotoSrc(f.combo)+'" alt="Antes e depois">':'<div class="fotos">'+(f.antes?'<figure><img src="'+f.antes+'" alt="Antes"><figcaption>Antes</figcaption></figure>':'')+(f.depois?'<figure><img src="'+f.depois+'" alt="Depois"><figcaption>Depois</figcaption></figure>':'')+'</div>')+'<p class="suave" style="font-size:13px">Fotos privadas: só a cliente e o espaço veem.</p><button class="btn cheio" data-act="fechar">Fechar</button>')}
+function janelaFicha(cid,edita){const c=cl(cid),s=c.saude||{};
+  if(!edita){const al=alertasSaude(c),hist=S.ag.filter(a=>a.cli===cid&&a.status==='pago').sort((x,y)=>y.data.localeCompare(x.data)).slice(0,6);
+    janela('<h3>'+esc(c.nome)+'</h3><p class="suave">'+esc(c.fone)+' · aniversário '+c.aniv.slice(3)+'/'+c.aniv.slice(0,2)+'</p>'+
+      '<div class="cartao bloco"><h2>Ficha de cuidados</h2>'+(c.saude?(al.length?al.map(x=>'<span class="st alerta" style="align-self:flex-start">'+esc(x)+'</span>').join(''):'<p>Nada a observar.</p>')+(s.obs?'<p class="suave">Obs.: '+esc(s.obs)+'</p>':''):'<p class="suave">Ainda não preenchida. A cliente preenche pelo app.</p>')+'</div>'+
+      (c.pacotes.length?'<div class="cartao bloco"><h2>Pacotes</h2>'+c.pacotes.map(k=>'<div class="linha"><span>'+esc(k.nome)+'</span>'+bolinhas(k)+'</div>').join('')+'</div>':'')+
+      '<div class="cartao bloco"><h2>Últimos atendimentos</h2>'+(hist.length?'<table class="tab">'+hist.map(a=>'<tr><td>'+dataCurta(a.data)+' · '+esc(sv(a.serv).nome)+(a.fotos?' <button class="btn peq" data-act="verFotos" data-id="'+a.id+'">Fotos</button>':'')+'</td><td>'+(a.forma==='Pacote'?'Pacote':brl(totalAg(a)))+'</td></tr>').join('')+'</table>':'<p class="suave">Nenhum ainda.</p>')+'</div>'+
+      '<button class="btn cheio" data-act="fechar">Fechar</button>');return}
+  janela('<h3>Ficha de cuidados</h3><p class="suave" style="font-size:13.5px">Suas respostas ajudam a escolher os produtos certos e deixam seu atendimento mais seguro. Só você e o espaço veem.</p>'+
+    '<div class="campo"><label for="fsAlergia">Tem alguma alergia?</label><input id="fsAlergia" placeholder="Ex.: cera de abelha, esmalte, látex" value="'+esc(s.alergia||'')+'"></div>'+
+    '<label class="marcar"><input type="checkbox" id="fsGest"'+(s.gestante?' checked':'')+'> Estou gestante ou amamentando</label>'+
+    '<label class="marcar"><input type="checkbox" id="fsSens"'+(s.sensivel?' checked':'')+'> Tenho pele sensível</label>'+
+    '<label class="marcar"><input type="checkbox" id="fsDiab"'+(s.diabetes?' checked':'')+'> Tenho diabetes</label>'+
+    '<label class="marcar"><input type="checkbox" id="fsAcid"'+(s.acidos?' checked':'')+'> Uso ácidos ou retinoides na pele</label>'+
+    '<div class="campo"><label for="fsObs">Algo mais que a gente deve saber?</label><textarea id="fsObs">'+esc(s.obs||'')+'</textarea></div>'+
+    '<label class="marcar"><input type="checkbox" id="fsOk"> Autorizo o uso destas informações para o meu atendimento</label>'+
+    '<button class="btn pri cheio" data-act="salvarFicha">Salvar ficha</button><button class="btn cheio" data-act="fechar">Depois</button>')}
+
+let fin=null;
+function janelaFinalizar(){
+  const a=S.ag.find(x=>x.id===fin.id),c=cl(a.cli),s=sv(a.serv),k=a.pacote?c.pacotes.find(x=>x.id===a.pacote):pacoteDoServ(c,s.id);
+  const base=fin.usaPac?0:fin.valor,ext=EXTRAS.reduce((t,x)=>t+(fin.extras[x.id]||0)*x.preco,0),tot=base+ext;
+  const slot=(q,rot)=>fin[q]?'<figure><img src="'+fin[q]+'" alt="'+rot+'"><figcaption>'+rot+' · <button class="btn peq" style="padding:3px 7px" data-act="tirarFoto" data-id="'+q+'">trocar</button></figcaption></figure>':'<label class="sobe">'+rot+'<span class="suave" style="font-weight:600;font-size:12px">tocar para escolher a foto</span><input type="file" accept="image/*" data-foto="'+q+'"></label>';
+  janela('<h3>Finalizar · '+esc(primeiro(c.nome))+'</h3>'+
+    (alertasSaude(c).length?'<div class="acoes">'+alertasSaude(c).map(x=>'<span class="st alerta">'+esc(x)+'</span>').join('')+'</div>':'')+
+    '<div class="campo"><label for="fValor">'+esc(s.nome)+(s.apartir?' (a partir de '+brl(s.preco)+')':'')+'</label>'+(fin.usaPac?'<p><span class="st pac">Sessão do pacote · sem cobrança</span></p>':'<input id="fValor" type="number" step="0.01" inputmode="decimal" value="'+fin.valor+'">')+'</div>'+
+    (k?'<button class="btn peq" data-act="fPac">'+(fin.usaPac?'Cobrar normal':'Usar sessão do pacote ('+(k.sessoes-k.usadas)+' restantes)')+'</button>':'')+
+    '<div class="campo"><label>Antes e depois (opcional)</label><div class="fotos">'+slot('antes','Antes')+slot('depois','Depois')+'</div></div>'+
+    '<div class="campo"><label>Vendeu algum produto?</label>'+EXTRAS.map(x=>'<div class="linha"><span>'+x.nome+' <span class="suave">'+brl(x.preco)+'</span></span><span class="qtd"><button data-act="fExtra" data-id="'+x.id+'" data-d="-1" aria-label="Menos">−</button><b class="num">'+(fin.extras[x.id]||0)+'</b><button data-act="fExtra" data-id="'+x.id+'" data-d="1" aria-label="Mais">+</button></span></div>').join('')+'</div>'+
+    (tot>0?'<div class="campo"><label>Forma de pagamento</label><div class="chips">'+['Pix','Dinheiro','Débito','Crédito'].map(f=>'<button class="chip" aria-pressed="'+(fin.forma===f)+'" data-act="fForma" data-id="'+f+'">'+f+'</button>').join('')+'</div></div>':'')+
+    '<div class="total"><span class="suave">Total</span><b>'+brl(tot)+'</b></div>'+
+    '<button class="btn ok cheio" data-act="fOk"'+(tot>0&&!fin.forma?' disabled':'')+'>'+(tot>0?'Recebi '+brl(tot):'Concluir')+'</button>');
+}
+/* foto do celular: reduz para no máximo 640 px antes de guardar */
+function lerFoto(arquivo,cb){const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=()=>{const m=640,esc2=Math.min(1,m/Math.max(img.width,img.height)),cv=document.createElement('canvas');cv.width=Math.round(img.width*esc2);cv.height=Math.round(img.height*esc2);cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height);cb(cv.toDataURL('image/jpeg',0.8))};img.onerror=()=>aviso('Não deu para abrir essa imagem.');img.src=r.result};r.readAsDataURL(arquivo)}
+
+let blq=null;
+function janelaBloq(){
+  const dias=[];for(let d=hojeD();dias.length<14;d=somaDias(d,1))if(expediente(d))dias.push(ymd(d));
+  if(!dias.includes(blq.data))blq.data=dias[0];const e=expediente(deYmd(blq.data));
+  if(blq.h1==null||blq.h1<e[0]||blq.h1>e[1])blq.h1=Math.min(e[0]+180,e[1]-PASSO);
+  if(blq.h2==null||blq.h2<=blq.h1||blq.h2>e[1])blq.h2=Math.min(blq.h1+120,e[1]);
+  const T=blq.tipo;
+  janela('<h3>Mudar horário</h3><p class="suave" style="font-size:13.5px">Os horários bloqueados somem do app das clientes na hora.</p>'+
+    '<div class="campo"><label for="bqData">Dia</label><select id="bqData">'+dias.map(d=>'<option value="'+d+'"'+(d===blq.data?' selected':'')+'>'+rotDia(d)+' ('+dataCurta(d)+')</option>').join('')+'</select></div>'+
+    '<div class="campo"><label for="bqProf">Quem</label><select id="bqProf"><option value="todos">Espaço todo</option>'+PROF.map(b=>'<option value="'+b.id+'"'+(blq.prof===b.id?' selected':'')+'>Só '+esc(b.nome)+'</option>').join('')+'</select></div>'+
+    '<div class="campo"><label>O que muda</label><div class="chips" style="flex-wrap:wrap">'+[['dia','Não vou atender'],['apos','Só a partir de…'],['ate','Só até…'],['faixa','Fechar um intervalo']].map(([id,n])=>'<button class="chip" aria-pressed="'+(T===id)+'" data-act="bqTipo" data-id="'+id+'">'+n+'</button>').join('')+'</div></div>'+
+    (T==='apos'?'<div class="campo"><label for="bqH1">Começo a atender às</label><select id="bqH1">'+opHoras(blq.h1,e[0]+PASSO,e[1]-PASSO)+'</select></div>':'')+
+    (T==='ate'?'<div class="campo"><label for="bqH1">Atendo até as</label><select id="bqH1">'+opHoras(blq.h1,e[0]+PASSO,e[1]-PASSO)+'</select></div>':'')+
+    (T==='faixa'?'<div class="linha"><div class="campo" style="flex:1"><label for="bqH1">De</label><select id="bqH1">'+opHoras(blq.h1,e[0],e[1]-PASSO)+'</select></div><div class="campo" style="flex:1"><label for="bqH2">Até</label><select id="bqH2">'+opHoras(blq.h2,e[0]+PASSO,e[1])+'</select></div></div>':'')+
+    '<div class="campo"><label>Motivo (só você vê)</label><div class="chips" style="flex-wrap:wrap">'+['Imprevisto','Médico','Folga','Feriado','Curso'].map(m=>'<button class="chip" aria-pressed="'+(blq.motivo===m)+'" data-act="bqMotivo" data-id="'+m+'">'+m+'</button>').join('')+'</div></div>'+
+    '<button class="btn pri cheio" data-act="bqOk">Bloquear</button><button class="btn cheio" data-act="fechar">Voltar</button>');
+}
+function lerBloq(){const g=id=>document.getElementById(id);if(!blq)return;if(g('bqData'))blq.data=g('bqData').value;if(g('bqProf'))blq.prof=g('bqProf').value;if(g('bqH1'))blq.h1=+g('bqH1').value;if(g('bqH2'))blq.h2=+g('bqH2').value}
+const fraseBloq=b=>({dia:'não vou abrir',apos:'só vou atender a partir das '+paraHora(b.fim),ate:'só vou atender até as '+paraHora(b.ini),faixa:'não vou atender das '+paraHora(b.ini)+' às '+paraHora(b.fim)}[b.tipo]);
+const quandoFrase=d=>{const r=rotDia(d);return r==='Hoje'||r==='Amanhã'?r:'No dia '+dataCurta(d)};
+
+/* ---------- ações ---------- */
+document.addEventListener('click',ev=>{
+  const m=ev.target.closest('[data-modo]');if(m){S.modo=m.dataset.modo;fechar();desenhar();window.scrollTo(0,0);return}
+  const ab=ev.target.closest('[data-aba]');if(ab){S.aba[S.modo]=ab.dataset.aba;fechar();desenhar();window.scrollTo(0,0);return}
+  const el=ev.target.closest('[data-act]');if(!el)return;
+  const act=el.dataset.act,id=el.dataset.id,F=S.fluxo;
+  if(act==='fechar'){if(el.classList.contains('fundo-modal')&&ev.target!==el)return;fechar();return}
+  const a=id?S.ag.find(x=>x.id===id):null,novoF=o=>Object.assign({cat:null,serv:null,prof:'qualquer',data:null,hora:null,remarca:null},o);
+  switch(act){
+   case'escolherCat':S.fluxo=novoF({cat:id});S.aba.cliente='agendar';window.scrollTo(0,0);break;
+   case'escolherServ':S.fluxo=novoF({serv:id,cat:sv(id).cat});S.aba.cliente='agendar';window.scrollTo(0,0);break;
+   case'fCat':F.cat=id;F.serv=null;F.hora=null;F.data=null;break;
+   case'fServ':F.serv=id;F.hora=null;F.data=null;break;
+   case'fProf':F.prof=id;F.hora=null;break;
+   case'fDia':F.data=id;F.hora=null;break;
+   case'fHora':F.hora=id;F.profEsc=el.dataset.p;break;
+   case'confirmar':{
+     const s=sv(F.serv),eu=cl(S.eu),k=pacoteDoServ(eu,s.id);let msg;
+     if(F.remarca){const x=S.ag.find(y=>y.id===F.remarca),antes=rotDia(x.data).toLowerCase()+' '+x.hora;Object.assign(x,{serv:F.serv,prof:F.profEsc,data:F.data,hora:F.hora,atraso:0,conflito:null});
+       S.avisos.unshift({id:'v'+Date.now(),txt:eu.nome+' remarcou pelo app: de '+antes+' para '+rotDia(F.data).toLowerCase()+' às '+F.hora});msg='Remarcado para '+rotDia(F.data).toLowerCase()+' às '+F.hora+'.';}
+     else{S.ag.push({id:'a'+(S.seq++),cli:S.eu,serv:F.serv,prof:F.profEsc,data:F.data,hora:F.hora,status:'agendado',valor:k?0:s.preco,pacote:k?k.id:null,extras:{},atraso:0,origem:'app',fotos:null});
+       S.avisos.unshift({id:'v'+Date.now(),txt:eu.nome+' agendou pelo app: '+s.nome+', '+rotDia(F.data).toLowerCase()+' às '+F.hora+' com '+pf(F.profEsc).nome});
+       msg='Agendado: '+rotDia(F.data).toLowerCase()+' às '+F.hora+'. O espaço já foi avisado.';
+       if(PROMO.ativa&&s.cat==='Depilação'&&!eu.pacotes.some(x=>x.brinde&&x.usadas<x.sessoes)){eu.pacotes.push({id:'k'+Date.now(),pac:null,nome:'Clareamento · brinde '+PROMO.titulo,serv:'clareamento',sessoes:1,usadas:0,em:HOJE,brinde:true});msg='Agendado! E você ganhou 1 sessão de clareamento. Ela já está em Pacotes.'}}
+     S.fluxo=novoF({});S.aba.cliente='inicio';desenhar();window.scrollTo(0,0);aviso(msg);return}
+   case'remarcar':S.fluxo=novoF({serv:a.serv,cat:sv(a.serv).cat,prof:a.prof,data:a.data,remarca:a.id});S.aba.cliente='agendar';break;
+   case'cancelar':janela('<h3>Cancelar o horário?</h3><p>'+esc(sv(a.serv).nome)+', '+rotDia(a.data).toLowerCase()+' às '+a.hora+'.</p><div class="campo"><label>Motivo</label><div class="chips" style="flex-wrap:wrap">'+['Imprevisto','Trabalho','Vou remarcar depois'].map(t=>'<button class="chip" data-act="cancelarOk" data-id="'+a.id+'" data-m="'+t+'">'+t+'</button>').join('')+'</div></div><button class="btn cheio" data-act="fechar">Manter horário</button>');return;
+   case'cancelarOk':a.status='cancelado';S.avisos.unshift({id:'v'+Date.now(),txt:cl(a.cli).nome+' cancelou '+rotDia(a.data).toLowerCase()+' às '+a.hora+' ('+el.dataset.m.toLowerCase()+'). O horário ficou livre.'});fechar();aviso('Horário cancelado. A vaga foi liberada.');break;
+   case'atrasar':janela('<h3>Quanto vai atrasar?</h3><div class="acoes">'+[10,15,20].map(n=>'<button class="btn" data-act="atrasoOk" data-id="'+a.id+'" data-n="'+n+'">'+n+' min</button>').join('')+'</div><button class="btn cheio" data-act="fechar">Voltar</button>');return;
+   case'atrasoOk':a.atraso=+el.dataset.n;S.avisos.unshift({id:'v'+Date.now(),txt:cl(a.cli).nome+' avisou que vai atrasar '+a.atraso+' min ('+rotDia(a.data).toLowerCase()+', '+a.hora+')'});fechar();aviso('Avisamos a '+pf(a.prof).nome+'.');break;
+   case'ficha':janelaFicha(S.eu,true);return;
+   case'salvarFicha':{if(!document.getElementById('fsOk').checked){aviso('Marque a autorização para salvar.');return}
+     const g=i=>document.getElementById(i);cl(S.eu).saude={alergia:g('fsAlergia').value.trim(),gestante:g('fsGest').checked,sensivel:g('fsSens').checked,diabetes:g('fsDiab').checked,acidos:g('fsAcid').checked,obs:g('fsObs').value.trim(),em:HOJE};
+     fechar();aviso('Ficha salva. Obrigada por cuidar da sua segurança!');break}
+   case'verFotos':janelaFotos(a);return;
+   case'pedirPacote':{const p=pc(id);if(!S.pedidos.some(q=>q.cli===S.eu&&q.pac===id))S.pedidos.push({id:'q'+Date.now(),cli:S.eu,pac:id});S.avisos.unshift({id:'v'+Date.now(),txt:cl(S.eu).nome+' pediu o pacote '+p.nome+' pelo app'});aviso('Pedido enviado! A Wylma confirma com você o pagamento.');break}
+   case'okAviso':S.avisos=S.avisos.filter(v=>v.id!==id);break;
+   case'filtroProf':S.filtroProf=id;break;
+   case'irClientes':S.filtroCli=id;S.aba.dono='clientes';window.scrollTo(0,0);break;
+   case'status':a.status=el.dataset.st;if(a.status==='atendendo')a.atraso=0;break;
+   case'finalizar':{const c=cl(a.cli),k=a.pacote?c.pacotes.find(x=>x.id===a.pacote):pacoteDoServ(c,a.serv);fin={id:a.id,valor:a.pacote?sv(a.serv).preco:a.valor,usaPac:!!(a.pacote||k),extras:Object.assign({},a.extras),forma:null,antes:null,depois:null};janelaFinalizar();return}
+   case'fPac':fin.usaPac=!fin.usaPac;janelaFinalizar();return;
+   case'tirarFoto':fin[id]=null;janelaFinalizar();return;
+   case'fExtra':fin.extras[id]=Math.max(0,(fin.extras[id]||0)+(+el.dataset.d));janelaFinalizar();return;
+   case'fForma':fin.forma=id;janelaFinalizar();return;
+   case'fOk':{const x=S.ag.find(y=>y.id===fin.id),c=cl(x.cli),s=sv(x.serv);
+     const k=fin.usaPac?(x.pacote?c.pacotes.find(y=>y.id===x.pacote):pacoteDoServ(c,s.id)):null;
+     const base=k?0:fin.valor,ext=EXTRAS.reduce((t,e)=>t+(fin.extras[e.id]||0)*e.preco,0);
+     if(k){k.usadas=Math.min(k.sessoes,k.usadas+1);x.pacote=k.id}else x.pacote=null;
+     Object.assign(x,{status:'pago',valor:base,extras:fin.extras,forma:base+ext>0?fin.forma:'Pacote',fotos:fin.antes||fin.depois?{antes:fin.antes,depois:fin.depois}:x.fotos});
+     fechar();aviso(base+ext>0?'Recebido '+brl(base+ext)+'.'+(x.fotos&&!x.fotos.combo?' Fotos salvas no histórico da '+primeiro(c.nome)+'.':''):'Sessão do pacote registrada ('+k.usadas+' de '+k.sessoes+').');break}
+   case'diaAgenda':S.diaAgenda=id;break;
+   case'verAg':{const c=cl(a.cli);janela('<h3>'+esc(c.nome)+'</h3><p>'+esc(sv(a.serv).nome)+' · '+rotDia(a.data)+' às '+a.hora+' com '+esc(pf(a.prof).nome)+'</p><div class="acoes">'+st(a.status)+(a.pacote?'<span class="st pac">Pacote</span>':'')+alertasSaude(c).map(x=>'<span class="st alerta">'+esc(x)+'</span>').join('')+'</div>'+
+     (a.status==='agendado'?'<button class="btn cheio" data-act="zapLembrete" data-id="'+a.id+'">Mandar lembrete no WhatsApp</button><button class="btn cheio" data-act="desmarcar" data-id="'+a.id+'">Desmarcar (avisa a cliente)</button>':'')+'<button class="btn cheio" data-act="fechar">Fechar</button>');return}
+   case'zapLembrete':{const c=cl(a.cli);zap(c,'Oi, '+primeiro(c.nome)+'! 💜 Passando para lembrar do seu horário no Wylma Espaço Mulher '+rotDia(a.data).toLowerCase()+' às '+a.hora+' ('+sv(a.serv).nome+'). Confirma pra mim?');return}
+   case'desmarcar':{const c=cl(a.cli);a.status='cancelado';desenhar();zap(c,'Oi, '+primeiro(c.nome)+'! Tive um imprevisto e precisei desmarcar seu horário de '+rotDia(a.data).toLowerCase()+' às '+a.hora+'. Me desculpe! Já escolhe outro horário pelo app, tem vaga essa semana 💜');return}
+   case'novoBalcao':{const p=el.dataset.p,h=el.dataset.h;janela('<h3>Marcar '+rotDia(S.diaAgenda).toLowerCase()+' às '+h+'</h3><p class="suave">Com '+esc(pf(p).nome)+'. Para a cliente que ligou ou mandou mensagem.</p>'+
+     '<div class="campo"><label for="nbCli">Cliente</label><select id="nbCli">'+S.clientes.slice().sort((x,y)=>x.nome.localeCompare(y.nome)).map(c=>'<option value="'+c.id+'">'+esc(c.nome)+'</option>').join('')+'</select></div>'+
+     '<div class="campo"><label for="nbServ">Serviço</label><select id="nbServ">'+CATS.map(cat=>'<optgroup label="'+cat+'">'+servAtivos().filter(s=>s.cat===cat).map(s=>'<option value="'+s.id+'">'+esc(s.nome)+' · '+s.min+' min</option>').join('')+'</optgroup>').join('')+'</select></div>'+
+     '<button class="btn pri cheio" data-act="novoBalcaoOk" data-p="'+p+'" data-h="'+h+'">Marcar horário</button><button class="btn cheio" data-act="fechar">Voltar</button>');return}
+   case'novoBalcaoOk':{const cid=document.getElementById('nbCli').value,s=sv(document.getElementById('nbServ').value),p=el.dataset.p,h=el.dataset.h,c=cl(cid);
+     if(!livre(p,S.diaAgenda,paraMin(h),s.min)){aviso(s.nome+' leva '+s.min+' min e não cabe nesse horário.');return}
+     const k=pacoteDoServ(c,s.id);S.ag.push({id:'a'+(S.seq++),cli:cid,serv:s.id,prof:p,data:S.diaAgenda,hora:h,status:'agendado',valor:k?0:s.preco,pacote:k?k.id:null,extras:{},atraso:0,origem:'balcao',fotos:null});
+     desenhar();zap(c,'Oi, '+primeiro(c.nome)+'! Tá marcado: '+s.nome+' '+rotDia(S.diaAgenda).toLowerCase()+' às '+h+' com a '+pf(p).nome+' 💜 Qualquer coisa, remarca pelo app.');return}
+   case'filtroCli':S.filtroCli=id;break;
+   case'verCliente':janelaFicha(id,false);return;
+   case'zapCliente':{const c=cl(id),rt=retoques(id),u=ultimo(id);let t;
+     if(S.filtroCli==='aniv'||(anivMes(c)&&S.filtroCli!=='retocar'))t='Feliz aniversário, '+primeiro(c.nome)+'! 🎉 Para comemorar, seu próximo atendimento aqui no Wylma Espaço Mulher tem 10% de desconto neste mês. Escolha seu horário no app 💜';
+     else if(rt.length)t='Oi, '+primeiro(c.nome)+'! Já faz '+rt[0].dias+' dias '+deRetoque(rt[0].serv)+' aqui no Wylma Espaço Mulher 💜 Que tal agendar o retoque? É só escolher o horário no app.';
+     else if(u&&diasDesde(u)>45)t='Oi, '+primeiro(c.nome)+'! Estamos com saudade de você por aqui 💜 Bora tirar um tempinho pra você? Tem horário essa semana, é só escolher no app.';
+     else t='Oi, '+primeiro(c.nome)+'! Tudo bem? 💜';
+     zap(c,t);return}
+   case'venderPacote':{const pre={cli:el.dataset.cli||'',pac:el.dataset.pac||PACS[0].id,q:el.dataset.q||''};
+     janela('<h3>Vender pacote</h3><div class="campo"><label for="vpCli">Cliente</label><select id="vpCli">'+S.clientes.slice().sort((x,y)=>x.nome.localeCompare(y.nome)).map(c=>'<option value="'+c.id+'"'+(c.id===pre.cli?' selected':'')+'>'+esc(c.nome)+'</option>').join('')+'</select></div>'+
+       '<div class="campo"><label for="vpPac">Pacote</label><select id="vpPac">'+PACS.map(p=>'<option value="'+p.id+'"'+(p.id===pre.pac?' selected':'')+'>'+esc(p.nome)+' · '+brl(p.preco)+'</option>').join('')+'</select></div>'+
+       '<div class="campo"><label for="vpForma">Forma de pagamento</label><select id="vpForma">'+['Pix','Dinheiro','Débito','Crédito'].map(f=>'<option>'+f+'</option>').join('')+'</select></div>'+
+       '<button class="btn pri cheio" data-act="venderPacoteOk" data-q="'+pre.q+'">Registrar venda</button><button class="btn cheio" data-act="fechar">Voltar</button>');return}
+   case'venderPacoteOk':{const c=cl(document.getElementById('vpCli').value),p=pc(document.getElementById('vpPac').value),f=document.getElementById('vpForma').value;
+     c.pacotes.push({id:'k'+Date.now(),pac:p.id,nome:p.nome,serv:p.serv,sessoes:p.sessoes,usadas:0,em:HOJE});
+     S.lanc.push({id:'l'+Date.now(),data:HOJE,tipo:'Pacote',desc:p.nome+' · '+c.nome,valor:p.preco,forma:f});
+     if(el.dataset.q)S.pedidos=S.pedidos.filter(q=>q.id!==el.dataset.q);else S.pedidos=S.pedidos.filter(q=>!(q.cli===c.id&&q.pac===p.id));
+     fechar();aviso('Pacote vendido para '+primeiro(c.nome)+': '+brl(p.preco)+' no caixa.');break}
+   case'periodo':S.periodo=id;break;
+   case'salvarPromo':PROMO.titulo=document.getElementById('prTit').value.trim()||PROMO.titulo;PROMO.texto=document.getElementById('prTxt').value.trim()||PROMO.texto;PROMO.ativa=document.getElementById('prAtiva').checked;aviso(PROMO.ativa?'Promoção no ar no app das clientes.':'Promoção escondida.');break;
+   case'novoBloqueio':blq={data:HOJE,prof:'todos',tipo:'apos',h1:null,h2:null,motivo:'Imprevisto'};janelaBloq();return;
+   case'bqTipo':lerBloq();blq.tipo=id;janelaBloq();return;
+   case'bqMotivo':lerBloq();blq.motivo=id;janelaBloq();return;
+   case'bqOk':{lerBloq();const e=expediente(deYmd(blq.data));let ini,fim;
+     if(blq.tipo==='dia'){ini=e[0];fim=e[1]}else if(blq.tipo==='apos'){ini=e[0];fim=blq.h1}else if(blq.tipo==='ate'){ini=blq.h1;fim=e[1]}else{ini=blq.h1;fim=blq.h2}
+     if(!(ini<fim)){aviso('O fim precisa ser depois do começo.');return}
+     const b={id:'b'+Date.now(),data:blq.data,prof:blq.prof,ini,fim,tipo:blq.tipo,diaTodo:blq.tipo==='dia',motivo:blq.motivo};S.bloqueios.push(b);
+     const afet=S.ag.filter(x=>x.data===b.data&&x.status==='agendado'&&(b.prof==='todos'||x.prof===b.prof)&&paraMin(x.hora)<fim&&ini<paraMin(x.hora)+sv(x.serv).min);
+     afet.forEach(x=>x.conflito=b.id);fechar();desenhar();
+     if(afet.length)janela('<h3>Bloqueado. '+afet.length+(afet.length===1?' cliente estava marcada':' clientes estavam marcadas')+'</h3><p class="suave" style="font-size:13.5px">Avise cada uma: o horário é desmarcado e a mensagem sai pronta no WhatsApp. Elas também ficam na tela Hoje até você avisar.</p>'+
+       afet.map(x=>'<div class="cli"><span class="av">'+esc(iniciais(cl(x.cli).nome))+'</span><div class="q"><b>'+esc(cl(x.cli).nome)+'</b><small>'+x.hora+' · '+esc(sv(x.serv).nome)+'</small></div><button class="btn peq pri" data-act="avisarConflito" data-id="'+x.id+'">Avisar</button></div>').join('')+'<button class="btn cheio" data-act="fechar">Depois</button>');
+     else aviso(descBloq(b)+' · '+rotDia(b.data).toLowerCase()+'. Ninguém estava marcada.');return}
+   case'avisarConflito':{const c=cl(a.cli),b=S.bloqueios.find(y=>y.id===a.conflito);a.status='cancelado';a.conflito=null;desenhar();
+     zap(c,'Oi, '+primeiro(c.nome)+'! Aqui é a Wylma 💜 '+(b?quandoFrase(b.data)+' '+fraseBloq(b)+', então precisei desmarcar seu horário das '+a.hora+'.':'Precisei desmarcar seu horário de '+rotDia(a.data).toLowerCase()+' às '+a.hora+'.')+' Me desculpe! Já escolhe outro horário pelo app.');return}
+   case'tirarBloqueio':S.bloqueios=S.bloqueios.filter(b=>b.id!==id);S.ag.forEach(x=>{if(x.conflito===id)x.conflito=null});aviso('Horário liberado de novo.');break;
+   case'expToggle':{const w=+el.dataset.w;EXP[w]=EXP[w]?null:(w===6?[480,960]:[540,1140]);break}
+   case'editServ':{const s=id==='novo'?{nome:'',cat:CATS[0],min:60,preco:0,apartir:false,retorno:0,ativo:true}:sv(id);
+     janela('<h3>'+(id==='novo'?'Novo serviço':'Editar serviço')+'</h3><div class="campo"><label for="esNome">Nome</label><input id="esNome" value="'+esc(s.nome)+'" placeholder="Ex.: Design de sobrancelhas"></div>'+
+       '<div class="campo"><label for="esCat">Tipo</label><select id="esCat">'+CATS.map(c=>'<option'+(c===s.cat?' selected':'')+'>'+c+'</option>').join('')+'</select></div>'+
+       '<div class="linha"><div class="campo" style="flex:1"><label for="esPreco">Preço (R$)</label><input id="esPreco" type="number" step="0.01" min="0" inputmode="decimal" value="'+s.preco+'"></div><div class="campo" style="flex:1"><label for="esMin">Duração</label><select id="esMin">'+[30,60,90,120,150,180,240].map(m=>'<option value="'+m+'"'+(m===s.min?' selected':'')+'>'+(m<60?m+' min':(m/60+'').replace('.',',')+' h')+'</option>').join('')+'</select></div></div>'+
+       '<div class="campo"><label for="esRet">Lembrar de retocar depois de (dias)</label><input id="esRet" type="number" min="0" inputmode="numeric" value="'+(s.retorno||0)+'" placeholder="0 = não lembrar"></div>'+
+       '<label class="marcar"><input type="checkbox" id="esApartir"'+(s.apartir?' checked':'')+'> Preço "a partir de" (você ajusta na hora de cobrar)</label><label class="marcar"><input type="checkbox" id="esAtivo"'+(s.ativo!==false?' checked':'')+'> Aparece para as clientes</label>'+
+       '<button class="btn pri cheio" data-act="salvarServ" data-id="'+id+'">Salvar</button><button class="btn cheio" data-act="fechar">Voltar</button>');return}
+   case'salvarServ':{const g=i=>document.getElementById(i),nome=g('esNome').value.trim();if(!nome){aviso('Dê um nome ao serviço.');return}
+     const d={nome,cat:g('esCat').value,preco:Math.max(0,parseFloat(g('esPreco').value)||0),min:+g('esMin').value,retorno:Math.max(0,parseInt(g('esRet').value)||0),apartir:g('esApartir').checked,ativo:g('esAtivo').checked};
+     if(id==='novo')SERV.push(Object.assign({id:'s'+Date.now()},d));else Object.assign(sv(id),d);fechar();aviso('Serviço salvo. Já aparece assim no app das clientes.');break}
+   case'editPac':{const p=id==='novo'?{nome:'',serv:'clareamento',sessoes:4,preco:0}:pc(id);
+     janela('<h3>'+(id==='novo'?'Novo pacote':'Editar pacote')+'</h3><div class="campo"><label for="epNome">Nome</label><input id="epNome" value="'+esc(p.nome)+'" placeholder="Ex.: Spa dos pés · 4 sessões"></div>'+
+       '<div class="campo"><label for="epServ">Serviço</label><select id="epServ">'+servAtivos().map(s=>'<option value="'+s.id+'"'+(s.id===p.serv?' selected':'')+'>'+esc(s.nome)+'</option>').join('')+'</select></div>'+
+       '<div class="linha"><div class="campo" style="flex:1"><label for="epSes">Sessões</label><input id="epSes" type="number" min="1" max="30" inputmode="numeric" value="'+p.sessoes+'"></div><div class="campo" style="flex:1"><label for="epPreco">Preço (R$)</label><input id="epPreco" type="number" step="0.01" min="0" inputmode="decimal" value="'+p.preco+'"></div></div>'+
+       '<button class="btn pri cheio" data-act="salvarPac" data-id="'+id+'">Salvar</button><button class="btn cheio" data-act="fechar">Voltar</button>');return}
+   case'salvarPac':{const g=i=>document.getElementById(i),nome=g('epNome').value.trim();if(!nome){aviso('Dê um nome ao pacote.');return}
+     const d={nome,serv:g('epServ').value,sessoes:Math.max(1,parseInt(g('epSes').value)||1),preco:Math.max(0,parseFloat(g('epPreco').value)||0)};
+     if(id==='novo')PACS.push(Object.assign({id:'p'+Date.now()},d));else Object.assign(pc(id),d);fechar();aviso('Pacote salvo.');break}
+   case'editProf':{const b=id==='novo'?{nome:'',com:40}:pf(id);
+     janela('<h3>'+(id==='novo'?'Nova profissional':'Editar profissional')+'</h3><div class="campo"><label for="ebNome">Nome</label><input id="ebNome" value="'+esc(b.nome)+'"></div><div class="campo"><label for="ebCom">Comissão (%)</label><input id="ebCom" type="number" min="0" max="100" inputmode="numeric" value="'+b.com+'"></div>'+
+       '<button class="btn pri cheio" data-act="salvarProf" data-id="'+id+'">Salvar</button><button class="btn cheio" data-act="fechar">Voltar</button>');return}
+   case'salvarProf':{const nome=document.getElementById('ebNome').value.trim(),com=Math.min(100,Math.max(0,parseInt(document.getElementById('ebCom').value)||0));if(!nome){aviso('Coloque o nome.');return}
+     if(id==='novo')PROF.push({id:'b'+Date.now(),nome,com,cor:CORES_PROF[(PROF.length-2+CORES_PROF.length)%CORES_PROF.length]});else Object.assign(pf(id),{nome,com});fechar();aviso('Profissional salva.');break}
+   default:return;
+  }
+  desenhar();
+});
+document.addEventListener('change',ev=>{const t=ev.target;
+  if(t.dataset.foto&&t.files&&t.files[0]){lerFoto(t.files[0],url=>{fin[t.dataset.foto]=url;janelaFinalizar()});return}
+  if(t.dataset.exp){const w=+t.dataset.w,p=+t.dataset.p;EXP[w][p]=+t.value;if(EXP[w][0]>=EXP[w][1]){if(p)EXP[w][0]=EXP[w][1]-PASSO;else EXP[w][1]=EXP[w][0]+PASSO;aviso('Ajustei: o fechamento precisa ser depois da abertura.')}desenhar();return}
+  if(['bqData','bqProf','bqH1','bqH2'].includes(t.id)){lerBloq();janelaBloq()}
+});
+document.addEventListener('input',ev=>{
+  if(ev.target.id==='busca'){S.busca=ev.target.value;const p=ev.target.selectionStart;desenhar();const b=document.getElementById('busca');b.focus();b.setSelectionRange(p,p)}
+  if(ev.target.id==='fValor'&&fin){fin.valor=Math.max(0,parseFloat(ev.target.value)||0);const t=fin.valor+EXTRAS.reduce((s,x)=>s+(fin.extras[x.id]||0)*x.preco,0);const tb=camada.querySelector('.total b');if(tb)tb.textContent=brl(t);const ok=camada.querySelector('[data-act="fOk"]');if(ok){ok.textContent=t>0?'Recebi '+brl(t):'Concluir';ok.disabled=t>0&&!fin.forma}}
+});
+document.addEventListener('keydown',ev=>{if(ev.key==='Escape')fechar()});
+document.getElementById('recomecar').addEventListener('click',()=>{try{localStorage.removeItem('wylma-demo1')}catch(e){}S=gerar();ligar();fechar();desenhar();window.scrollTo(0,0);aviso('Demonstração recomeçada.')});
+desenhar();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Proposta · Wylma Espaço Mulher</title>
+<meta name="description" content="O app do Wylma Espaço Mulher: agendamento, pacotes, ficha de cuidados, antes e depois e promoções. Condição especial de cliente fundadora.">
+<meta name="author" content="Weverson Silva · Torque.tec">
+<meta name="theme-color" content="#6b2f7a">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Torque.tec">
+<meta property="og:title" content="Para a Wylma · O app do seu espaço">
+<meta property="og:description" content="Agendamento, pacotes, ficha de cuidados, antes e depois e a sua promoção dentro do app. Condição especial de cliente fundadora.">
+<meta property="og:url" content="https://blast019.github.io/proposta-/wylma/proposta/">
+<meta property="og:image" content="https://blast019.github.io/proposta-/wylma/icon-512.png">
+<meta property="og:locale" content="pt_BR">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500;1,600;1,700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+<style>
+/* Layout: carta-convite em uma coluna larga (até 1040px). Capa com o celular funcionando ao lado; depois o que a cliente sente, o que muda no dia da Wylma, hoje × com o app, condição de fundadora com linha do tempo, como começa e contato. */
+:root{
+  --bg:#fbf6fa; --sup:#ffffff; --sup2:#f6edf5; --linha:#ecdcea; --tinta:#2f1a36; --suave:#836f88;
+  --ameixa:#6b2f7a; --ameixa-esc:#4d1f59; --lilas:#a46bb5; --rosa:#e7a9c8; --blush:#fcecf4; --ok:#2f8a5b; --ok-bg:#e3f4ea;
+  --cursiva:"Great Vibes","Brush Script MT",cursive;
+  --titulo:"Cormorant Garamond","Georgia",serif;
+  --corpo:"Nunito Sans","Segoe UI",system-ui,sans-serif;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;overflow-x:hidden;overflow-x:clip;background:var(--bg);color:var(--tinta);font:16.5px/1.65 var(--corpo);-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+a{color:var(--ameixa)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--lilas);outline-offset:3px}
+.pagina{max-width:1040px;margin:0 auto;padding-inline:20px;padding-block:0 64px;display:flex;flex-direction:column;gap:72px}
+h1,h2,h3{margin:0;text-wrap:balance}
+h2{font:italic 700 clamp(30px,4.4vw,42px)/1.08 var(--titulo);color:var(--ameixa-esc)}
+h3{font:italic 700 24px/1.15 var(--titulo);color:var(--ameixa-esc)}
+p{margin:0}
+.suave{color:var(--suave)}
+.rotulo{font:800 12px/1 var(--corpo);letter-spacing:.18em;text-transform:uppercase;color:var(--lilas)}
+.secao{display:flex;flex-direction:column;gap:24px}
+.secao>header{display:flex;flex-direction:column;gap:10px;max-width:64ch}
+.num{font-variant-numeric:lining-nums tabular-nums}
+
+/* Capa */
+.capa{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:center;padding-top:44px}
+.capa::before{content:"";position:absolute;inset:-40px -200px auto auto;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(231,169,200,.45),rgba(164,107,181,.12) 55%,transparent 72%);z-index:-1}
+.para{font:800 12.5px/1 var(--corpo);letter-spacing:.22em;text-transform:uppercase;color:var(--suave)}
+.wylma{display:block;font:400 clamp(72px,11vw,120px)/0.9 var(--cursiva);color:var(--ameixa);margin-top:14px}
+.espaco{display:block;font:800 13px/1 var(--corpo);letter-spacing:.5em;text-transform:uppercase;color:var(--lilas);margin:6px 0 0 8px}
+.capa .frase{font:italic 600 clamp(24px,3.2vw,32px)/1.25 var(--titulo);color:var(--ameixa-esc);margin-top:28px;max-width:22ch}
+.capa .intro{margin-top:14px;color:var(--suave);max-width:46ch}
+.selo-f{margin-top:24px;display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--ameixa),#9a4f9f);color:#fff;border-radius:16px;padding:12px 18px;box-shadow:0 12px 30px rgba(107,47,122,.25)}
+.selo-f b{font:italic 700 22px/1.1 var(--titulo)}
+.selo-f span{font-size:14px;opacity:.9}
+
+/* Celular com a demonstração funcionando */
+.celular{justify-self:center;position:relative;width:300px;max-width:100%;aspect-ratio:300/620;border-radius:46px;background:#1d1220;padding:12px;box-shadow:0 30px 60px rgba(77,31,89,.35),inset 0 0 0 2px #3a2840}
+.celular iframe{width:100%;height:100%;border:0;border-radius:36px;background:var(--bg);display:block}
+.celular-dica{text-align:center;font-size:13px;color:var(--suave);margin-top:14px}
+
+/* Quem fez */
+.carta{background:var(--sup);border:1px solid var(--linha);border-radius:24px;padding:30px;display:grid;grid-template-columns:auto 1fr;gap:22px;box-shadow:0 10px 30px rgba(107,47,122,.06)}
+.carta .av{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,var(--blush),#f1d3e6);display:grid;place-items:center;font:italic 700 26px/1 var(--titulo);color:var(--ameixa)}
+.carta p+p{margin-top:12px}
+.carta .assina{font:400 34px/1 var(--cursiva);color:var(--ameixa);margin-top:16px}
+.marcaT{font-weight:800}
+
+/* Cards com imagem */
+.mimos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.mimo{background:var(--sup);border:1px solid var(--linha);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 24px rgba(107,47,122,.06)}
+.mimo .img{aspect-ratio:16/10;overflow:hidden;background:var(--blush)}
+.mimo .img img{width:100%;height:100%;object-fit:cover;display:block}
+.mimo .img.desenho{display:grid;place-items:center;padding:20px}
+.mimo .txt{padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px}
+.mimo .txt p{color:var(--suave);font-size:15.5px}
+.bol{display:flex;gap:8px}
+.bol i{width:26px;height:26px;border-radius:50%;border:2px solid var(--rosa);display:block}
+.bol i.ok{background:linear-gradient(135deg,var(--lilas),var(--ameixa));border-color:var(--ameixa)}
+.ficha-mini{background:#fff;border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;width:min(280px,100%);box-shadow:0 8px 20px rgba(107,47,122,.12);font-size:14px}
+.ficha-mini span{display:flex;gap:8px;align-items:center}
+.ficha-mini i{width:16px;height:16px;border-radius:4px;border:2px solid var(--lilas);display:block;flex:none}
+.ficha-mini i.ok{background:var(--ameixa);border-color:var(--ameixa)}
+.tag-al{align-self:flex-start;background:#fce6ea;color:#bd3a53;font-weight:800;font-size:12px;padding:4px 9px;border-radius:99px}
+
+/* O dia da Wylma */
+.dia{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.dia div{background:var(--sup);border:1px solid var(--linha);border-radius:18px;padding:18px}
+.dia b{display:block;font:italic 700 21px/1.2 var(--titulo);color:var(--ameixa-esc);margin-bottom:6px}
+.dia span{color:var(--suave);font-size:15px}
+
+/* Hoje × com o app */
+.compara{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.compara>div{border-radius:22px;padding:22px 22px 24px}
+.compara .antes{background:var(--sup2);border:1px solid var(--linha)}
+.compara .depois{background:linear-gradient(150deg,var(--ameixa),#8d4a9c 60%,#b0679f);color:#fff}
+.compara h3{margin-bottom:12px}
+.compara .depois h3{color:#fff}
+.compara ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.compara li{position:relative;padding-left:26px;font-size:15.5px;line-height:1.45}
+.compara .antes li{color:var(--suave)}
+.compara .antes li::before{content:"";position:absolute;left:2px;top:9px;width:12px;height:2px;background:var(--suave)}
+.compara .depois li::before{content:"";position:absolute;left:0;top:4px;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.22);box-shadow:inset 0 0 0 5px rgba(255,255,255,.22),inset 0 0 0 16px #fff}
+
+/* Fundadora */
+.fundadora{background:var(--sup);border:1px solid var(--linha);border-radius:28px;padding:30px;display:flex;flex-direction:column;gap:24px;box-shadow:0 14px 40px rgba(107,47,122,.08);position:relative;overflow:hidden}
+.fundadora::after{content:"";position:absolute;right:-90px;top:-90px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(231,169,200,.35),transparent 70%)}
+.linha-tempo{display:grid;grid-template-columns:1fr 5fr 2fr;border-radius:16px;overflow:hidden;border:1px solid var(--linha)}
+.linha-tempo div{padding:14px 12px;text-align:center}
+.linha-tempo div b{display:block;font:italic 700 22px/1.1 var(--titulo);font-variant-numeric:lining-nums}
+.linha-tempo div span{font-size:12.5px;font-weight:700;letter-spacing:.04em}
+.lt1{background:var(--ok-bg);color:var(--ok)}
+.lt2{background:var(--blush);color:var(--ameixa)}
+.lt3{background:var(--sup2);color:var(--suave)}
+.planos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.plano{border:1px solid var(--linha);border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:14px;background:#fff;position:relative}
+.plano.dest{border:2px solid var(--ameixa);box-shadow:0 12px 30px rgba(107,47,122,.14)}
+.plano .selo{position:absolute;top:-13px;left:20px;background:var(--ameixa);color:#fff;font:800 11.5px/1 var(--corpo);letter-spacing:.1em;text-transform:uppercase;padding:7px 12px;border-radius:99px}
+.plano .de{color:var(--suave);font-size:14px;text-decoration:line-through}
+.preco{display:flex;align-items:baseline;gap:6px;color:var(--ameixa-esc)}
+.preco small{font:800 18px/1 var(--corpo)}
+.preco b{font:italic 700 52px/1 var(--titulo);font-variant-numeric:lining-nums}
+.preco span{color:var(--suave);font-size:15px}
+.plano ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.plano li{position:relative;padding-left:24px;font-size:15px;line-height:1.45}
+.plano li::before{content:"";position:absolute;left:0;top:5px;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--lilas),var(--ameixa))}
+.plano li.mais{font-weight:700}
+.economia{background:var(--ok-bg);color:var(--ok);border-radius:12px;padding:10px 12px;font-size:14px;font-weight:700}
+.atencao{background:var(--blush);border-left:4px solid var(--lilas);border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.5}
+
+/* Como começa / incluso */
+.passos{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;counter-reset:p}
+.passos li{counter-increment:p;background:var(--sup);border:1px solid var(--linha);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:6px}
+.passos li::before{content:counter(p);font:italic 700 18px/1 var(--titulo);color:#fff;background:linear-gradient(135deg,var(--lilas),var(--ameixa));width:34px;height:34px;border-radius:50%;display:grid;place-items:center}
+.passos b{font:italic 700 20px/1.2 var(--titulo);color:var(--ameixa-esc)}
+.passos span{font-size:14.5px;color:var(--suave)}
+.letras{font-size:13.5px;color:var(--suave);display:flex;flex-direction:column;gap:6px;max-width:80ch}
+
+/* Contato */
+.contato{background:linear-gradient(140deg,var(--ameixa-esc),var(--ameixa) 55%,#a2579f);color:#fff;border-radius:28px;padding:34px 30px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
+.contato h2{color:#fff}
+.contato p{opacity:.88;margin-top:8px}
+.contato .assina{font:400 34px/1 var(--cursiva);margin-top:10px;opacity:1}
+.fone{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.fone .n{font:italic 700 28px/1 var(--titulo);user-select:all;font-variant-numeric:lining-nums}
+.botoes{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:14px;padding:13px 18px;font:800 15px/1 var(--corpo);text-decoration:none;border:1px solid rgba(255,255,255,.35);color:#fff;background:transparent;cursor:pointer}
+.btn.zap{background:#25d366;border-color:#25d366;color:#08311a}
+.btn.pri{background:var(--ameixa);border-color:var(--ameixa);color:#fff}
+.rodape{text-align:center;font-size:13px;color:var(--suave)}
+
+@media (max-width:820px){
+  .capa{grid-template-columns:1fr;gap:30px;padding-top:30px}
+  .mimos,.compara,.planos{grid-template-columns:1fr}
+  .dia{grid-template-columns:1fr}
+  .passos{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .carta{grid-template-columns:1fr;padding:24px}
+  .contato{grid-template-columns:1fr}
+  .fone{align-items:flex-start}.botoes{justify-content:flex-start}
+  .linha-tempo{grid-template-columns:1fr;}
+  .pagina{gap:56px}
+}
+</style>
+</head>
+<body>
+<main class="pagina">
+
+  <section class="capa" aria-labelledby="t">
+    <div>
+      <span class="para">Feito para o</span>
+      <h1 id="t"><span class="wylma">Wylma</span><span class="espaco">Espaço Mulher</span></h1>
+      <p class="frase">O seu espaço, agora também no celular das suas clientes.</p>
+      <p class="intro">Elas agendam sozinhas, recebem o lembrete, acompanham os pacotes e veem o próprio antes e depois. Você cuida da agenda, das folgas e do caixa num lugar só, com a sua cara.</p>
+      <div class="selo-f"><b>Cliente fundadora</b><span>1º mês grátis + 50% por 5 meses</span></div>
+    </div>
+    <div>
+      <div class="celular"><iframe src="../" title="Demonstração do app do Wylma Espaço Mulher" loading="lazy"></iframe></div>
+      <p class="celular-dica">Pode mexer: o app está funcionando aqui dentro.<br>No topo, troque entre <b>Cliente</b> e <b>Espaço</b>. <a href="../">Abrir em tela cheia</a></p>
+    </div>
+  </section>
+
+  <section class="carta" aria-labelledby="c">
+    <span class="av" aria-hidden="true">W</span>
+    <div>
+      <span class="rotulo">Uma carta para você</span>
+      <h2 id="c" style="margin-top:8px">Oi, Wylma!</h2>
+      <p style="margin-top:12px">Você já me conhece. O que talvez não saiba é que eu crio sistemas: sou o criador da <span class="marcaT">Torque.tec</span>, uma plataforma para negócios de serviço aqui de Uberlândia.</p>
+      <p class="suave">Olhando o seu Instagram, vi o carinho que você tem com cada cliente: as progressivas, a maquiagem, o Nutri Gloss, a campanha "Liberte-se". Montei este app pensando exatamente no seu dia a dia, com as suas cores, os seus serviços e até a sua promoção do mês lá dentro.</p>
+      <p class="suave">E quero que você seja a <b style="color:var(--ameixa)">primeira cliente</b> da área de estética. Por isso preparei uma condição que eu não vou repetir.</p>
+      <p class="assina">Weverson</p>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="m">
+    <header><span class="rotulo">O que as suas clientes vão sentir</span><h2 id="m">Cuidado que continua depois que elas saem do espaço</h2></header>
+    <div class="mimos">
+      <article class="mimo"><div class="img"><img src="../promo.jpg" alt="Campanha Liberte-se do Wylma Espaço Mulher" style="object-position:center 70%"></div>
+        <div class="txt"><h3>A sua promoção dentro do app</h3><p>A campanha do mês aparece para todas as clientes. Quem agenda depilação já ganha a sessão de clareamento, sem você precisar anotar nada.</p></div></article>
+      <article class="mimo"><div class="img"><img src="../labios.jpg" alt="Antes e depois de Nutri Gloss do Wylma Espaço Mulher" style="object-position:center 30%"></div>
+        <div class="txt"><h3>O antes e depois dela, guardado</h3><p>Você tira a foto ao finalizar e ela vê o resultado no histórico. Fotos privadas, só entre vocês duas.</p></div></article>
+      <article class="mimo"><div class="img desenho"><div class="ficha-mini"><b style="font-family:var(--titulo);font-style:italic;font-size:19px;color:var(--ameixa-esc)">Ficha de cuidados</b><span><i class="ok"></i>Pele sensível</span><span><i></i>Gestante ou amamentando</span><span><i class="ok"></i>Alergia: cera de abelha</span><span class="tag-al">Aparece para você antes de começar</span></div></div>
+        <div class="txt"><h3>Ficha de cuidados</h3><p>Alergias, gestação, pele sensível. A cliente preenche em 1 minuto pelo celular, e o alerta aparece para você na agenda do dia.</p></div></article>
+      <article class="mimo"><div class="img desenho"><div style="display:flex;flex-direction:column;gap:12px;align-items:center"><b style="font-family:var(--titulo);font-style:italic;font-size:22px;color:var(--ameixa-esc)">Clareamento · 5 sessões</b><div class="bol"><i class="ok"></i><i class="ok"></i><i class="ok"></i><i></i><i></i></div><span class="suave" style="font-size:14px">3 feitas · faltam 2</span></div></div>
+        <div class="txt"><h3>Pacotes e hora de retocar</h3><p>Ela acompanha as sessões do pacote e recebe o convite na hora certa de voltar: a cera, a progressiva, o gloss.</p></div></article>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="d">
+    <header><span class="rotulo">O que muda no seu dia</span><h2 id="d">Menos mensagem, mais tempo para atender</h2></header>
+    <div class="dia">
+      <div><b>Agenda que se organiza</b><span>Cada serviço ocupa o tempo certo (a progressiva prende 3 horas), e ninguém marca em cima de ninguém.</span></div>
+      <div><b>Imprevisto resolvido</b><span>"Hoje só a partir das 12h": um toque bloqueia o horário e mostra quem avisar, com a mensagem pronta.</span></div>
+      <div><b>Clientes voltando</b><span>Lista de quem está na hora de retocar, aniversariantes do mês e quem anda sumida, com o convite pronto no WhatsApp.</span></div>
+      <div><b>Pacotes no controle</b><span>Venda, sessões usadas e o que falta fazer, sem caderninho.</span></div>
+      <div><b>Caixa do mês</b><span>Quanto entrou, por tipo de serviço, por forma de pagamento e a comissão de quem trabalha com você.</span></div>
+      <div><b>Você no comando</b><span>Preços, serviços, horários, pacotes e a promoção do mês: você mesma muda, na hora.</span></div>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="h">
+    <header><span class="rotulo">Hoje e com o app</span><h2 id="h">A diferença no dia a dia</h2></header>
+    <div class="compara">
+      <div class="antes"><h3>Hoje</h3><ul>
+        <li>Agenda no WhatsApp, um áudio de cada vez</li>
+        <li>Cliente esquece o horário e não aparece</li>
+        <li>Ninguém lembra quando é hora de retocar</li>
+        <li>Pacote anotado no caderno</li>
+        <li>Alergia lembrada de cabeça, na hora</li>
+        <li>Fotos de antes e depois perdidas na galeria</li>
+      </ul></div>
+      <div class="depois"><h3>Com o app</h3><ul>
+        <li>Ela agenda sozinha, a qualquer hora</li>
+        <li>Lembrete automático um dia e duas horas antes</li>
+        <li>Convite de retoque pronto, na hora certa</li>
+        <li>Pacote com as sessões contadas</li>
+        <li>Alerta da ficha antes de começar</li>
+        <li>Antes e depois no histórico de cada cliente</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="fundadora" aria-labelledby="f">
+    <header style="display:flex;flex-direction:column;gap:10px;max-width:62ch;position:relative;z-index:1"><span class="rotulo">Condição de cliente fundadora</span><h2 id="f">Só para a primeira cliente da estética</h2>
+      <p class="suave">Você entra junto comigo no começo, me ajuda a deixar o app do jeitinho do seu espaço, e paga metade por cinco meses.</p></header>
+    <div class="linha-tempo" role="img" aria-label="Mês 1 grátis; meses 2 a 6 com 50% de desconto; a partir do 7º mês, valor normal">
+      <div class="lt1"><b>Grátis</b><span>1º mês</span></div>
+      <div class="lt2"><b>50% de desconto</b><span>do 2º ao 6º mês</span></div>
+      <div class="lt3"><b>Valor normal</b><span>a partir do 7º mês</span></div>
+    </div>
+    <div class="planos">
+      <article class="plano" aria-labelledby="pe">
+        <div><h3 id="pe">Essencial</h3><p class="suave" style="font-size:15px">O app completo do espaço, com mensagens prontas no WhatsApp.</p></div>
+        <div><span class="de">de R$ 149,90/mês</span><div class="preco"><small>R$</small><b>74,95</b><span>/mês por 5 meses</span></div></div>
+        <ul><li>Agendamento pelo app das clientes</li><li>Agenda por profissional, folgas e imprevistos</li><li>Pacotes, ficha de cuidados e antes e depois</li><li>Promoção do mês no app</li><li>Retoques, aniversariantes e sumidas com mensagem pronta</li><li>Caixa com comissão</li></ul>
+        <div class="economia">Você economiza R$ 524,65 nos 6 primeiros meses</div>
+      </article>
+      <article class="plano dest" aria-labelledby="pc">
+        <span class="selo">Recomendado</span>
+        <div><h3 id="pc">Completo</h3><p class="suave" style="font-size:15px">Tudo do Essencial, e o app avisa sozinho.</p></div>
+        <div><span class="de">de R$ 179,90/mês</span><div class="preco"><small>R$</small><b>89,95</b><span>/mês por 5 meses</span></div></div>
+        <ul><li>Tudo o que está no Essencial</li><li class="mais">Lembrete automático no celular da cliente, 1 dia e 2 horas antes</li><li class="mais">Aviso de retoque e de pacote acabando</li><li class="mais">Aviso no seu celular quando alguém agenda, cancela ou vai atrasar</li></ul>
+        <div class="atencao"><b>Importante:</b> o aviso automático chega no celular de quem instalou o app do espaço e tocou em "Permitir avisos" (uma vez só, menos de 1 minuto). Quem não ativar continua recebendo o lembrete pelo WhatsApp, com a mensagem pronta.</div>
+        <div class="economia">Você economiza R$ 629,65 nos 6 primeiros meses</div>
+      </article>
+    </div>
+    <p class="suave" style="font-size:14.5px;position:relative;z-index:1">Nos dois planos: cadastro inicial feito por mim, treinamento, suporte pelo WhatsApp e atualizações. Cobrança pelo espaço, não por profissional. Sem fidelidade: dá pra trocar de plano ou cancelar quando quiser.</p>
+  </section>
+
+  <section class="secao" aria-labelledby="co">
+    <header><span class="rotulo">Como começa</span><h2 id="co">Em poucos dias, sem trabalho para você</h2></header>
+    <ol class="passos">
+      <li><b>Você aceita</b><span>Me responde no WhatsApp e a gente combina tudo.</span></li>
+      <li><b>Eu preparo</b><span>Cadastro seus serviços, preços, horários, pacotes e a promoção do mês.</span></li>
+      <li><b>Te mostro</b><span>Em poucos minutos você aprende a agenda, a ficha e o caixa.</span></li>
+      <li><b>1º mês grátis</b><span>Você usa no dia a dia. Só depois começa a condição de fundadora.</span></li>
+    </ol>
+    <div class="letras">
+      <p>Funciona no navegador do celular e do computador, e instala na tela inicial como um aplicativo, com o ícone do espaço.</p>
+      <p>Os dados são do espaço, com acesso só seu e de quem trabalha com você. As fotos de antes e depois são privadas. O envio automático direto pelo WhatsApp exige a API paga do WhatsApp e não está incluso; por isso as mensagens saem prontas e você só toca em enviar.</p>
+    </div>
+  </section>
+
+  <section class="contato" aria-labelledby="z">
+    <div>
+      <h2 id="z">Vamos fazer o seu espaço brilhar também no celular?</h2>
+      <p>Me chama no WhatsApp. Eu preparo tudo com carinho e você começa o mês grátis.</p>
+      <p class="assina">Weverson · Torque.tec</p>
+    </div>
+    <div class="fone">
+      <span class="n" id="numero">(34) 99884-3340</span>
+      <div class="botoes">
+        <a class="btn zap" href="https://api.whatsapp.com/send?phone=5534998843340&amp;text=Oi%2C%20Weverson!%20Vi%20a%20proposta%20do%20app%20do%20Wylma%20Espa%C3%A7o%20Mulher%20e%20quero%20ser%20a%20cliente%20fundadora%20%F0%9F%92%9C" target="_blank" rel="noopener">Quero ser a fundadora</a>
+        <button class="btn" type="button" id="copiar">Copiar número</button>
+      </div>
+    </div>
+  </section>
+
+  <p class="rodape">Torque.tec · sistemas para negócios de serviço · Uberlândia</p>
+</main>
+<script>
+document.getElementById('copiar').addEventListener('click', function(){
+  var b = this;
+  var ok = function(){ b.textContent = 'Número copiado'; setTimeout(function(){ b.textContent = 'Copiar número'; }, 2000); };
+  var selecionar = function(){ var r = document.createRange(); r.selectNodeContents(document.getElementById('numero')); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Selecionado: copie'; };
+  try { navigator.clipboard.writeText('34998843340').then(ok, selecionar); } catch (e) { selecionar(); }
+});
+</script>
+</body>
+</html>
