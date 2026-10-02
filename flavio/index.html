@@ -29,7 +29,7 @@
 :root{
   --bg:#0a0a0b; --sup:#141416; --sup2:#1c1c1f; --linha:#2d2d32;
   --creme:#eeeef0; --suave:#9b9ba3; --acento:#d3d6dc; --acento-esc:#80848c; --verde:#4aa36a; --verde-bg:#16291c;
-  --ambar:#e7ad41; --ambar-bg:#33270f; --azul:#6fa8dc;
+  --ambar:#e7ad41; --ambar-bg:#1d1f24; --azul:#6fa8dc;
   --marca:"Cinzel","Trajan Pro","Times New Roman",serif;
   --corpo:"Archivo","Segoe UI",system-ui,sans-serif;
   --estreita:"Archivo Narrow","Arial Narrow","Segoe UI",sans-serif;
@@ -128,8 +128,8 @@ p{margin:0}
 .kpi{background:var(--sup);border:1px solid var(--linha);border-radius:12px;padding:12px 10px}
 .kpi small{display:block;font:600 11px/1.2 var(--estreita);letter-spacing:.1em;text-transform:uppercase;color:var(--suave)}
 .kpi b{display:block;font:800 21px/1.15 var(--corpo);font-variant-numeric:tabular-nums;margin-top:6px}
-.aviso{display:flex;gap:10px;align-items:flex-start;background:var(--ambar-bg);border-radius:12px;padding:11px 12px;color:var(--creme);font-size:14px}
-.aviso .x{margin-left:auto;background:none;border:0;color:var(--ambar);font-weight:700;font-size:13px}
+.aviso{display:flex;gap:10px;align-items:flex-start;background:var(--ambar-bg);border:1px solid #33363d;border-left:3px solid var(--acento);border-radius:12px;padding:11px 12px;color:var(--creme);font-size:14px}
+.aviso .x{margin-left:auto;background:none;border:0;color:var(--acento);font-weight:700;font-size:13px}
 .fila{display:flex;flex-direction:column;gap:8px}
 .at{display:grid;grid-template-columns:54px 1fr;gap:12px;background:var(--sup);border:1px solid var(--linha);border-radius:12px;padding:12px}
 .at.feito{opacity:.62}
