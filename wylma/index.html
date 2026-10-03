@@ -206,6 +206,10 @@ p{margin:0}
 .rodape{font-size:12px;color:var(--suave);text-align:center;padding:4px 16px 14px}
 .rodape button{background:none;border:0;color:var(--suave);text-decoration:underline;font-size:12px}
 .kpi b,.at .h,.prox .quando,.total b,.dia b{font-variant-numeric:lining-nums tabular-nums}
+.pe-modal{position:sticky;bottom:calc(-18px - env(safe-area-inset-bottom,0px));margin:0 -16px calc(-18px - env(safe-area-inset-bottom,0px));padding:4px 16px calc(14px + env(safe-area-inset-bottom,0px));background:var(--sup);display:flex;flex-direction:column;gap:10px;box-shadow:0 -10px 24px rgba(107,47,122,.10);z-index:2}
+.pe-modal .total{padding-top:10px}
+.campo label.sobe{font:800 13px/1.3 var(--corpo);letter-spacing:0;text-transform:none;color:var(--ameixa)}
+.campo label.sobe span{text-transform:none;letter-spacing:0}
 .vazio{text-align:center;color:var(--suave);padding:20px 10px;border:1px dashed var(--linha);border-radius:14px}
 @media (prefers-reduced-motion:no-preference){.st.atendendo{animation:pulsa 1.6s ease-in-out infinite}}
 @keyframes pulsa{50%{opacity:.65}}
@@ -677,7 +681,9 @@ function dAjustes(){
 }
 
 /* ---------- janelas ---------- */
-function janela(html){camada.innerHTML='<div class="fundo-modal" data-act="fechar"><div class="modal" role="dialog" aria-modal="true">'+html+'</div></div>'}
+function janela(html,tela){const m=camada.querySelector('.modal'),topo=m&&tela&&m.dataset.tela===tela?m.scrollTop:0;
+  camada.innerHTML='<div class="fundo-modal" data-act="fechar"><div class="modal" role="dialog" aria-modal="true" data-tela="'+(tela||'')+'">'+html+'</div></div>';
+  if(topo)camada.querySelector('.modal').scrollTop=topo}
 function fechar(){camada.innerHTML=''}
 function aviso(t){document.querySelectorAll('.toast').forEach(e=>e.remove());const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),3000)}
 function zap(c,txt,para){janela('<h3>Mensagem para '+esc(para||primeiro(c.nome))+'</h3><p class="suave" style="font-size:13.5px">No app de verdade, este botão abre o WhatsApp '+(c?'de '+esc(c.fone):'do espaço')+' com a mensagem pronta. É só tocar em enviar.</p><div class="zap"><div class="bal">'+esc(txt)+'</div></div><button class="btn cheio" data-act="fechar">Fechar</button>')}
@@ -714,7 +720,7 @@ function janelaComecar(){const a=S.ag.find(x=>x.id===ini.id),c=cl(a.cli),al=aler
   janela('<h3>Começar · '+esc(primeiro(c.nome))+'</h3><p class="suave">'+esc(sv(a.serv).nome)+' com '+esc(pf(a.prof).nome)+'</p>'+
     (al.length?'<div class="acoes">'+al.map(x=>'<span class="st alerta">'+esc(x)+'</span>').join('')+'</div>':'')+
     '<div class="campo"><label>Foto do antes (opcional)</label><div class="fotos">'+slotFoto(ini,'antes','Antes')+'<p class="suave" style="font-size:13px;align-self:center">A foto do depois é pedida ao finalizar. As fotos ficam privadas.'+(c.divulga?' Esta cliente autoriza divulgação.':'')+'</p></div></div>'+
-    '<button class="btn pri cheio" data-act="comecarOk">'+(ini.antes?'Começar atendimento':'Começar sem foto')+'</button><button class="btn cheio" data-act="fechar">Voltar</button>')}
+    '<button class="btn pri cheio" data-act="comecarOk">'+(ini.antes?'Começar atendimento':'Começar sem foto')+'</button><button class="btn cheio" data-act="fechar">Voltar</button>','ini')}
 function janelaFinalizar(){
   const a=S.ag.find(x=>x.id===fin.id),c=cl(a.cli),s=sv(a.serv),k=a.pacote?c.pacotes.find(x=>x.id===a.pacote):pacoteDoServ(c,s.id);
   const base=fin.usaPac?0:fin.valor,ext=EXTRAS.reduce((t,x)=>t+(fin.extras[x.id]||0)*x.preco,0),cred=fin.usaCred?Math.min(c.credito,base+ext):0,tot=base+ext-cred;
@@ -726,8 +732,8 @@ function janelaFinalizar(){
     '<div class="campo"><label for="fRet">Próximo retorno desta cliente (dias)</label><input id="fRet" type="number" min="0" inputmode="numeric" value="'+fin.retorno+'"><span class="suave" style="font-size:12.5px">'+(s.cuidados?'Ela recebe os cuidados do serviço no app e um lembrete perto do retorno. ':'')+'0 = sem retorno.</span></div>'+
     '<div class="campo"><label>Vendeu algum produto?</label>'+EXTRAS.map(x=>'<div class="linha"><span>'+x.nome+' <span class="suave">'+brl(x.preco)+'</span></span><span class="qtd"><button data-act="fExtra" data-id="'+x.id+'" data-d="-1" aria-label="Menos">−</button><b class="num">'+(fin.extras[x.id]||0)+'</b><button data-act="fExtra" data-id="'+x.id+'" data-d="1" aria-label="Mais">+</button></span></div>').join('')+'</div>'+
     (tot>0?'<div class="campo"><label>Forma de pagamento</label><div class="chips">'+['Pix','Dinheiro','Débito','Crédito'].map(f=>'<button class="chip" aria-pressed="'+(fin.forma===f)+'" data-act="fForma" data-id="'+f+'">'+f+'</button>').join('')+'</div></div>':'')+
-    '<div class="total"><span class="suave">Total'+(cred?' (com crédito)':'')+'</span><b>'+brl(tot)+'</b></div>'+
-    '<button class="btn ok cheio" data-act="fOk"'+(tot>0&&!fin.forma?' disabled':'')+'>'+(tot>0?'Recebi '+brl(tot):'Concluir')+'</button>');
+    '<div class="pe-modal"><div class="total"><span class="suave">Total'+(cred?' (com crédito)':'')+'</span><b>'+brl(tot)+'</b></div>'+
+    '<button class="btn ok cheio" data-act="fOk"'+(tot>0&&!fin.forma?' disabled':'')+'>'+(tot>0?(fin.forma?'Recebi '+brl(tot):'Escolha a forma de pagamento'):'Concluir')+'</button></div>','fin');
 }
 /* foto do celular: reduz para no máximo 640 px antes de guardar */
 function lerFoto(arquivo,cb){const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=()=>{const m=640,k=Math.min(1,m/Math.max(img.width,img.height)),cv=document.createElement('canvas');cv.width=Math.round(img.width*k);cv.height=Math.round(img.height*k);cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height);cb(cv.toDataURL('image/jpeg',0.8))};img.onerror=()=>aviso('Não deu para abrir essa imagem.');img.src=r.result};r.readAsDataURL(arquivo)}
@@ -798,7 +804,7 @@ function janelaBloq(){
     (T==='ate'?'<div class="campo"><label for="bqH1">Atendo até as</label><select id="bqH1">'+opHoras(blq.h1,e[0]+PASSO,e[1]-PASSO)+'</select></div>':'')+
     (T==='faixa'?'<div class="duo"><div class="campo"><label for="bqH1">De</label><select id="bqH1">'+opHoras(blq.h1,e[0],e[1]-PASSO)+'</select></div><div class="campo"><label for="bqH2">Até</label><select id="bqH2">'+opHoras(blq.h2,e[0]+PASSO,e[1])+'</select></div></div>':'')+
     '<div class="campo"><label>Motivo (só você vê)</label><div class="chips quebra">'+['Imprevisto','Médico','Folga','Feriado','Curso'].map(m=>'<button class="chip" aria-pressed="'+(blq.motivo===m)+'" data-act="bqMotivo" data-id="'+m+'">'+m+'</button>').join('')+'</div></div>'+
-    '<button class="btn pri cheio" data-act="bqOk">Bloquear</button><button class="btn cheio" data-act="fechar">Voltar</button>');
+    '<button class="btn pri cheio" data-act="bqOk">Bloquear</button><button class="btn cheio" data-act="fechar">Voltar</button>','bloq');
 }
 function lerBloq(){const g=id=>document.getElementById(id);if(!blq)return;if(g('bqData'))blq.data=g('bqData').value;if(g('bqProf'))blq.prof=g('bqProf').value;if(g('bqH1'))blq.h1=+g('bqH1').value;if(g('bqH2'))blq.h2=+g('bqH2').value}
 const fraseBloq=b=>({dia:'não vou abrir',apos:'só vou atender a partir das '+paraHora(b.fim),ate:'só vou atender até as '+paraHora(b.ini),faixa:'não vou atender das '+paraHora(b.ini)+' às '+paraHora(b.fim)}[b.tipo]);
@@ -812,7 +818,7 @@ function janelaCamp(){const c=campEd;
     '<div class="campo"><label for="cpCat">Botão "Agendar" leva para</label><select id="cpCat"><option value="">Agenda geral</option>'+CATS.map(x=>'<option'+(x===c.cat?' selected':'')+'>'+x+'</option>').join('')+'</select></div>'+
     '<div class="campo"><label for="cpBr">Brinde automático para quem agendar</label><select id="cpBr"><option value="">Sem brinde</option>'+servAtivos().map(s=>'<option value="'+s.id+'"'+(s.id===c.brinde?' selected':'')+'>1 sessão de '+esc(s.nome)+'</option>').join('')+'</select></div>'+
     '<label class="marcar"><input type="checkbox" id="cpAtiva"'+(c.ativa?' checked':'')+'> Mostrar no app das clientes agora (pausa as outras)</label>'+
-    '<button class="btn pri cheio" data-act="salvarCamp">Salvar campanha</button><button class="btn cheio" data-act="fechar">Voltar</button>')}
+    '<button class="btn pri cheio" data-act="salvarCamp">Salvar campanha</button><button class="btn cheio" data-act="fechar">Voltar</button>','camp')}
 function lerCamp(){const g=i=>document.getElementById(i);if(!g('cpTit'))return;campEd.titulo=g('cpTit').value;campEd.texto=g('cpTxt').value;campEd.cat=g('cpCat').value;campEd.brinde=g('cpBr').value;campEd.ativa=g('cpAtiva').checked}
 
 /* ---------- ações ---------- */
@@ -873,7 +879,7 @@ document.addEventListener('click',ev=>{
    case'fCred':lerFin();fin.usaCred=!fin.usaCred;janelaFinalizar();return;
    case'tirarFoto':if(campEd&&id==='camp'){campEd.img=null;janelaCamp();return}if(ini&&!fin){ini[id]=null;janelaComecar();return}lerFin();fin[id]=null;janelaFinalizar();return;
    case'fExtra':lerFin();fin.extras[id]=Math.max(0,(fin.extras[id]||0)+(+el.dataset.d));janelaFinalizar();return;
-   case'fForma':lerFin();fin.forma=id;janelaFinalizar();return;
+   case'fForma':{fin.forma=id;camada.querySelectorAll('[data-act=fForma]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===id));const ok=camada.querySelector('[data-act=fOk]'),tb=camada.querySelector('.total b');if(ok){ok.disabled=false;ok.textContent='Recebi '+(tb?tb.textContent:'')}return}
    case'fOk':{lerFin();const x=S.ag.find(y=>y.id===fin.id),c=cl(x.cli),s=sv(x.serv);
      const k=fin.usaPac?(x.pacote?c.pacotes.find(y=>y.id===x.pacote):pacoteDoServ(c,s.id)):null;
      const base=k?0:fin.valor,ext=EXTRAS.reduce((t,e)=>t+(fin.extras[e.id]||0)*e.preco,0),cred=fin.usaCred?Math.min(c.credito,base+ext):0;
@@ -986,7 +992,7 @@ document.addEventListener('change',ev=>{const t=ev.target;
 document.addEventListener('input',ev=>{
   if(ev.target.id==='busca'){S.busca=ev.target.value;const p=ev.target.selectionStart;desenhar();const b=document.getElementById('busca');b.focus();b.setSelectionRange(p,p)}
   if(ev.target.id==='fValor'&&fin){lerFin();const c=cl(S.ag.find(x=>x.id===fin.id).cli),base=fin.usaPac?0:fin.valor,t0=base+EXTRAS.reduce((s,x)=>s+(fin.extras[x.id]||0)*x.preco,0),t=t0-(fin.usaCred?Math.min(c.credito,t0):0);
-    const tb=camada.querySelector('.total b');if(tb)tb.textContent=brl(t);const ok=camada.querySelector('[data-act="fOk"]');if(ok){ok.textContent=t>0?'Recebi '+brl(t):'Concluir';ok.disabled=t>0&&!fin.forma}}
+    const tb=camada.querySelector('.total b');if(tb)tb.textContent=brl(t);const ok=camada.querySelector('[data-act="fOk"]');if(ok){ok.textContent=t>0?(fin.forma?'Recebi '+brl(t):'Escolha a forma de pagamento'):'Concluir';ok.disabled=t>0&&!fin.forma}}
 });
 document.addEventListener('keydown',ev=>{if(ev.key==='Escape')fechar()});
 document.getElementById('recomecar').addEventListener('click',()=>{try{localStorage.removeItem('wylma-demo2')}catch(e){}S=gerar();ligar();fechar();desenhar();window.scrollTo(0,0);aviso('Demonstração recomeçada.')});
