@@ -216,6 +216,7 @@ p{margin:0}
 .camp-topo .tag{align-self:flex-start;font:800 10.5px/1 var(--corpo);letter-spacing:.14em;text-transform:uppercase;color:var(--ameixa);background:#fff;padding:5px 8px;border-radius:99px}
 .camp-topo b{font:italic 700 22px/1.1 var(--titulo);color:var(--ameixa-esc)}
 .camp-topo p{font-size:14px;line-height:1.4}
+[hidden]{display:none!important}
 .vazio{text-align:center;color:var(--suave);padding:20px 10px;border:1px dashed var(--linha);border-radius:14px}
 @media (prefers-reduced-motion:no-preference){.st.atendendo{animation:pulsa 1.6s ease-in-out infinite}}
 @keyframes pulsa{50%{opacity:.65}}
@@ -345,7 +346,7 @@ const DEF_PAC=[
 ];
 const EXTRAS=[{id:'kit',nome:'Kit home care',preco:89},{id:'labial',nome:'Hidratante labial',preco:35}];
 const DEF_EXP=[null,[540,1140],[540,1140],[540,1140],[540,1140],[540,1140],[480,960]];
-const DEF_CAMP=[{id:'cp1',titulo:'Liberte-se',texto:'Agende sua depilação com cera e ganhe uma sessão de clareamento das axilas ou íntima.',img:'@promo',cat:'Depilação',brinde:'clareamento',ativa:true,criada:null}];
+const DEF_CAMP=[{id:'cp1',titulo:'Liberte-se',texto:'Agende sua depilação com cera e ganhe uma sessão de clareamento das axilas ou íntima.',img:'@promo',cat:'Depilação',brindeTipo:'sessao',brinde:'clareamento',regra:'tipo',ativa:true,criada:null}];
 const DEF_INDIC={ativo:true,tipo:'credito',valor:20,serv:'hidratacao',limiteMes:3};
 const PASSO=30, INSTAGRAM='@wylmaespacomulher';
 let SERV,PROF,PACS,EXP,CAMP,INDIC;
@@ -356,7 +357,13 @@ const pc=id=>PACS.find(p=>p.id===id);
 const servAtivos=()=>SERV.filter(s=>s.ativo!==false);
 /* várias campanhas podem ficar no ar juntas; a de brinde vale para o tipo de serviço dela */
 const campanhasAtivas=()=>CAMP.filter(c=>c.ativa);
-const campanhaBrinde=cat=>CAMP.find(c=>c.ativa&&c.brinde&&c.cat===cat);
+/* brinde da campanha: 1 sessão de um serviço, desconto em % no procedimento agendado ou produto de presente.
+   Vale para qualquer procedimento do tipo da campanha, ou só para o serviço em destaque (regra 'servico'). */
+const tipoBrinde=c=>c.brindeTipo||(c.brinde?'sessao':'');
+const temBrinde=c=>{const t=tipoBrinde(c);return t==='sessao'?!!(c.brinde&&sv(c.brinde)):t==='desconto'?c.pct>0:t==='produto'?!!EXTRAS.find(x=>x.id===c.prod):false};
+function textoBrinde(c){const t=tipoBrinde(c);return t==='sessao'?'1 sessão de '+sv(c.brinde).nome.toLowerCase():t==='desconto'?c.pct+'% de desconto no procedimento':t==='produto'?EXTRAS.find(x=>x.id===c.prod).nome.toLowerCase()+' de presente':''}
+const alvoBrinde=c=>c.regra==='servico'&&c.serv&&sv(c.serv)?sv(c.serv).nome.toLowerCase():(c.cat||'').toLowerCase();
+const campanhasDoServ=s=>CAMP.filter(c=>c.ativa&&temBrinde(c)&&c.cat===s.cat&&(c.regra!=='servico'||c.serv===s.id));
 const imgSrc=f=>f==='@labios'?IMG_LABIOS:f==='@promo'?IMG_PROMO:f;
 const textoBeneficio=()=>INDIC.tipo==='credito'?brl0(INDIC.valor)+' de crédito':'1 sessão de '+sv(INDIC.serv).nome.toLowerCase();
 
@@ -542,9 +549,9 @@ function cAgendar(){
   const veio=F.camp&&CAMP.find(c=>c.id===F.camp&&c.ativa);
   if(F.serv&&!F.data)F.data=diasAbertos().find(d=>horasLivres(d,F.serv,F.prof,F.remarca).length);
   let h='<section class="bloco"><h1>'+(F.remarca?'Remarcar horário':'Agendar')+'</h1>'+(F.remarca?'<p class="suave">Escolha o novo dia e horário. O antigo é liberado quando você confirmar.</p>':'')+'</section>';
-  if(veio)h+='<section class="camp-topo"><img src="'+imgSrc(veio.img)+'" alt=""><div><span class="tag">Campanha</span><b>'+esc(veio.titulo)+'</b><p>'+esc(veio.texto)+'</p>'+(veio.brinde?'<p class="brinde">Agendando, você ganha 1 sessão de '+esc(sv(veio.brinde).nome.toLowerCase())+'.</p>':'')+'</div></section>';
+  if(veio)h+='<section class="camp-topo"><img src="'+imgSrc(veio.img)+'" alt=""><div><span class="tag">Campanha</span><b>'+esc(veio.titulo)+'</b><p>'+esc(veio.texto)+'</p>'+(temBrinde(veio)?'<p class="brinde">Agendando '+esc(alvoBrinde(veio))+', você ganha '+esc(textoBrinde(veio))+'.</p>':'')+'</div></section>';
   h+='<section class="bloco"><h2>1 · O que você quer fazer</h2><div class="chips">'+CATS.map(c=>'<button class="chip" aria-pressed="'+(F.cat===c)+'" data-act="fCat" data-id="'+c+'">'+c+'</button>').join('')+'</div>'+
-    campanhasAtivas().filter(c=>c.cat===F.cat&&c.id!==F.camp).map(c=>'<p class="aviso" style="border-left-color:'+(c.brinde?'var(--ok)':'var(--lilas)')+'"><span><b class="'+(c.brinde?'brinde':'')+'">'+esc(c.titulo)+':</b> '+(c.brinde?'agendando '+c.cat.toLowerCase()+' você ganha uma sessão de '+esc(sv(c.brinde).nome.toLowerCase())+'.':esc(c.texto))+'</span></p>').join('')+
+    campanhasAtivas().filter(c=>c.cat===F.cat&&c.id!==F.camp).map(c=>'<p class="aviso" style="border-left-color:'+(temBrinde(c)?'var(--ok)':'var(--lilas)')+'"><span><b class="'+(temBrinde(c)?'brinde':'')+'">'+esc(c.titulo)+':</b> '+(temBrinde(c)?'agendando '+esc(alvoBrinde(c))+' você ganha '+esc(textoBrinde(c))+'.':esc(c.texto))+'</span></p>').join('')+
     '<div class="lista">'+servAtivos().filter(s=>s.cat===F.cat).map(s=>opServ(s,'fServ',F.serv)).join('')+'</div></section>';
   if(F.serv){
     h+='<section class="bloco"><h2>2 · Com quem</h2><div class="chips">'+[['qualquer','Tanto faz']].concat(PROF.map(b=>[b.id,b.nome])).map(([id,n])=>'<button class="chip" aria-pressed="'+(F.prof===id)+'" data-act="fProf" data-id="'+id+'">'+esc(n)+'</button>').join('')+'</div></section>';
@@ -552,8 +559,8 @@ function cAgendar(){
     const hs=F.data?horasLivres(F.data,F.serv,F.prof,F.remarca):[];
     h+='<section class="bloco"><h2>4 · Horário</h2>'+(hs.length?'<div class="horas">'+hs.map(x=>'<button class="hora" aria-pressed="'+(F.hora===x.h)+'" data-act="fHora" data-id="'+x.h+'" data-p="'+x.p+'">'+x.h+'</button>').join('')+'</div>':'<p class="vazio">Sem horário livre neste dia. Tente outro dia ou outra profissional.</p>')+'</section>';
   }
-  if(F.serv&&F.hora){const s=sv(F.serv),eu=cl(S.eu),k=pacoteDoServ(eu,s.id),camp=campanhaBrinde(s.cat),br=camp&&!F.remarca;
-    h+='<div class="resumo"><p><b>'+esc(s.nome)+'</b> com '+esc(pf(F.profEsc).nome)+'<br>'+rotDia(F.data)+' às '+F.hora+' · '+(k?'<b>do seu pacote</b>':brl(s.preco)+(s.apartir?' (a partir de)':''))+(br?'<br><span class="brinde">+ 1 sessão de '+esc(sv(camp.brinde).nome.toLowerCase())+' de brinde</span>':'')+'</p><button class="btn pri" data-act="confirmar">Confirmar</button></div>';}
+  if(F.serv&&F.hora){const s=sv(F.serv),eu=cl(S.eu),k=pacoteDoServ(eu,s.id),cps=F.remarca?[]:campanhasDoServ(s).filter(c=>!(eu.campanhas||[]).includes(c.id));
+    h+='<div class="resumo"><p><b>'+esc(s.nome)+'</b> com '+esc(pf(F.profEsc).nome)+'<br>'+rotDia(F.data)+' às '+F.hora+' · '+(k?'<b>do seu pacote</b>':brl(s.preco)+(s.apartir?' (a partir de)':''))+cps.map(c=>'<br><span class="brinde">+ '+esc(textoBrinde(c))+' ('+esc(c.titulo)+')</span>').join('')+'</p><button class="btn pri" data-act="confirmar">Confirmar</button></div>';}
   return h;
 }
 function cHorarios(){
@@ -593,7 +600,7 @@ function dHoje(){
     else if(a.status==='chegou')bt='<button class="btn peq pri" data-act="comecar" data-id="'+a.id+'">Começar atendimento</button>';
     else if(a.status==='atendendo')bt='<button class="btn peq ok" data-act="finalizar" data-id="'+a.id+'">Finalizar e cobrar</button>';
     return'<div class="at'+(['pago','faltou','cancelado'].includes(a.status)?' feito':'')+'"><div class="h">'+a.hora+'<small>'+sv(a.serv).min+' min</small></div><div class="q"><div class="linha"><b>'+esc(c.nome)+'</b>'+st(a.status)+'</div>'+
-      '<div class="meta"><span>'+esc(sv(a.serv).nome)+'</span>'+profTag(a.prof)+(a.pacote?'<span class="st pac">Pacote</span>':'')+(c.indicadaPor&&!S.ag.some(x=>x.cli===c.id&&x.status==='pago'&&x.id!==a.id)?'<span class="st pac">1ª vez · indicação</span>':'')+(a.atraso&&a.status==='agendado'?'<span class="st atraso">+'+a.atraso+' min</span>':'')+(a.status==='pago'?'<span>'+(a.forma==='Pacote'?'':brl(totalAg(a))+' · ')+a.forma+'</span>':'')+(a.status==='atendendo'&&a.fotos&&a.fotos.antes?'<span class="st ok-f">foto do antes</span>':'')+'</div>'+
+      '<div class="meta"><span>'+esc(sv(a.serv).nome)+'</span>'+profTag(a.prof)+(a.pacote?'<span class="st pac">Pacote</span>':'')+(a.campDesc&&a.status!=='pago'?'<span class="st pac">−'+a.campDesc.pct+'% campanha</span>':'')+(a.campProd&&a.status!=='pago'?'<span class="st pac">Presente da campanha</span>':'')+(c.indicadaPor&&!S.ag.some(x=>x.cli===c.id&&x.status==='pago'&&x.id!==a.id)?'<span class="st pac">1ª vez · indicação</span>':'')+(a.atraso&&a.status==='agendado'?'<span class="st atraso">+'+a.atraso+' min</span>':'')+(a.status==='pago'?'<span>'+(a.forma==='Pacote'?'':brl(totalAg(a))+' · ')+a.forma+'</span>':'')+(a.status==='atendendo'&&a.fotos&&a.fotos.antes?'<span class="st ok-f">foto do antes</span>':'')+'</div>'+
       (al.length&&a.status!=='pago'?'<div class="meta">'+al.map(x=>'<span class="st alerta">'+esc(x)+'</span>').join('')+'</div>':'')+(bt?'<div class="acoes">'+bt+'</div>':'')+'</div></div>'}).join('')||'<p class="vazio">Ninguém marcado.</p>';
   return h+'</div></section>';
 }
@@ -643,7 +650,7 @@ function dDivulgar(){
   const trab=trabalhosAutorizados(),custo=S.indicLog.reduce((s,x)=>s+x.custo,0);
   let h='<section class="bloco"><h1>Divulgar</h1><p class="suave">Campanhas no app, posts prontos com os seus trabalhos e o resultado das indicações.</p></section>';
   h+='<section class="bloco"><div class="linha"><h2>Campanhas</h2><button class="btn peq pri" data-act="editCamp" data-id="nova">Nova campanha</button></div>'+
-    CAMP.map(c=>'<div class="camp"><img src="'+imgSrc(c.img)+'" alt=""><div class="q"><b>'+esc(c.titulo)+'</b><small>'+(c.ativa?'<span class="st pago">No app</span>':'<span class="st agendado">Pausada</span>')+(c.cat?' '+c.cat:'')+(c.brinde?' · brinde: '+esc(sv(c.brinde).nome.toLowerCase()):'')+'</small><div class="acoes"><button class="btn peq" data-act="arteCamp" data-id="'+c.id+'">Criar arte</button><button class="btn peq" data-act="editCamp" data-id="'+c.id+'">Editar</button><button class="btn peq" data-act="pausarCamp" data-id="'+c.id+'">'+(c.ativa?'Pausar':'Ativar')+'</button></div></div></div>').join('')+'</section>';
+    CAMP.map(c=>'<div class="camp"><img src="'+imgSrc(c.img)+'" alt=""><div class="q"><b>'+esc(c.titulo)+'</b><small>'+(c.ativa?'<span class="st pago">No app</span>':'<span class="st agendado">Pausada</span>')+(c.cat?' '+c.cat:'')+(temBrinde(c)?' · brinde: '+esc(textoBrinde(c))+(c.regra==='servico'&&c.serv&&sv(c.serv)?' (só '+esc(sv(c.serv).nome)+')':''):'')+'</small><div class="acoes"><button class="btn peq" data-act="arteCamp" data-id="'+c.id+'">Criar arte</button><button class="btn peq" data-act="editCamp" data-id="'+c.id+'">Editar</button><button class="btn peq" data-act="pausarCamp" data-id="'+c.id+'">'+(c.ativa?'Pausar':'Ativar')+'</button></div></div></div>').join('')+'</section>';
   h+='<section class="bloco"><h2>Trabalhos autorizados para divulgar</h2><p class="suave" style="font-size:13.5px">Só aparecem fotos de clientes que autorizaram a divulgação na ficha. As demais ficam guardadas em sigilo.</p>'+
     (trab.length?'<div class="trabalhos">'+trab.map(a=>'<div class="trab"><img src="'+imgSrc(a.fotos.combo||a.fotos.depois)+'" alt="Trabalho: '+esc(sv(a.serv).nome)+'"><b>'+esc(sv(a.serv).nome)+'</b><small>'+dataCurta(a.data)+' · '+esc(primeiro(cl(a.cli).nome))+'</small><button class="btn peq pri" data-act="preparaPost" data-id="'+a.id+'">Preparar post</button></div>').join('')+'</div>':'<p class="vazio">Nenhum trabalho autorizado ainda. Ao finalizar, marque "pode divulgar" quando a cliente autorizar.</p>')+'</section>';
   h+='<section class="cartao bloco"><div class="linha"><h2>Indicações</h2><button class="btn peq" data-act="irClientes" data-id="indicacao">Ver clientes</button></div>'+
@@ -735,12 +742,12 @@ function janelaFinalizar(){
   const a=S.ag.find(x=>x.id===fin.id),c=cl(a.cli),s=sv(a.serv),k=a.pacote?c.pacotes.find(x=>x.id===a.pacote):pacoteDoServ(c,s.id);
   const base=fin.usaPac?0:fin.valor,ext=EXTRAS.reduce((t,x)=>t+(fin.extras[x.id]||0)*x.preco,0),cred=fin.usaCred?Math.min(c.credito,base+ext):0,tot=base+ext-cred;
   janela('<h3>Finalizar · '+esc(primeiro(c.nome))+'</h3>'+
-    '<div class="campo"><label for="fValor">'+esc(s.nome)+(s.apartir?' (a partir de '+brl(s.preco)+')':'')+'</label>'+(fin.usaPac?'<p><span class="st pac">Sessão do pacote · sem cobrança</span></p>':'<input id="fValor" type="number" step="0.01" inputmode="decimal" value="'+fin.valor+'">')+'</div>'+
+    '<div class="campo"><label for="fValor">'+esc(s.nome)+(s.apartir?' (a partir de '+brl(s.preco)+')':'')+(a.campDesc&&!fin.usaPac?' · já com '+a.campDesc.pct+'% da campanha '+esc(a.campDesc.titulo):'')+'</label>'+(fin.usaPac?'<p><span class="st pac">Sessão do pacote · sem cobrança</span></p>':'<input id="fValor" type="number" step="0.01" inputmode="decimal" value="'+fin.valor+'">')+'</div>'+
     '<div class="acoes">'+(k?'<button class="btn peq" data-act="fPac">'+(fin.usaPac?'Cobrar normal':'Usar sessão do pacote ('+restantes(k.sessoes-k.usadas)+')')+'</button>':'')+(c.credito>0?'<button class="btn peq" data-act="fCred">'+(fin.usaCred?'Não usar o crédito':'Usar crédito de indicação ('+brl0(c.credito)+')')+'</button>':'')+'</div>'+
     '<div class="campo"><label>Antes e depois</label><div class="fotos">'+slotFoto(fin,'antes','Antes')+slotFoto(fin,'depois','Depois')+'</div>'+
     (c.divulga?'<label class="marcar"><input type="checkbox" id="fDiv"'+(fin.divulgar?' checked':'')+'> Pode usar na divulgação (a cliente autorizou na ficha)</label>':'<p class="suave" style="font-size:13px">Esta cliente não autorizou divulgação: as fotos ficam só no histórico privado.</p>')+'</div>'+
     '<div class="campo"><label for="fRet">Próximo retorno desta cliente (dias)</label><input id="fRet" type="number" min="0" inputmode="numeric" value="'+fin.retorno+'"><span class="suave" style="font-size:12.5px">'+(s.cuidados?'Ela recebe os cuidados do serviço no app e um lembrete perto do retorno. ':'')+'0 = sem retorno.</span></div>'+
-    '<div class="campo"><label>Vendeu algum produto?</label>'+EXTRAS.map(x=>'<div class="linha"><span>'+x.nome+' <span class="suave">'+brl(x.preco)+'</span></span><span class="qtd"><button data-act="fExtra" data-id="'+x.id+'" data-d="-1" aria-label="Menos">−</button><b class="num">'+(fin.extras[x.id]||0)+'</b><button data-act="fExtra" data-id="'+x.id+'" data-d="1" aria-label="Mais">+</button></span></div>').join('')+'</div>'+
+    (a.campProd?'<p class="aviso" style="border-left-color:var(--ok)"><span><b class="brinde">Presente da campanha '+esc(a.campProd.titulo)+':</b> '+esc((EXTRAS.find(x=>x.id===a.campProd.prod)||{}).nome||'')+'. Entregue sem cobrar.</span></p>':'')+'<div class="campo"><label>Vendeu algum produto?</label>'+EXTRAS.map(x=>'<div class="linha"><span>'+x.nome+' <span class="suave">'+brl(x.preco)+'</span></span><span class="qtd"><button data-act="fExtra" data-id="'+x.id+'" data-d="-1" aria-label="Menos">−</button><b class="num">'+(fin.extras[x.id]||0)+'</b><button data-act="fExtra" data-id="'+x.id+'" data-d="1" aria-label="Mais">+</button></span></div>').join('')+'</div>'+
     (tot>0?'<div class="campo"><label>Forma de pagamento</label><div class="chips">'+['Pix','Dinheiro','Débito','Crédito'].map(f=>'<button class="chip" aria-pressed="'+(fin.forma===f)+'" data-act="fForma" data-id="'+f+'">'+f+'</button>').join('')+'</div></div>':'')+
     '<div class="pe-modal"><div class="total"><span class="suave">Total'+(cred?' (com crédito)':'')+'</span><b>'+brl(tot)+'</b></div>'+
     '<button class="btn ok cheio" data-act="fOk"'+(tot>0&&!fin.forma?' disabled':'')+'>'+(tot>0?(fin.forma?'Recebi '+brl(tot):'Escolha a forma de pagamento'):'Concluir')+'</button></div>','fin');
@@ -827,10 +834,18 @@ function janelaCamp(){const c=campEd;
     '<div class="campo"><label for="cpTxt">Texto que as clientes veem</label><textarea id="cpTxt" placeholder="Ex.: Nutri Gloss com 15% de desconto até o fim do mês.">'+esc(c.texto)+'</textarea></div>'+
     '<div class="campo"><label for="cpServ">Serviço em destaque (opcional)</label><select id="cpServ"><option value="">Nenhum: só o tipo de serviço</option>'+servAtivos().map(s=>'<option value="'+s.id+'"'+(s.id===c.serv?' selected':'')+'>'+esc(s.nome)+'</option>').join('')+'</select></div>'+
     '<div class="campo"><label for="cpCat">Tipo de serviço da campanha</label><select id="cpCat"><option value="">Agenda geral</option>'+CATS.map(x=>'<option'+(x===c.cat?' selected':'')+'>'+x+'</option>').join('')+'</select></div>'+
-    '<div class="campo"><label for="cpBr">Brinde automático para quem agendar</label><select id="cpBr"><option value="">Sem brinde</option>'+servAtivos().map(s=>'<option value="'+s.id+'"'+(s.id===c.brinde?' selected':'')+'>1 sessão de '+esc(s.nome)+'</option>').join('')+'</select></div>'+
+    '<div class="campo"><label for="cpBrTipo">Brinde automático para quem agendar</label><select id="cpBrTipo">'+[['','Sem brinde'],['sessao','1 sessão de um serviço'],['desconto','Desconto em % no procedimento'],['produto','Produto de presente']].map(([v,n])=>'<option value="'+v+'"'+(v===tipoBrinde(c)?' selected':'')+'>'+n+'</option>').join('')+'</select></div>'+
+    '<div class="campo" data-br="sessao"><label for="cpBr">Serviço do brinde</label><select id="cpBr">'+servAtivos().map(s=>'<option value="'+s.id+'"'+(s.id===c.brinde?' selected':'')+'>1 sessão de '+esc(s.nome)+'</option>').join('')+'</select></div>'+
+    '<div class="campo" data-br="desconto"><label for="cpPct">Desconto (%)</label><input id="cpPct" type="number" min="1" max="100" inputmode="numeric" value="'+(c.pct||10)+'"></div>'+
+    '<div class="campo" data-br="produto"><label for="cpProd">Produto de presente</label><select id="cpProd">'+EXTRAS.map(x=>'<option value="'+x.id+'"'+(x.id===c.prod?' selected':'')+'>'+esc(x.nome)+'</option>').join('')+'</select></div>'+
+    '<label class="marcar" data-br-regra><input type="checkbox" id="cpRegra"'+(c.regra==='servico'?' checked':'')+'> Só ganha quem agendar o serviço em destaque (sem marcar: qualquer procedimento do tipo da campanha)</label>'+
     '<label class="marcar"><input type="checkbox" id="cpAtiva"'+(c.ativa?' checked':'')+'> Mostrar no app das clientes agora</label>'+
-    '<button class="btn pri cheio" data-act="salvarCamp">Salvar campanha</button><button class="btn cheio" data-act="fechar">Voltar</button>','camp')}
-function lerCamp(){const g=i=>document.getElementById(i);if(!g('cpTit'))return;campEd.serv=g('cpServ').value;campEd.titulo=g('cpTit').value;campEd.texto=g('cpTxt').value;campEd.cat=g('cpCat').value;campEd.brinde=g('cpBr').value;if(campEd.serv)campEd.cat=sv(campEd.serv).cat;campEd.ativa=g('cpAtiva').checked}
+    '<button class="btn pri cheio" data-act="salvarCamp">Salvar campanha</button><button class="btn cheio" data-act="fechar">Voltar</button>','camp');mostrarBrinde()}
+/* mostra só os campos do tipo de brinde escolhido */
+function mostrarBrinde(){const g=i=>document.getElementById(i);if(!g('cpBrTipo'))return;const tp=g('cpBrTipo').value;
+  camada.querySelectorAll('[data-br]').forEach(e=>e.hidden=e.dataset.br!==tp);
+  const r=camada.querySelector('[data-br-regra]');if(r)r.hidden=!tp||!g('cpServ').value}
+function lerCamp(){const g=i=>document.getElementById(i);if(!g('cpTit'))return;campEd.serv=g('cpServ').value;campEd.titulo=g('cpTit').value;campEd.texto=g('cpTxt').value;campEd.cat=g('cpCat').value;campEd.brindeTipo=g('cpBrTipo').value;campEd.brinde=campEd.brindeTipo==='sessao'?g('cpBr').value:'';campEd.pct=Math.min(100,Math.max(1,parseInt(g('cpPct').value)||10));campEd.prod=g('cpProd').value;campEd.regra=g('cpRegra').checked&&g('cpServ').value?'servico':'tipo';if(campEd.serv)campEd.cat=sv(campEd.serv).cat;campEd.ativa=g('cpAtiva').checked}
 
 /* ---------- ações ---------- */
 document.addEventListener('click',ev=>{
@@ -851,14 +866,19 @@ document.addEventListener('click',ev=>{
    case'fHora':F.hora=id;F.profEsc=el.dataset.p;break;
    case'confirmar':case'reservaOk':{
      const servId=act==='confirmar'?F.serv:el.dataset.serv,data=act==='confirmar'?F.data:el.dataset.d,hora=act==='confirmar'?F.hora:el.dataset.h,prof=act==='confirmar'?F.profEsc:el.dataset.p;
-     const s=sv(servId),eu=cl(S.eu),k=pacoteDoServ(eu,s.id),camp=campanhaBrinde(s.cat);let msg;
+     const s=sv(servId),eu=cl(S.eu),k=pacoteDoServ(eu,s.id);let msg;
      if(act==='confirmar'&&F.remarca){const x=S.ag.find(y=>y.id===F.remarca),antes=rotDia(x.data).toLowerCase()+' '+x.hora;Object.assign(x,{serv:servId,prof,data,hora,atraso:0,conflito:null});
        S.avisos.unshift({id:novoId('v'),txt:eu.nome+' remarcou pelo app: de '+antes+' para '+rotDia(data).toLowerCase()+' às '+hora});msg='Remarcado para '+rotDia(data).toLowerCase()+' às '+hora+'.';}
      else{if(!livre(prof,data,paraMin(hora),s.min)){aviso('Esse horário acabou de ser ocupado. Escolha outro.');fechar();break}
        S.ag.push({id:'a'+(S.seq++),cli:S.eu,serv:servId,prof,data,hora,status:'agendado',valor:k?0:s.preco,pacote:k?k.id:null,extras:{},atraso:0,origem:'app',fotos:null,retorno:null,avaliacao:null});
        S.avisos.unshift({id:novoId('v'),txt:eu.nome+' agendou pelo app: '+s.nome+', '+rotDia(data).toLowerCase()+' às '+hora+' com '+pf(prof).nome});
        msg='Agendado: '+rotDia(data).toLowerCase()+' às '+hora+'. O espaço já foi avisado.';
-       if(camp&&!eu.pacotes.some(x=>x.brinde&&x.camp===camp.id&&x.usadas<x.sessoes)){const b=sv(camp.brinde);eu.pacotes.push({id:novoId('k'),pac:null,nome:b.nome+' · brinde '+camp.titulo,serv:b.id,sessoes:1,usadas:0,em:HOJE,brinde:true,camp:camp.id});msg='Agendado! E você ganhou 1 sessão de '+b.nome.toLowerCase()+'. Ela já está em Pacotes.'}}
+       const novoAg=S.ag[S.ag.length-1],ganhou=[];eu.campanhas=eu.campanhas||[];
+       for(const c of campanhasDoServ(s)){if(eu.campanhas.includes(c.id))continue;eu.campanhas.push(c.id);const tp=tipoBrinde(c);
+         if(tp==='sessao'){const b=sv(c.brinde);eu.pacotes.push({id:novoId('k'),pac:null,nome:b.nome+' · brinde '+c.titulo,serv:b.id,sessoes:1,usadas:0,em:HOJE,brinde:true,camp:c.id});ganhou.push('1 sessão de '+b.nome.toLowerCase()+' (já está em Pacotes)')}
+         else if(tp==='desconto'){novoAg.campDesc={camp:c.id,titulo:c.titulo,pct:c.pct};ganhou.push(c.pct+'% de desconto neste atendimento')}
+         else if(tp==='produto'){const p=EXTRAS.find(x=>x.id===c.prod);novoAg.campProd={camp:c.id,titulo:c.titulo,prod:p.id};ganhou.push(p.nome.toLowerCase()+' de presente')}}
+       if(ganhou.length)msg='Agendado! E você ganhou '+ganhou.join(' e ')+'.';}
      S.fluxo=novoF({});S.aba.cliente='inicio';fechar();desenhar();window.scrollTo(0,0);aviso(msg);return}
    case'reservaRapida':{const s=sv(el.dataset.serv);janela('<h3>Confirmar horário?</h3><p><b>'+esc(s.nome)+'</b><br>'+rotDia(el.dataset.d)+' às '+el.dataset.h+' com '+esc(pf(el.dataset.p).nome)+'</p><button class="btn pri cheio" data-act="reservaOk" data-serv="'+el.dataset.serv+'" data-d="'+el.dataset.d+'" data-h="'+el.dataset.h+'" data-p="'+el.dataset.p+'">Confirmar</button><button class="btn cheio" data-act="fechar">Voltar</button>');return}
    case'remarcar':S.fluxo=novoF({serv:a.serv,cat:sv(a.serv).cat,prof:a.prof,data:a.data,remarca:a.id});S.aba.cliente='agendar';break;
@@ -886,7 +906,7 @@ document.addEventListener('click',ev=>{
    case'status':a.status=el.dataset.st;break;
    case'comecar':fin=null;ini={id:a.id,antes:null};janelaComecar();return;
    case'comecarOk':{const x=S.ag.find(y=>y.id===ini.id);x.status='atendendo';x.atraso=0;x.fotos={antes:ini.antes,depois:null};fechar();aviso(ini.antes?'Atendimento começou. Foto do antes guardada.':'Atendimento começou.');break}
-   case'finalizar':{ini=null;const c=cl(a.cli),k=a.pacote?c.pacotes.find(x=>x.id===a.pacote):pacoteDoServ(c,a.serv);fin={id:a.id,valor:a.pacote?sv(a.serv).preco:a.valor,usaPac:!!(a.pacote||k),usaCred:false,extras:Object.assign({},a.extras),forma:null,antes:a.fotos&&a.fotos.antes||null,depois:null,divulgar:c.divulga,retorno:sv(a.serv).retorno||0};janelaFinalizar();return}
+   case'finalizar':{ini=null;const c=cl(a.cli),k=a.pacote?c.pacotes.find(x=>x.id===a.pacote):pacoteDoServ(c,a.serv);fin={id:a.id,valor:a.pacote?sv(a.serv).preco:(a.campDesc?Math.round(a.valor*(100-a.campDesc.pct))/100:a.valor),usaPac:!!(a.pacote||k),usaCred:false,extras:Object.assign({},a.extras),forma:null,antes:a.fotos&&a.fotos.antes||null,depois:null,divulgar:c.divulga,retorno:sv(a.serv).retorno||0};janelaFinalizar();return}
    case'fPac':lerFin();fin.usaPac=!fin.usaPac;janelaFinalizar();return;
    case'fCred':lerFin();fin.usaCred=!fin.usaCred;janelaFinalizar();return;
    case'tirarFoto':if(campEd&&id==='camp'){campEd.img=null;janelaCamp();return}if(ini&&!fin){ini[id]=null;janelaComecar();return}lerFin();fin[id]=null;janelaFinalizar();return;
@@ -941,7 +961,7 @@ document.addEventListener('click',ev=>{
      fechar();aviso('Pacote vendido para '+primeiro(c.nome)+': '+brl(p.preco)+' no caixa.');break}
    case'periodo':S.periodo=id;break;
    /* divulgar */
-   case'editCamp':campEd=id==='nova'?{id:null,titulo:'',texto:'',img:null,cat:'',serv:'',brinde:'',ativa:true}:Object.assign({},CAMP.find(c=>c.id===id));janelaCamp();return;
+   case'editCamp':campEd=id==='nova'?{id:null,titulo:'',texto:'',img:null,cat:'',serv:'',brindeTipo:'',brinde:'',pct:10,prod:EXTRAS[0].id,regra:'tipo',ativa:true}:Object.assign({},CAMP.find(c=>c.id===id));janelaCamp();return;
    case'trocarImgCamp':lerCamp();campEd.img=null;janelaCamp();return;
    case'salvarCamp':{lerCamp();if(!campEd.titulo.trim()||!campEd.texto.trim()){aviso('Preencha o título e o texto.');return}if(!campEd.img){aviso('Suba uma imagem para a campanha.');return}
      if(campEd.id)Object.assign(CAMP.find(c=>c.id===campEd.id),campEd);else CAMP.unshift(Object.assign(campEd,{id:novoId('cp'),criada:HOJE}));
@@ -1006,6 +1026,7 @@ function lerFin(){if(!fin)return;const v=document.getElementById('fValor'),r=doc
 document.addEventListener('change',ev=>{const t=ev.target;
   if(t.dataset.foto&&t.files&&t.files[0]){const q=t.dataset.foto;lerFoto(t.files[0],url=>{if(q==='camp'){lerCamp();campEd.img=url;janelaCamp()}else if(fin){lerFin();fin[q]=url;janelaFinalizar()}else if(ini){ini[q]=url;janelaComecar()}});return}
   if(t.dataset.exp){const w=+t.dataset.w,p=+t.dataset.p;EXP[w][p]=+t.value;if(EXP[w][0]>=EXP[w][1]){if(p)EXP[w][0]=EXP[w][1]-PASSO;else EXP[w][1]=EXP[w][0]+PASSO;aviso('Ajustei: o fechamento precisa ser depois da abertura.')}desenhar();return}
+  if(t.id==='cpBrTipo'||t.id==='cpServ'){mostrarBrinde();return}
   if(['bqData','bqProf','bqH1','bqH2'].includes(t.id)){lerBloq();janelaBloq()}
 });
 document.addEventListener('input',ev=>{
