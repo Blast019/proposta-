@@ -903,12 +903,20 @@ document.addEventListener('click',ev=>{
      desenhar();zap(c,'Oi, '+primeiro(c.nome)+'! Tá marcado: '+s.nome+' '+rotDia(S.diaAgenda).toLowerCase()+' às '+h+' com a '+pf(p).nome+' 💜 Qualquer coisa, remarca pelo app.');return}
    case'filtroCli':S.filtroCli=id;break;
    case'verCliente':janelaFicha(id,false);return;
-   case'zapCliente':{const c=cl(id),rt=retoques(id),u=ultimo(id);let t;
-     if(S.filtroCli==='aniv'||(anivMes(c)&&S.filtroCli!=='retocar'))t='Feliz aniversário, '+primeiro(c.nome)+'! 🎉 Para comemorar, seu próximo atendimento aqui na Wylma Espaço Mulher tem 10% de desconto neste mês. Escolha seu horário no app 💜';
-     else if(rt.length)t='Oi, '+primeiro(c.nome)+'! Já faz '+rt[0].dias+' dias '+deRetoque(rt[0].serv)+' aqui na Wylma Espaço Mulher 💜 Que tal agendar o retorno? É só escolher o horário no app.';
-     else if(u&&diasDesde(u)>45)t='Oi, '+primeiro(c.nome)+'! Estamos com saudade de você por aqui 💜 Bora tirar um tempinho pra você? Tem horário essa semana, é só escolher no app.';
-     else t='Oi, '+primeiro(c.nome)+'! Tudo bem? 💜';
-     zap(c,t);return}
+   case'zapCliente':{const c=cl(id),n=primeiro(c.nome),F=S.filtroCli,rt=retoques(id),u=ultimo(id),k=pacotesAtivos(c)[0];
+     /* a mensagem segue o filtro aberto; em "Todas", vale o que for mais útil para a cliente agora */
+     const msg={
+       aniv:()=>'Feliz aniversário, '+n+'! 🎉 Para comemorar, seu próximo atendimento aqui na Wylma Espaço Mulher tem 10% de desconto neste mês. Escolha seu horário no app 💜',
+       retocar:()=>rt.length&&'Oi, '+n+'! Já faz '+rt[0].dias+' dias '+deRetoque(rt[0].serv)+' aqui na Wylma Espaço Mulher 💜 Que tal agendar o retorno? É só escolher o horário no app.',
+       pacote:()=>k&&'Oi, '+n+'! Você ainda tem '+(k.sessoes-k.usadas)+(k.sessoes-k.usadas===1?' sessão':' sessões')+' do seu pacote '+k.nome.split(' · ')[0]+' aqui na Wylma Espaço Mulher 💜 Bora agendar a próxima? É só escolher o horário no app.',
+       indicacao:()=>c.indicadaPor&&(S.indicLog.some(x=>x.nova===c.id)
+         ?'Oi, '+n+'! Que alegria ter você aqui na Wylma Espaço Mulher pela indicação da '+primeiro(cl(c.indicadaPor).nome)+' 💜 Agora você também tem seu convite no app: indique uma amiga e ganhe '+textoBeneficio()+'.'
+         :'Oi, '+n+'! Que bom que você chegou pela indicação da '+primeiro(cl(c.indicadaPor).nome)+' 💜 Estamos te esperando aqui na Wylma Espaço Mulher. Qualquer dúvida sobre o seu horário, é só me chamar.'),
+       sumidas:()=>u&&diasDesde(u)>45&&'Oi, '+n+'! Estamos com saudade de você por aqui 💜 Bora tirar um tempinho pra você? Tem horário essa semana, é só escolher no app.'
+     };
+     const ordem=F==='todas'?['retocar','pacote','sumidas','aniv']:[F];
+     let t=null;for(const o of ordem){if(o==='aniv'&&F==='todas'&&!anivMes(c))continue;t=msg[o]&&msg[o]();if(t)break}
+     zap(c,t||'Oi, '+n+'! Tudo bem? 💜');return}
    case'venderPacote':{const pre={cli:el.dataset.cli||'',pac:el.dataset.pac||PACS[0].id,q:el.dataset.q||''};
      janela('<h3>Vender pacote</h3><div class="campo"><label for="vpCli">Cliente</label><select id="vpCli">'+S.clientes.slice().sort((x,y)=>x.nome.localeCompare(y.nome)).map(c=>'<option value="'+c.id+'"'+(c.id===pre.cli?' selected':'')+'>'+esc(c.nome)+'</option>').join('')+'</select></div>'+
        '<div class="campo"><label for="vpPac">Pacote</label><select id="vpPac">'+PACS.map(p=>'<option value="'+p.id+'"'+(p.id===pre.pac?' selected':'')+'>'+esc(p.nome)+' · '+brl(p.preco)+'</option>').join('')+'</select></div>'+
