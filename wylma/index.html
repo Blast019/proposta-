@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Wylma Espaço Mulher</title>
-<meta name="description" content="Agende seu horário no Wylma Espaço Mulher: cabelo, depilação, estética e maquiagem. Pacotes, ficha de cuidados e lembretes.">
+<meta name="description" content="Agende seu horário na Wylma Espaço Mulher: cabelo, depilação, estética e maquiagem. Pacotes, ficha de cuidados e lembretes.">
 <meta name="theme-color" content="#6b2f7a">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Wylma Espaço Mulher">
 <meta property="og:title" content="Wylma Espaço Mulher · App do espaço">
-<meta property="og:description" content="Agende seu horário no Wylma Espaço Mulher: cabelo, depilação, estética e maquiagem. Pacotes, ficha de cuidados e lembretes.">
+<meta property="og:description" content="Agende seu horário na Wylma Espaço Mulher: cabelo, depilação, estética e maquiagem. Pacotes, ficha de cuidados e lembretes.">
 <meta property="og:url" content="https://blast019.github.io/proposta-/wylma/">
 <meta property="og:image" content="https://blast019.github.io/proposta-/wylma/icon-512.png">
 <meta property="og:locale" content="pt_BR">
@@ -861,7 +861,7 @@ document.addEventListener('click',ev=>{
      zap(null,'Oi! Aqui é a '+primeiro(cl(a.cli).nome)+'. Fiz '+sv(a.serv).nome.toLowerCase()+' no dia '+dataCurta(a.data)+' e senti desconforto'+(t?': '+t:'')+'. Pode me orientar?','o espaço');desenhar();return}
    case'falarEspaco':zap(null,'Oi! Aqui é a '+primeiro(cl(a.cli).nome)+'. Fiz '+sv(a.serv).nome.toLowerCase()+' no dia '+dataCurta(a.data)+' e queria tirar uma dúvida.','o espaço');return;
    case'verCuidados':janelaCuidados(a);return;
-   case'convidar':{const eu=cl(S.eu);zap(null,'Oi, amiga! 💜 Eu faço meus cuidados no Wylma Espaço Mulher e amo. Agenda pelo meu convite: wylma.app/convite/'+eu.codigo+' (link de exemplo). Seu primeiro horário fica marcadinho em poucos toques!','sua amiga');return}
+   case'convidar':{const eu=cl(S.eu);zap(null,'Oi, amiga! 💜 Eu faço meus cuidados na Wylma Espaço Mulher e amo. Agenda pelo meu convite: wylma.app/convite/'+eu.codigo+' (link de exemplo). Seu primeiro horário fica marcadinho em poucos toques!','sua amiga');return}
    case'ficha':janelaFicha(S.eu,true);return;
    case'salvarFicha':{if(!document.getElementById('fsOk').checked){aviso('Marque a autorização do atendimento para salvar.');return}
      const g=i=>document.getElementById(i),eu=cl(S.eu);eu.saude={alergia:g('fsAlergia').value.trim(),gestante:g('fsGest').checked,sensivel:g('fsSens').checked,diabetes:g('fsDiab').checked,acidos:g('fsAcid').checked,obs:g('fsObs').value.trim(),em:HOJE};eu.divulga=g('fsDiv').checked;
@@ -891,7 +891,7 @@ document.addEventListener('click',ev=>{
    case'diaAgenda':S.diaAgenda=id;break;
    case'verAg':{const c=cl(a.cli);janela('<h3>'+esc(c.nome)+'</h3><p>'+esc(sv(a.serv).nome)+' · '+rotDia(a.data)+' às '+a.hora+' com '+esc(pf(a.prof).nome)+'</p><div class="acoes">'+st(a.status)+(a.pacote?'<span class="st pac">Pacote</span>':'')+alertasSaude(c).map(x=>'<span class="st alerta">'+esc(x)+'</span>').join('')+'</div>'+
      (a.status==='agendado'?'<button class="btn cheio" data-act="zapLembrete" data-id="'+a.id+'">Mandar lembrete no WhatsApp</button><button class="btn cheio" data-act="desmarcar" data-id="'+a.id+'">Desmarcar (avisa a cliente)</button>':'')+'<button class="btn cheio" data-act="fechar">Fechar</button>');return}
-   case'zapLembrete':{const c=cl(a.cli);zap(c,'Oi, '+primeiro(c.nome)+'! 💜 Passando para lembrar do seu horário no Wylma Espaço Mulher '+rotDia(a.data).toLowerCase()+' às '+a.hora+' ('+sv(a.serv).nome+'). Confirma pra mim?');return}
+   case'zapLembrete':{const c=cl(a.cli);zap(c,'Oi, '+primeiro(c.nome)+'! 💜 Passando para lembrar do seu horário na Wylma Espaço Mulher '+rotDia(a.data).toLowerCase()+' às '+a.hora+' ('+sv(a.serv).nome+'). Confirma pra mim?');return}
    case'desmarcar':{const c=cl(a.cli);a.status='cancelado';desenhar();zap(c,'Oi, '+primeiro(c.nome)+'! Tive um imprevisto e precisei desmarcar seu horário de '+rotDia(a.data).toLowerCase()+' às '+a.hora+'. Me desculpe! Já escolhe outro horário pelo app, tem vaga essa semana 💜');return}
    case'novoBalcao':{const p=el.dataset.p,h=el.dataset.h;janela('<h3>Marcar '+rotDia(S.diaAgenda).toLowerCase()+' às '+h+'</h3><p class="suave">Com '+esc(pf(p).nome)+'. Para a cliente que ligou ou mandou mensagem.</p>'+
      '<div class="campo"><label for="nbCli">Cliente</label><select id="nbCli">'+S.clientes.slice().sort((x,y)=>x.nome.localeCompare(y.nome)).map(c=>'<option value="'+c.id+'">'+esc(c.nome)+'</option>').join('')+'</select></div>'+
@@ -904,8 +904,8 @@ document.addEventListener('click',ev=>{
    case'filtroCli':S.filtroCli=id;break;
    case'verCliente':janelaFicha(id,false);return;
    case'zapCliente':{const c=cl(id),rt=retoques(id),u=ultimo(id);let t;
-     if(S.filtroCli==='aniv'||(anivMes(c)&&S.filtroCli!=='retocar'))t='Feliz aniversário, '+primeiro(c.nome)+'! 🎉 Para comemorar, seu próximo atendimento aqui no Wylma Espaço Mulher tem 10% de desconto neste mês. Escolha seu horário no app 💜';
-     else if(rt.length)t='Oi, '+primeiro(c.nome)+'! Já faz '+rt[0].dias+' dias '+deRetoque(rt[0].serv)+' aqui no Wylma Espaço Mulher 💜 Que tal agendar o retorno? É só escolher o horário no app.';
+     if(S.filtroCli==='aniv'||(anivMes(c)&&S.filtroCli!=='retocar'))t='Feliz aniversário, '+primeiro(c.nome)+'! 🎉 Para comemorar, seu próximo atendimento aqui na Wylma Espaço Mulher tem 10% de desconto neste mês. Escolha seu horário no app 💜';
+     else if(rt.length)t='Oi, '+primeiro(c.nome)+'! Já faz '+rt[0].dias+' dias '+deRetoque(rt[0].serv)+' aqui na Wylma Espaço Mulher 💜 Que tal agendar o retorno? É só escolher o horário no app.';
      else if(u&&diasDesde(u)>45)t='Oi, '+primeiro(c.nome)+'! Estamos com saudade de você por aqui 💜 Bora tirar um tempinho pra você? Tem horário essa semana, é só escolher no app.';
      else t='Oi, '+primeiro(c.nome)+'! Tudo bem? 💜';
      zap(c,t);return}
@@ -929,7 +929,7 @@ document.addEventListener('click',ev=>{
      campEd=null;fechar();aviso('Campanha salva.'+(CAMP.some(c=>c.ativa)?' Já aparece no app das clientes.':''));break}
    case'pausarCamp':{const c=CAMP.find(x=>x.id===id);if(!c.ativa)CAMP.forEach(x=>x.ativa=false);c.ativa=!c.ativa;aviso(c.ativa?'Campanha no ar no app das clientes.':'Campanha pausada.');break}
    case'arteCamp':{const c=CAMP.find(x=>x.id===id);abrirArte('camp',c,c.titulo+' 💜\n\n'+c.texto+'\n\nAgende pelo app ou chame no WhatsApp.\n\n#wylmaespacomulher #estetica #uberlandia #autocuidado');return}
-   case'preparaPost':{const s=sv(a.serv);abrirArte('post',{fotos:a.fotos,titulo:s.nome},'Antes e depois: '+s.nome+' 💜\n\n'+(s.cat==='Estética'?'Cuidado de verdade, resultado natural.':s.cat==='Cabelo'?'Fio alinhado, brilho e autoestima lá em cima.':'Pele lisinha e bem cuidada.')+' Feito com carinho aqui no Wylma Espaço Mulher.\n\nAgende o seu pelo app ou chame no WhatsApp.\n\n#wylmaespacomulher #antesedepois #'+s.nome.toLowerCase().normalize('NFD').replace(/[^a-z]/g,'')+' #uberlandia');return}
+   case'preparaPost':{const s=sv(a.serv);abrirArte('post',{fotos:a.fotos,titulo:s.nome},'Antes e depois: '+s.nome+' 💜\n\n'+(s.cat==='Estética'?'Cuidado de verdade, resultado natural.':s.cat==='Cabelo'?'Fio alinhado, brilho e autoestima lá em cima.':'Pele lisinha e bem cuidada.')+' Feito com carinho aqui na Wylma Espaço Mulher.\n\nAgende o seu pelo app ou chame no WhatsApp.\n\n#wylmaespacomulher #antesedepois #'+s.nome.toLowerCase().normalize('NFD').replace(/[^a-z]/g,'')+' #uberlandia');return}
    case'compartilharArte':{if(!arteAtual)return;const leg=(document.getElementById('legenda')||{}).value||'';
      arteAtual.cv.toBlob(async b=>{const f=new File([b],arteAtual.nome,{type:'image/jpeg'});
        try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],text:leg});return}}catch(e){if(e&&e.name==='AbortError')return}
