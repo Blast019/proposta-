@@ -167,7 +167,6 @@ p{margin:0}
 .cli{display:flex;align-items:center;gap:12px;background:var(--sup);border:1px solid var(--linha);border-radius:14px;padding:11px 12px}
 .av{flex:none;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--blush),#f1d3e6);display:grid;place-items:center;font:italic 700 17px/1 var(--titulo);color:var(--ameixa)}
 .cli .q{flex:1;min-width:0}
-@media (max-width:400px){.cli{flex-wrap:wrap}.cli>.acoes{width:100%;justify-content:flex-end;padding-left:52px}.cli>.acoes .btn{flex:1}}
 .cli .q b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cli .q small{color:var(--suave);font-size:13px;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
 .hsel{background:var(--sup);border:1px solid var(--linha);border-radius:8px;padding:6px 4px;color:var(--tinta);font:700 14px/1 var(--corpo);font-variant-numeric:tabular-nums}
@@ -210,6 +209,52 @@ p{margin:0}
 .vazio{text-align:center;color:var(--suave);padding:20px 10px;border:1px dashed var(--linha);border-radius:14px}
 @media (prefers-reduced-motion:no-preference){.st.atendendo{animation:pulsa 1.6s ease-in-out infinite}}
 @keyframes pulsa{50%{opacity:.65}}
+/* v2: nada se sobrepõe — linhas e grupos de botões quebram quando falta espaço */
+.linha{flex-wrap:wrap;row-gap:8px}
+.linha>*{min-width:0}
+.acoes{flex-wrap:wrap}
+.acoes>.btn{flex:0 1 auto}
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.chips.quebra{flex-wrap:wrap;overflow:visible}
+.marca-linha{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;position:relative;z-index:1}
+.btn-aj{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--linha);background:rgba(255,255,255,.75);border-radius:12px;padding:8px 11px;font:700 13px/1 var(--corpo);color:var(--ameixa)}
+.btn-aj svg{width:18px;height:18px}
+.btn-aj[aria-current="page"]{background:var(--ameixa);color:#fff;border-color:var(--ameixa)}
+.ic-mini{width:30px;height:30px;border-radius:10px;background:var(--blush);display:grid;place-items:center;color:var(--ameixa);flex:none}
+.ic-mini svg{width:18px;height:18px}
+.feed{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
+.sugs{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
+.sug{display:flex;flex-direction:column;gap:3px;align-items:flex-start;text-align:left;border:1px solid var(--linha);background:var(--blush);border-radius:14px;padding:10px 12px;color:var(--tinta)}
+.sug b{font:italic 700 18px/1 var(--titulo);color:var(--ameixa-esc)}
+.sug span{font-size:13px;color:var(--suave);font-weight:700}
+.indica{background:linear-gradient(150deg,#fff,var(--blush));border:1px solid #f3cfe2;border-radius:18px;padding:15px;display:flex;flex-direction:column;gap:10px}
+.pac-op{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--sup);border:1px solid var(--linha);border-radius:14px;padding:12px 14px}
+.pac-op>span{flex:1;min-width:150px}
+.pac-op b{display:block}
+.pac-op small{color:var(--suave);font-size:13px}
+.cli{flex-wrap:wrap}
+.cli>.acoes{margin-left:auto;flex-wrap:wrap;justify-content:flex-end}
+.camp{display:flex;gap:12px;background:var(--sup);border:1px solid var(--linha);border-radius:16px;padding:10px}
+.camp img{width:84px;height:84px;object-fit:cover;border-radius:12px;flex:none}
+.camp .q{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.camp small{color:var(--suave);font-size:12.5px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.trabalhos{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.trab{background:var(--sup);border:1px solid var(--linha);border-radius:14px;padding:8px;display:flex;flex-direction:column;gap:6px}
+.trab img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}
+.trab small{color:var(--suave);font-size:12px}
+.horario{display:inline-flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;align-items:center}
+.aviso{flex-wrap:wrap}
+.aviso>span{flex:1;min-width:160px}
+.aviso.urgente{border-left-color:var(--alerta);background:var(--alerta-bg)}
+.st.ok-f{background:var(--ok-bg);color:var(--ok)}
+.sobe span{color:var(--suave);font-weight:600;font-size:12px}
+.sobe.larga{aspect-ratio:auto;min-height:110px}
+.btn.mini{padding:3px 7px;font-size:11px;border-radius:8px}
+.fotos{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}
+.resumo{flex-wrap:wrap}
+.resumo p{flex:1;min-width:150px}
+.tab td:first-child{padding-right:10px}
+@media (max-width:400px){.cli>.acoes{width:100%;padding-left:0}.cli>.acoes .btn{flex:1}}
 </style>
 </head>
 <body>
@@ -224,7 +269,10 @@ p{margin:0}
         <button type="button" id="modoDono" data-modo="dono">Espaço</button>
       </div>
     </div>
-    <div class="marca"><span class="w">Wylma</span><span class="e">Espaço Mulher</span></div>
+    <div class="marca-linha">
+      <div class="marca"><span class="w">Wylma</span><span class="e">Espaço Mulher</span></div>
+      <button type="button" class="btn-aj" id="btnAjustes" data-aba-dono="ajustes" hidden aria-label="Ajustes do espaço"></button>
+    </div>
   </header>
   <main id="tela"></main>
   <p class="rodape">Dados de exemplo · sistema <b>Torque</b> · <button type="button" id="recomecar">Recomeçar demonstração</button></p>
@@ -258,21 +306,23 @@ const primeiro=n=>n.split(' ')[0];
 const iniciais=n=>n.split(' ').map(p=>p[0]).slice(0,2).join('');
 function semente(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 const copia=o=>JSON.parse(JSON.stringify(o));
+const novoId=p=>p+Date.now().toString(36)+Math.floor(Math.random()*1e4).toString(36);
 
 /* ---------- catálogo de exemplo (a Wylma muda tudo em Ajustes) ---------- */
 const CATS=['Cabelo','Depilação','Estética','Maquiagem'];
+const CUID_CERA='Evite sol, piscina e academia por 24 horas. Não use desodorante com álcool nas axilas no mesmo dia. Esfolie a pele 2 vezes por semana para evitar pelos encravados.';
 const DEF_SERV=[
- {id:'progressiva',cat:'Cabelo',nome:'Progressiva',min:180,preco:180,apartir:true,retorno:90},
+ {id:'progressiva',cat:'Cabelo',nome:'Progressiva',min:180,preco:180,apartir:true,retorno:90,cuidados:'Não prenda nem molhe o cabelo por 72 horas. Use shampoo sem sal e evite piscina e mar por 15 dias.'},
  {id:'escova',cat:'Cabelo',nome:'Escova modelada',min:60,preco:50},
- {id:'hidratacao',cat:'Cabelo',nome:'Hidratação profunda',min:60,preco:60,retorno:15},
- {id:'buco',cat:'Depilação',nome:'Buço',min:30,preco:15,retorno:21},
- {id:'axilas',cat:'Depilação',nome:'Axilas',min:30,preco:25,retorno:28},
- {id:'virilha',cat:'Depilação',nome:'Virilha',min:30,preco:50,retorno:28},
- {id:'perna',cat:'Depilação',nome:'Perna inteira',min:60,preco:70,retorno:30},
- {id:'gloss',cat:'Estética',nome:'Nutri Gloss labial',min:60,preco:120,retorno:45,destaque:'Queridinho'},
- {id:'clareamento',cat:'Estética',nome:'Clareamento de axilas ou íntima',min:60,preco:80},
+ {id:'hidratacao',cat:'Cabelo',nome:'Hidratação profunda',min:60,preco:60,retorno:15,cuidados:'Prefira água morna e finalize com o leave-in indicado. Evite chapinha muito quente nos próximos dias.'},
+ {id:'buco',cat:'Depilação',nome:'Buço',min:30,preco:15,retorno:21,cuidados:CUID_CERA},
+ {id:'axilas',cat:'Depilação',nome:'Axilas',min:30,preco:25,retorno:28,cuidados:CUID_CERA},
+ {id:'virilha',cat:'Depilação',nome:'Virilha',min:30,preco:50,retorno:28,cuidados:CUID_CERA},
+ {id:'perna',cat:'Depilação',nome:'Perna inteira',min:60,preco:70,retorno:30,cuidados:CUID_CERA},
+ {id:'gloss',cat:'Estética',nome:'Nutri Gloss labial',min:60,preco:120,retorno:45,destaque:'Queridinho',cuidados:'Nas primeiras 24 horas, evite batom, alimentos muito quentes e beijos demorados. Hidrate os lábios várias vezes ao dia.'},
+ {id:'clareamento',cat:'Estética',nome:'Clareamento de axilas ou íntima',min:60,preco:80,retorno:7,cuidados:'Evite roupas apertadas e desodorante no dia. Use o hidratante calmante indicado à noite. Ardência leve é normal nas primeiras horas.'},
  {id:'spa',cat:'Estética',nome:'Spa dos pés',min:60,preco:70,retorno:30},
- {id:'massagem',cat:'Estética',nome:'Massagem relaxante',min:60,preco:100},
+ {id:'massagem',cat:'Estética',nome:'Massagem relaxante',min:60,preco:100,cuidados:'Beba bastante água ao longo do dia e evite banho muito quente logo depois.'},
  {id:'make',cat:'Maquiagem',nome:'Maquiagem social',min:60,preco:120},
  {id:'noiva',cat:'Maquiagem',nome:'Maquiagem de noiva',min:120,preco:350,apartir:true}
 ];
@@ -285,42 +335,54 @@ const DEF_PAC=[
 ];
 const EXTRAS=[{id:'kit',nome:'Kit home care',preco:89},{id:'labial',nome:'Hidratante labial',preco:35}];
 const DEF_EXP=[null,[540,1140],[540,1140],[540,1140],[540,1140],[540,1140],[480,960]];
-const DEF_PROMO={ativa:true,titulo:'Liberte-se',texto:'Agende sua depilação com cera e ganhe uma sessão de clareamento das axilas ou íntima.'};
-const PASSO=30;
-let SERV,PROF,PACS,EXP,PROMO;
+const DEF_CAMP=[{id:'cp1',titulo:'Liberte-se',texto:'Agende sua depilação com cera e ganhe uma sessão de clareamento das axilas ou íntima.',img:'@promo',cat:'Depilação',brinde:'clareamento',ativa:true,criada:null}];
+const DEF_INDIC={ativo:true,tipo:'credito',valor:20,serv:'hidratacao',limiteMes:3};
+const PASSO=30, INSTAGRAM='@wylmaespacomulher';
+let SERV,PROF,PACS,EXP,CAMP,INDIC;
 function expediente(d){const e=EXP[d.getDay()];return e?e.slice():null}
 const sv=id=>SERV.find(s=>s.id===id);
 const pf=id=>PROF.find(b=>b.id===id);
 const pc=id=>PACS.find(p=>p.id===id);
 const servAtivos=()=>SERV.filter(s=>s.ativo!==false);
+const campanhaAtiva=()=>CAMP.find(c=>c.ativa);
+const imgSrc=f=>f==='@labios'?IMG_LABIOS:f==='@promo'?IMG_PROMO:f;
+const textoBeneficio=()=>INDIC.tipo==='credito'?brl0(INDIC.valor)+' de crédito':'1 sessão de '+sv(INDIC.serv).nome.toLowerCase();
 
 /* ---------- dados de exemplo ---------- */
 const NOMES=['Ana Paula','Juliana','Camila','Fernanda','Patrícia','Larissa','Beatriz','Mariana','Aline','Vanessa','Débora','Letícia','Renata','Gabriela','Tatiane','Bruna','Isabela','Natália','Priscila','Jéssica','Carolina','Michele'];
 let S;
 function gerar(){
-  SERV=copia(DEF_SERV);PROF=copia(DEF_PROF);PACS=copia(DEF_PAC);EXP=copia(DEF_EXP);PROMO=copia(DEF_PROMO);
+  SERV=copia(DEF_SERV);PROF=copia(DEF_PROF);PACS=copia(DEF_PAC);EXP=copia(DEF_EXP);CAMP=copia(DEF_CAMP);INDIC=copia(DEF_INDIC);CAMP[0].criada=HOJE;
   const R=semente(2026),sorteia=a=>a[Math.floor(R()*a.length)],mesHoje=pad(hojeD().getMonth()+1);
   const clientes=NOMES.map((n,i)=>({id:'c'+i,nome:n,fone:'(34) 9'+(8000+Math.floor(R()*1999))+'-'+(1000+Math.floor(R()*8999)),
-    aniv:([3,7,12].includes(i)?mesHoje:pad(1+Math.floor(R()*12)))+'-'+pad(1+Math.floor(R()*27)),saude:null,pacotes:[]}));
+    aniv:([3,7,12].includes(i)?mesHoje:pad(1+Math.floor(R()*12)))+'-'+pad(1+Math.floor(R()*27)),saude:null,divulga:false,pacotes:[],credito:0,indicadaPor:null,codigo:n.split(' ')[0].toUpperCase().normalize('NFD').replace(/[^A-Z]/g,'').slice(0,5)+(10+i)}));
   clientes[4].saude={alergia:'Alergia a cera de abelha',gestante:false,sensivel:true,diabetes:false,acidos:false,obs:'',em:HOJE};
   clientes[9].saude={alergia:'',gestante:true,sensivel:false,diabetes:false,acidos:false,obs:'5 meses',em:HOJE};
+  clientes[0].divulga=true;
   clientes[0].pacotes.push({id:'k1',pac:'p-clar',nome:'Clareamento · 5 sessões',serv:'clareamento',sessoes:5,usadas:2,em:ymd(somaDias(hojeD(),-15))});
   [[6,'p-gloss',1],[11,'p-mass',2],[14,'p-clar',4],[17,'p-mass',0]].forEach(([i,p,u],n)=>{const P=DEF_PAC.find(x=>x.id===p);clientes[i].pacotes.push({id:'k'+(n+2),pac:p,nome:P.nome,serv:P.serv,sessoes:P.sessoes,usadas:u,em:ymd(somaDias(hojeD(),-10-n*6))})});
+  // indicações: Carolina (concluiu, Ana ganhou crédito), Michele (agendou, ainda não concluiu), Priscila indicada pela Patrícia
+  clientes[20].indicadaPor='c0';clientes[21].indicadaPor='c0';clientes[18].indicadaPor='c4';
+  clientes[0].credito=20;clientes[4].credito=20;
   const ag=[],lanc=[];let seq=1;
   const livre=(prof,data,ini,dur)=>{const e=expediente(deYmd(data));if(!e||ini<e[0]||ini+dur>e[1])return false;
     return!ag.some(a=>a.prof===prof&&a.data===data&&!['cancelado','faltou'].includes(a.status)&&ini<paraMin(a.hora)+sv(a.serv).min&&paraMin(a.hora)<ini+dur)};
-  const novo=o=>{const a=Object.assign({id:'a'+(seq++),extras:{},atraso:0,origem:'balcao',pacote:null,fotos:null},o);ag.push(a);return a};
+  const novo=o=>{const a=Object.assign({id:'a'+(seq++),extras:{},atraso:0,origem:'balcao',pacote:null,fotos:null,retorno:null,avaliacao:null},o);ag.push(a);return a};
   const formas=['Pix','Pix','Pix','Dinheiro','Débito','Crédito'];
-  const dia=(k,h)=>{let d=somaDias(hojeD(),k);while(!expediente(d))d=somaDias(d,k<0?-1:1);return ymd(d)};
-  // história da cliente da demonstração (Ana Paula)
-  novo({cli:'c0',serv:'escova',prof:'carla',data:dia(-42),hora:'10:00',status:'pago',valor:50,forma:'Pix',origem:'app'});
-  novo({cli:'c0',serv:'axilas',prof:'wylma',data:dia(-33),hora:'16:00',status:'pago',valor:25,forma:'Pix',origem:'app'});
-  novo({cli:'c0',serv:'gloss',prof:'wylma',data:dia(-20),hora:'15:00',status:'pago',valor:120,forma:'Crédito',origem:'app',fotos:{combo:'@labios'}});
-  novo({cli:'c0',serv:'clareamento',prof:'wylma',data:dia(-14),hora:'11:00',status:'pago',valor:0,forma:'Pacote',pacote:'k1',origem:'app'});
-  novo({cli:'c0',serv:'clareamento',prof:'wylma',data:dia(-7),hora:'11:00',status:'pago',valor:0,forma:'Pacote',pacote:'k1',origem:'app'});
+  const dia=k=>{let d=somaDias(hojeD(),k);while(!expediente(d))d=somaDias(d,k<0?-1:1);return ymd(d)};
+  novo({cli:'c0',serv:'escova',prof:'carla',data:dia(-42),hora:'10:00',status:'pago',valor:50,forma:'Pix',origem:'app',avaliacao:{nota:'amei'}});
+  novo({cli:'c0',serv:'axilas',prof:'wylma',data:dia(-33),hora:'16:00',status:'pago',valor:25,forma:'Pix',origem:'app',retorno:28,avaliacao:{nota:'amei'}});
+  novo({cli:'c0',serv:'gloss',prof:'wylma',data:dia(-20),hora:'15:00',status:'pago',valor:120,forma:'Crédito',origem:'app',fotos:{combo:'@labios',divulgar:true},retorno:45,avaliacao:{nota:'amei'}});
+  novo({cli:'c0',serv:'clareamento',prof:'wylma',data:dia(-14),hora:'11:00',status:'pago',valor:0,forma:'Pacote',pacote:'k1',origem:'app',avaliacao:{nota:'gostei'}});
+  novo({cli:'c0',serv:'clareamento',prof:'wylma',data:dia(-5),hora:'11:00',status:'pago',valor:0,forma:'Pacote',pacote:'k1',origem:'app',retorno:7});
   novo({cli:'c0',serv:'escova',prof:'wylma',data:dia(2),hora:'17:00',status:'agendado',valor:50,origem:'app'});
+  novo({cli:'c20',serv:'gloss',prof:'wylma',data:dia(-9),hora:'14:00',status:'pago',valor:120,forma:'Pix',origem:'indicacao'});
+  novo({cli:'c18',serv:'progressiva',prof:'wylma',data:dia(-16),hora:'09:00',status:'pago',valor:180,forma:'Pix',origem:'indicacao'});
+  novo({cli:'c21',serv:'axilas',prof:'carla',data:dia(3),hora:'10:00',status:'agendado',valor:25,origem:'indicacao'});
   lanc.push({id:'l1',data:clientes[0].pacotes[0].em,tipo:'Pacote',desc:'Clareamento · 5 sessões · Ana Paula',valor:350,forma:'Pix'});
+  const indicLog=[{id:'i1',ind:'c0',nova:'c20',data:dia(-9),beneficio:'R$ 20 de crédito',custo:20},{id:'i2',ind:'c4',nova:'c18',data:dia(-16),beneficio:'R$ 20 de crédito',custo:20}];
   const pesos=['escova','escova','hidratacao','buco','axilas','axilas','virilha','perna','gloss','spa','massagem','make','progressiva','clareamento','escova','axilas'];
+  const novas=['c18','c20','c21'],sumidas=['c13','c19'];
   for(let k=-34;k<=7;k++){
     const dd=somaDias(hojeD(),k),data=ymd(dd),e=expediente(dd);if(!e)continue;
     const taxa=k<0?0.55:k===0?0.68:0.3-k*0.02;
@@ -329,31 +391,30 @@ function gerar(){
         if(R()>taxa)continue;
         let s=sorteia(pesos);if(p.id==='carla'&&['gloss','clareamento','massagem'].includes(s))s='escova';
         if(!livre(p.id,data,t,sv(s).min))continue;
-        let c=sorteia(clientes.slice(1));for(let n=0;n<12&&ag.some(x=>x.data===data&&x.cli===c.id);n++)c=sorteia(clientes.slice(1));
-        if(['c13','c19'].includes(c.id)&&k>-50)continue;   // duas clientes sumidas
+        const base=clientes.slice(1).filter(c=>!novas.includes(c.id)&&!sumidas.includes(c.id));
+        let c=sorteia(base);for(let n=0;n<12&&ag.some(x=>x.data===data&&x.cli===c.id);n++)c=sorteia(base);
         const a=novo({cli:c.id,serv:s,prof:p.id,data,hora:paraHora(t),status:k<0?(R()<0.04?'faltou':'pago'):'agendado',valor:sv(s).preco,origem:R()<0.6?'app':'balcao'});
-        if(a.status==='pago'){a.forma=sorteia(formas);if(R()<0.12)a.extras.kit=1;if(R()<0.1)a.extras.labial=1}
+        if(a.status==='pago'){a.forma=sorteia(formas);a.avaliacao={nota:R()<0.8?'amei':'gostei'};if(R()<0.12)a.extras.kit=1;if(R()<0.1)a.extras.labial=1}
       }
     }
   }
-  ['c13','c19'].forEach((id,i)=>novo({cli:id,serv:'progressiva',prof:'wylma',data:dia(-60-i*9),hora:'09:00',status:'pago',valor:180,forma:'Pix'}));
+  sumidas.forEach((id,i)=>novo({cli:id,serv:'progressiva',prof:'wylma',data:dia(-60-i*9),hora:'09:00',status:'pago',valor:180,forma:'Pix'}));
   const hojeAg=ag.filter(a=>a.data===HOJE).sort((x,y)=>paraMin(x.hora)-paraMin(y.hora));
   PROF.forEach(p=>{const l=hojeAg.filter(a=>a.prof===p.id);const feitos=Math.floor(l.length*0.4);
-    l.forEach((a,i)=>{if(i<feitos){a.status='pago';a.forma=sorteia(formas)}else if(i===feitos)a.status=p.id==='wylma'?'atendendo':'chegou'})});
+    l.forEach((a,i)=>{if(i<feitos){a.status='pago';a.forma=sorteia(formas)}else if(i===feitos){a.status=p.id==='wylma'?'atendendo':'chegou';if(a.status==='atendendo')a.fotos={antes:null,depois:null}}})});
   const atrasada=hojeAg.find(a=>a.status==='agendado');if(atrasada)atrasada.atraso=10;
   const sens=hojeAg.find(a=>a.status==='agendado'&&a.cli!==(atrasada&&atrasada.cli));if(sens&&!hojeAg.some(x=>x.cli==='c4'))sens.cli='c4';
   const avisos=[];
   if(atrasada)avisos.push({id:'v1',txt:clientes.find(c=>c.id===atrasada.cli).nome+' avisou que vai atrasar 10 min ('+atrasada.hora+')'});
-  const fut=ag.find(a=>a.data!==HOJE&&a.status==='agendado'&&a.origem==='app'&&a.cli!=='c0');
-  if(fut)avisos.push({id:'v2',txt:clientes.find(c=>c.id===fut.cli).nome+' agendou pelo app: '+sv(fut.serv).nome+', '+rotDia(fut.data).toLowerCase()+' às '+fut.hora});
+  avisos.push({id:'v2',txt:'Michele agendou pelo convite da Ana Paula: Axilas, '+rotDia(dia(3)).toLowerCase()+' às 10:00. A Ana ganha o benefício quando o atendimento for concluído.'});
   avisos.push({id:'v3',txt:'Mariana pediu o pacote Nutri Gloss · 3 sessões pelo app'});
-  return{dia:HOJE,modo:'cliente',aba:{cliente:'inicio',dono:'hoje'},clientes,ag,lanc,avisos,seq,eu:'c0',
-    serv:SERV,prof:PROF,pacs:PACS,exp:EXP,promo:PROMO,bloqueios:[],pedidos:[{id:'q1',cli:'c7',pac:'p-gloss'}],
+  return{dia:HOJE,modo:'cliente',aba:{cliente:'inicio',dono:'hoje'},clientes,ag,lanc,avisos,seq,eu:'c0',indicLog,
+    serv:SERV,prof:PROF,pacs:PACS,exp:EXP,camp:CAMP,indic:INDIC,bloqueios:[],pedidos:[{id:'q1',cli:'c7',pac:'p-gloss'}],
     fluxo:{cat:null,serv:null,prof:'qualquer',data:null,hora:null,remarca:null},filtroProf:'todos',diaAgenda:HOJE,periodo:'mes',filtroCli:'todas',busca:''};
 }
-function salvar(){try{localStorage.setItem('wylma-demo1',JSON.stringify(S))}catch(e){}}
-function abrir(){try{const x=JSON.parse(localStorage.getItem('wylma-demo1'));if(x&&x.dia===HOJE&&x.ag&&x.serv)return x}catch(e){}return gerar()}
-function ligar(){SERV=S.serv;PROF=S.prof;PACS=S.pacs;EXP=S.exp;PROMO=S.promo}
+function salvar(){try{localStorage.setItem('wylma-demo2',JSON.stringify(S))}catch(e){}}
+function abrir(){try{const x=JSON.parse(localStorage.getItem('wylma-demo2'));if(x&&x.dia===HOJE&&x.ag&&x.camp)return x}catch(e){}return gerar()}
+function ligar(){SERV=S.serv;PROF=S.prof;PACS=S.pacs;EXP=S.exp;CAMP=S.camp;INDIC=S.indic}
 S=abrir();ligar();
 
 const cl=id=>S.clientes.find(c=>c.id===id);
@@ -362,28 +423,36 @@ const bloqueioEm=(prof,data,ini,dur)=>S.bloqueios.find(b=>b.data===data&&(b.prof
 function livre(prof,data,ini,dur,ignora){const e=expediente(deYmd(data));if(!e||ini<e[0]||ini+dur>e[1])return false;
   if(bloqueioEm(prof,data,ini,dur))return false;
   return!S.ag.some(a=>a.id!==ignora&&a.prof===prof&&a.data===data&&ativoAg(a)&&ini<paraMin(a.hora)+sv(a.serv).min&&paraMin(a.hora)<ini+dur)}
-const totalAg=a=>a.valor+Object.entries(a.extras||{}).reduce((s,[k,q])=>s+EXTRAS.find(x=>x.id===k).preco*q,0);
+const totalAg=a=>a.valor+Object.entries(a.extras||{}).reduce((s,[k,q])=>s+EXTRAS.find(x=>x.id===k).preco*q,0)-(a.creditoUsado||0);
 function ultimo(cid){const l=S.ag.filter(a=>a.cli===cid&&a.status==='pago').map(a=>a.data).sort();return l[l.length-1]||null}
 const pacotesAtivos=c=>c.pacotes.filter(k=>k.usadas<k.sessoes);
 const pacoteDoServ=(c,serv)=>pacotesAtivos(c).find(k=>k.serv===serv);
-/* retoques: serviço com prazo de retorno cuja última vez já passou (ou está a 3 dias) do prazo */
+/* retorno de cada serviço: a profissional define ao finalizar (ag.retorno); se não definiu, vale o padrão do serviço */
 function retoques(cid){
   const out=[];
-  for(const s of SERV){if(!s.retorno||s.ativo===false)continue;
-    const l=S.ag.filter(a=>a.cli===cid&&a.serv===s.id&&a.status==='pago').map(a=>a.data).sort().pop();if(!l)continue;
-    if(S.ag.some(a=>a.cli===cid&&a.serv===s.id&&a.status==='agendado'&&a.data>=HOJE))continue;
-    const d=diasDesde(l);if(d>=s.retorno-3)out.push({serv:s,dias:d,ultimo:l});}
-  return out.sort((a,b)=>(b.dias-b.serv.retorno)-(a.dias-a.serv.retorno));
+  for(const s of SERV){if(s.ativo===false)continue;
+    const a=S.ag.filter(x=>x.cli===cid&&x.serv===s.id&&x.status==='pago').sort((x,y)=>x.data.localeCompare(y.data)).pop();if(!a)continue;
+    const prazo=a.retorno!=null?a.retorno:(s.retorno||0);if(!prazo)continue;
+    if(S.ag.some(x=>x.cli===cid&&x.serv===s.id&&x.status==='agendado'&&x.data>=HOJE))continue;
+    const d=diasDesde(a.data);if(d>=prazo-3)out.push({serv:s,dias:d,prazo,ultimo:a});}
+  return out.sort((a,b)=>(b.dias-b.prazo)-(a.dias-a.prazo));
 }
+const deRetoque=s=>(s.cat==='Depilação'?'da sua depilação de ':'do seu atendimento de ')+s.nome.toLowerCase();
 function alertasSaude(c){if(!c.saude)return[];const s=c.saude,l=[];
   if(s.alergia)l.push(s.alergia);if(s.gestante)l.push('Gestante ou amamentando');if(s.sensivel)l.push('Pele sensível');if(s.diabetes)l.push('Diabetes');if(s.acidos)l.push('Usa ácidos na pele');return l}
-/* como falar do retoque: "da sua depilação de axilas" / "do seu atendimento de hidratação profunda" */
-const deRetoque=s=>(s.cat==='Depilação'?'da sua depilação de ':'do seu atendimento de ')+s.nome.toLowerCase();
 const anivMes=c=>c.aniv.slice(0,2)===pad(hojeD().getMonth()+1);
-const fotoSrc=f=>f==='@labios'?IMG_LABIOS:f;
+/* atendimento recente ainda sem a avaliação da cliente (entre 1 e 15 dias) */
+const paraAvaliar=cid=>S.ag.filter(a=>a.cli===cid&&a.status==='pago'&&!a.avaliacao&&diasDesde(a.data)>=1&&diasDesde(a.data)<=15).sort((x,y)=>y.data.localeCompare(x.data))[0];
+/* sugestões de horário perto do retorno: o 1º horário livre de 3 dias diferentes, com a mesma profissional quando der */
+function sugestoes(servId,profPref){
+  const out=[];
+  for(const d of diasAbertos()){if(out.length>=3)break;
+    const hs=horasLivres(d,servId,profPref&&pf(profPref)?profPref:'qualquer',null);if(hs.length)out.push({data:d,hora:hs[0].h,prof:hs[0].p})}
+  return out;
+}
 
 /* ---------- ícones ---------- */
-const sv1='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">';
+const sv1='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
 const IC={
  inicio:sv1+'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
  agendar:sv1+'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>',
@@ -392,84 +461,102 @@ const IC={
  hoje:sv1+'<path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg>',
  agenda:sv1+'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M12 10v11"/></svg>',
  clientes:sv1+'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18 14.8c2 .7 3.2 2.4 3.5 5.2"/></svg>',
+ divulgar:sv1+'<path d="M4 10v4a1 1 0 0 0 1 1h2l5 4V5L7 9H5a1 1 0 0 0-1 1zM16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg>',
  caixa:sv1+'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
  ajustes:sv1+'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>',
  ficha:sv1+'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>',
- retoque:sv1+'<path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4"/></svg>'
+ retoque:sv1+'<path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4"/></svg>',
+ presente:sv1+'<rect x="3" y="8" width="18" height="5" rx="1"/><path d="M5 13v8h14v-8M12 8v13M12 8c-2-4-6-4-6-1.5S10 8 12 8zm0 0c2-4 6-4 6-1.5S14 8 12 8z"/></svg>',
+ coracao:sv1+'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>'
 };
+document.getElementById('btnAjustes').innerHTML=IC.ajustes+'<span>Ajustes</span>';
 const ABAS={cliente:[['inicio','Início'],['agendar','Agendar'],['horarios','Horários'],['pacotes','Pacotes']],
-            dono:[['hoje','Hoje'],['agenda','Agenda'],['clientes','Clientes'],['pacotes','Pacotes'],['caixa','Caixa'],['ajustes','Ajustes']]};
+            dono:[['hoje','Hoje'],['agenda','Agenda'],['clientes','Clientes'],['pacotes','Pacotes'],['divulgar','Divulgar'],['caixa','Caixa']]};
 
 /* ---------- desenho ---------- */
 const tela=document.getElementById('tela'),abas=document.getElementById('abas'),camada=document.getElementById('camada');
 function desenhar(){
   document.querySelectorAll('.troca button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.modo===S.modo));
-  const lista=ABAS[S.modo],atual=S.aba[S.modo];
+  const lista=ABAS[S.modo],atual=S.aba[S.modo],bAj=document.getElementById('btnAjustes');
+  bAj.hidden=S.modo!=='dono';bAj.setAttribute('aria-current',atual==='ajustes'?'page':'false');
   abas.style.gridTemplateColumns='repeat('+lista.length+',1fr)';
   abas.innerHTML=lista.map(([id,r])=>'<button type="button" data-aba="'+id+'"'+(id===atual?' aria-current="page"':'')+'>'+IC[id]+'<span>'+r+'</span></button>').join('');
-  tela.innerHTML=(S.modo==='cliente'?{inicio:cInicio,agendar:cAgendar,horarios:cHorarios,pacotes:cPacotes}:{hoje:dHoje,agenda:dAgenda,clientes:dClientes,pacotes:dPacotes,caixa:dCaixa,ajustes:dAjustes})[atual]();
+  tela.innerHTML=(S.modo==='cliente'?{inicio:cInicio,agendar:cAgendar,horarios:cHorarios,pacotes:cPacotes}:{hoje:dHoje,agenda:dAgenda,clientes:dClientes,pacotes:dPacotes,divulgar:dDivulgar,caixa:dCaixa,ajustes:dAjustes})[atual]();
   salvar();
 }
 const st=s=>'<span class="st '+s+'">'+({agendado:'Agendado',chegou:'Chegou',atendendo:'Em atendimento',pago:'Pago',faltou:'Não veio',cancelado:'Cancelado'}[s])+'</span>';
 const profTag=id=>{const b=pf(id);return'<span class="prof"><i style="background:'+b.cor+'"></i>'+esc(b.nome)+'</span>'};
 const bolinhas=k=>'<span class="bolinhas" aria-label="'+k.usadas+' de '+k.sessoes+' sessões usadas">'+Array.from({length:k.sessoes},(_,i)=>'<i class="'+(i<k.usadas?'ok':'')+'"></i>').join('')+'</span>';
-const opServ=(s,act,sel)=>'<button class="op" aria-pressed="'+(sel===s.id)+'" data-act="'+act+'" data-id="'+s.id+'"><span><b>'+esc(s.nome)+'</b><small>'+(s.min<60?s.min+' min':(s.min/60+'').replace('.',',')+' h')+(s.destaque?' · '+s.destaque:'')+'</small></span><span class="preco">'+(s.apartir?'<small>a partir de</small>':'')+brl(s.preco)+'</span></button>';
+const dur=m=>m<60?m+' min':(m/60+'').replace('.',',')+' h';
+const opServ=(s,act,sel)=>'<button class="op" aria-pressed="'+(sel===s.id)+'" data-act="'+act+'" data-id="'+s.id+'"><span><b>'+esc(s.nome)+'</b><small>'+dur(s.min)+(s.destaque?' · '+s.destaque:'')+'</small></span><span class="preco">'+(s.apartir?'<small>a partir de</small>':'')+brl(s.preco)+'</span></button>';
+const restantes=n=>n+(n===1?' restante':' restantes');
 
 /* ===== Cliente ===== */
 function meusFuturos(){return S.ag.filter(a=>a.cli===S.eu&&a.status==='agendado'&&a.data>=HOJE).sort((x,y)=>(x.data+x.hora).localeCompare(y.data+y.hora))}
 function cInicio(){
-  const eu=cl(S.eu),p=meusFuturos()[0],rt=retoques(S.eu),pac=pacotesAtivos(eu);
+  const eu=cl(S.eu),p=meusFuturos()[0],rt=retoques(S.eu),pac=pacotesAtivos(eu),av=paraAvaliar(S.eu),camp=campanhaAtiva();
   let h='<section><span class="ola">Oi, '+esc(primeiro(eu.nome))+'!</span><p class="suave">Que bom ter você por aqui. Seu momento de cuidado começa agora.</p></section>';
   if(p)h+='<section class="prox" aria-label="Seu próximo horário"><div class="linha"><h2>Seu próximo horário</h2>'+(p.pacote?'<span class="st pac">Do pacote</span>':'')+'</div>'+
     '<div class="quando num">'+p.hora+'<span>'+rotDia(p.data)+'</span></div><p>'+esc(sv(p.serv).nome)+' com <b>'+esc(pf(p.prof).nome)+'</b>'+(p.atraso?' · avisou atraso de '+p.atraso+' min':'')+'</p>'+
     '<div class="acoes"><button class="btn peq" data-act="atrasar" data-id="'+p.id+'">Vou me atrasar</button><button class="btn peq" data-act="remarcar" data-id="'+p.id+'">Remarcar</button><button class="btn peq" data-act="cancelar" data-id="'+p.id+'">Cancelar</button></div></section>';
   else h+='<section class="prox"><h2>Nenhum horário marcado</h2><p>Escolha o serviço, a profissional e o horário em poucos toques.</p><button class="btn cheio" style="background:#fff;color:var(--ameixa)" data-aba="agendar">Agendar agora</button></section>';
+  if(av)h+='<section class="cartao bloco"><h2>Como foi seu '+esc(sv(av.serv).nome.toLowerCase())+'?</h2><p class="suave" style="font-size:14px">'+rotDia(av.data)+' com '+esc(pf(av.prof).nome)+'. Sua resposta vai direto para o espaço.</p><div class="feed"><button class="btn" data-act="avaliar" data-id="'+av.id+'" data-n="amei">Amei</button><button class="btn" data-act="avaliar" data-id="'+av.id+'" data-n="gostei">Gostei</button><button class="btn" data-act="avaliar" data-id="'+av.id+'" data-n="desconforto">Senti desconforto</button></div></section>';
   if(!eu.saude)h+='<section class="aviso-cli"><span class="ic">'+IC.ficha+'</span><p><b>Sua ficha de cuidados</b><br><span class="suave">Alergias, gestação, pele sensível. Leva 1 minuto e deixa seu atendimento mais seguro.</span></p><button class="btn peq pri" data-act="ficha">Preencher</button></section>';
-  if(PROMO.ativa)h+='<section class="promo" aria-label="Promoção"><img src="'+IMG_PROMO+'" alt="Campanha '+esc(PROMO.titulo)+': depilação com cera"><div class="txt"><span class="tag">Promoção do mês</span><p>'+esc(PROMO.texto)+'</p><button class="btn pri cheio" data-act="escolherCat" data-id="Depilação">Agendar depilação</button></div></section>';
-  if(rt.length){const r=rt[0];h+='<section class="aviso-cli"><span class="ic">'+IC.retoque+'</span><p><b>Hora de retocar</b><br><span class="suave">Já faz '+r.dias+' dias '+esc(deRetoque(r.serv))+'.</span></p><button class="btn peq pri" data-act="escolherServ" data-id="'+r.serv.id+'">Agendar</button></section>';}
-  if(pac.length)h+='<section class="cartao bloco"><div class="linha"><h2>Meus pacotes</h2><button class="btn peq" data-aba="pacotes">Ver</button></div>'+pac.map(k=>'<div class="linha"><span><b>'+esc(k.nome)+'</b><br><span class="suave" style="font-size:13px">'+(k.sessoes-k.usadas)+' de '+k.sessoes+' sessões restantes</span></span>'+bolinhas(k)+'</div>').join('')+'</section>';
-  const ult=S.ag.filter(a=>a.cli===S.eu&&a.fotos).sort((x,y)=>y.data.localeCompare(x.data))[0];
-  if(ult)h+='<section class="cartao bloco"><div class="linha"><h2>Seu antes e depois</h2><span class="suave" style="font-size:13px">'+dataCurta(ult.data)+'</span></div><img class="foto-unica" src="'+fotoSrc(ult.fotos.combo||ult.fotos.depois)+'" alt="Antes e depois: '+esc(sv(ult.serv).nome)+'"><p class="suave" style="font-size:13px">'+esc(sv(ult.serv).nome)+' com '+esc(pf(ult.prof).nome)+'. Só você e o espaço veem suas fotos.</p></section>';
+  if(rt.length){const r=rt[0],sug=sugestoes(r.serv.id,r.ultimo.prof);
+    h+='<section class="cartao bloco"><div class="linha"><h2>Hora de retocar</h2><span class="ic-mini">'+IC.retoque+'</span></div><p>Já faz <b>'+r.dias+' dias</b> '+esc(deRetoque(r.serv))+'. A '+esc(pf(r.ultimo.prof).nome)+' indicou voltar a cada '+r.prazo+' dias.</p>'+
+      (sug.length?'<p class="suave" style="font-size:13.5px">Horários livres para você:</p><div class="sugs">'+sug.map(x=>'<button class="sug" data-act="reservaRapida" data-serv="'+r.serv.id+'" data-d="'+x.data+'" data-h="'+x.hora+'" data-p="'+x.prof+'"><b>'+rotDia(x.data)+'</b><span>'+x.hora+' · '+esc(pf(x.prof).nome)+'</span></button>').join('')+'</div>':'')+
+      '<button class="btn cheio" data-act="escolherServ" data-id="'+r.serv.id+'">Ver outros horários</button></section>';}
+  if(camp)h+='<section class="promo" aria-label="Campanha"><img src="'+imgSrc(camp.img)+'" alt="Campanha '+esc(camp.titulo)+'"><div class="txt"><span class="tag">Campanha do mês</span><p>'+esc(camp.texto)+'</p>'+(camp.cat?'<button class="btn pri cheio" data-act="escolherCat" data-id="'+camp.cat+'">Agendar '+camp.cat.toLowerCase()+'</button>':'<button class="btn pri cheio" data-aba="agendar">Agendar</button>')+'</div></section>';
+  if(pac.length)h+='<section class="cartao bloco"><div class="linha"><h2>Meus pacotes</h2><button class="btn peq" data-aba="pacotes">Ver</button></div>'+pac.map(k=>'<div class="linha"><span><b>'+esc(k.nome)+'</b><br><span class="suave" style="font-size:13px">'+restantes(k.sessoes-k.usadas)+' de '+k.sessoes+'</span></span>'+bolinhas(k)+'</div>').join('')+'</section>';
+  if(INDIC.ativo){const feitas=S.clientes.filter(c=>c.indicadaPor===S.eu);
+    h+='<section class="indica"><div class="linha"><h2>Indique uma amiga</h2><span class="ic-mini">'+IC.presente+'</span></div><p>Ela agenda pelo seu convite e, quando concluir o primeiro atendimento, você ganha <b>'+esc(textoBeneficio())+'</b>.</p>'+
+      (eu.credito>0||feitas.length?'<p class="suave" style="font-size:13.5px">'+(feitas.length?feitas.length+(feitas.length===1?' amiga já veio':' amigas já vieram')+' pelo seu convite. ':'')+(eu.credito>0?'Você tem <b style="color:var(--ok)">'+brl0(eu.credito)+' de crédito</b> para usar no próximo atendimento.':'')+'</p>':'')+
+      '<button class="btn pri cheio" data-act="convidar">Enviar convite</button></section>';}
+  const ult=S.ag.filter(a=>a.cli===S.eu&&a.fotos&&(a.fotos.combo||a.fotos.depois)).sort((x,y)=>y.data.localeCompare(x.data))[0];
+  if(ult)h+='<section class="cartao bloco"><div class="linha"><h2>Seu antes e depois</h2><span class="suave" style="font-size:13px">'+dataCurta(ult.data)+'</span></div><img class="foto-unica" src="'+imgSrc(ult.fotos.combo||ult.fotos.depois)+'" alt="Antes e depois: '+esc(sv(ult.serv).nome)+'"><p class="suave" style="font-size:13px">'+esc(sv(ult.serv).nome)+' com '+esc(pf(ult.prof).nome)+'. Fotos privadas: só você e o espaço veem'+(eu.divulga?', e você autorizou o uso na divulgação.':'.')+'</p></section>';
   return h;
 }
 function diasAbertos(){const l=[];let d=hojeD();while(l.length<12){const x=ymd(d);if(expediente(d)&&!S.bloqueios.some(b=>b.data===x&&b.prof==='todos'&&b.diaTodo))l.push(x);d=somaDias(d,1)}return l}
-function horasLivres(data,serv,prof){
+function horasLivres(data,serv,prof,ignora){
   const e=expediente(deYmd(data));if(!e)return[];const dur=sv(serv).min,agora=new Date(),out=[];
   for(let t=e[0];t+dur<=e[1];t+=PASSO){
     if(data===HOJE&&t<agora.getHours()*60+agora.getMinutes()+60)continue;
     const ps=prof==='qualquer'?PROF.map(b=>b.id):[prof];
-    const ok=ps.find(b=>livre(b,data,t,dur,S.fluxo.remarca));if(ok)out.push({h:paraHora(t),p:ok});
+    const ok=ps.find(b=>livre(b,data,t,dur,ignora));if(ok)out.push({h:paraHora(t),p:ok});
   }return out;
 }
 function cAgendar(){
-  const F=S.fluxo;if(!F.cat)F.cat=F.serv?sv(F.serv).cat:CATS[0];
-  if(F.serv&&!F.data)F.data=diasAbertos().find(d=>horasLivres(d,F.serv,F.prof).length);
+  const F=S.fluxo,camp=campanhaAtiva();if(!F.cat)F.cat=F.serv?sv(F.serv).cat:CATS[0];
+  if(F.serv&&!F.data)F.data=diasAbertos().find(d=>horasLivres(d,F.serv,F.prof,F.remarca).length);
   let h='<section class="bloco"><h1>'+(F.remarca?'Remarcar horário':'Agendar')+'</h1>'+(F.remarca?'<p class="suave">Escolha o novo dia e horário. O antigo é liberado quando você confirmar.</p>':'')+'</section>';
   h+='<section class="bloco"><h2>1 · O que você quer fazer</h2><div class="chips">'+CATS.map(c=>'<button class="chip" aria-pressed="'+(F.cat===c)+'" data-act="fCat" data-id="'+c+'">'+c+'</button>').join('')+'</div>'+
-    (PROMO.ativa&&F.cat==='Depilação'?'<p class="aviso" style="border-left-color:var(--ok)"><span><b class="brinde">'+esc(PROMO.titulo)+':</b> agendando depilação você ganha uma sessão de clareamento.</span></p>':'')+
+    (camp&&camp.brinde&&F.cat===camp.cat?'<p class="aviso" style="border-left-color:var(--ok)"><span><b class="brinde">'+esc(camp.titulo)+':</b> agendando '+camp.cat.toLowerCase()+' você ganha uma sessão de '+esc(sv(camp.brinde).nome.toLowerCase())+'.</span></p>':'')+
     '<div class="lista">'+servAtivos().filter(s=>s.cat===F.cat).map(s=>opServ(s,'fServ',F.serv)).join('')+'</div></section>';
   if(F.serv){
     h+='<section class="bloco"><h2>2 · Com quem</h2><div class="chips">'+[['qualquer','Tanto faz']].concat(PROF.map(b=>[b.id,b.nome])).map(([id,n])=>'<button class="chip" aria-pressed="'+(F.prof===id)+'" data-act="fProf" data-id="'+id+'">'+esc(n)+'</button>').join('')+'</div></section>';
     h+='<section class="bloco"><h2>3 · Dia</h2><div class="chips">'+diasAbertos().map(d=>{const x=deYmd(d);return'<button class="chip dia" aria-pressed="'+(F.data===d)+'" data-act="fDia" data-id="'+d+'"><small>'+(d===HOJE?'Hoje':DS[x.getDay()])+'</small><b>'+x.getDate()+'</b></button>'}).join('')+'</div></section>';
-    const hs=F.data?horasLivres(F.data,F.serv,F.prof):[];
+    const hs=F.data?horasLivres(F.data,F.serv,F.prof,F.remarca):[];
     h+='<section class="bloco"><h2>4 · Horário</h2>'+(hs.length?'<div class="horas">'+hs.map(x=>'<button class="hora" aria-pressed="'+(F.hora===x.h)+'" data-act="fHora" data-id="'+x.h+'" data-p="'+x.p+'">'+x.h+'</button>').join('')+'</div>':'<p class="vazio">Sem horário livre neste dia. Tente outro dia ou outra profissional.</p>')+'</section>';
   }
-  if(F.serv&&F.hora){const s=sv(F.serv),eu=cl(S.eu),k=pacoteDoServ(eu,s.id);
-    h+='<div class="resumo"><p><b>'+esc(s.nome)+'</b> com '+esc(pf(F.profEsc).nome)+'<br>'+rotDia(F.data)+' às '+F.hora+' · '+(k?'<b>do seu pacote</b>':brl(s.preco)+(s.apartir?' (a partir de)':''))+(PROMO.ativa&&s.cat==='Depilação'&&!F.remarca?'<br><span class="brinde">+ 1 sessão de clareamento de brinde</span>':'')+'</p><button class="btn pri" data-act="confirmar">Confirmar</button></div>';}
+  if(F.serv&&F.hora){const s=sv(F.serv),eu=cl(S.eu),k=pacoteDoServ(eu,s.id),br=camp&&camp.brinde&&s.cat===camp.cat&&!F.remarca;
+    h+='<div class="resumo"><p><b>'+esc(s.nome)+'</b> com '+esc(pf(F.profEsc).nome)+'<br>'+rotDia(F.data)+' às '+F.hora+' · '+(k?'<b>do seu pacote</b>':brl(s.preco)+(s.apartir?' (a partir de)':''))+(br?'<br><span class="brinde">+ 1 sessão de '+esc(sv(camp.brinde).nome.toLowerCase())+' de brinde</span>':'')+'</p><button class="btn pri" data-act="confirmar">Confirmar</button></div>';}
   return h;
 }
 function cHorarios(){
   const fut=meusFuturos(),pas=S.ag.filter(a=>a.cli===S.eu&&a.status==='pago').sort((x,y)=>(y.data+y.hora).localeCompare(x.data+x.hora)).slice(0,10);
   let h='<section class="bloco"><h1>Meus horários</h1></section><section class="bloco"><h2>Próximos</h2>';
   h+=fut.length?'<div class="fila">'+fut.map(a=>'<div class="at"><div class="h">'+a.hora+'<small>'+rotDia(a.data)+'</small></div><div class="q"><b>'+esc(sv(a.serv).nome)+'</b><div class="meta">'+profTag(a.prof)+(a.pacote?'<span class="st pac">Do pacote</span>':'<span>'+brl(a.valor)+'</span>')+'</div><div class="acoes"><button class="btn peq" data-act="remarcar" data-id="'+a.id+'">Remarcar</button><button class="btn peq" data-act="cancelar" data-id="'+a.id+'">Cancelar</button></div></div></div>').join('')+'</div>':'<p class="vazio">Nenhum horário marcado.</p>';
-  h+='</section><section class="bloco"><h2>Meu histórico</h2>'+(pas.length?'<div class="fila">'+pas.map(a=>'<div class="at"><div class="h">'+deYmd(a.data).getDate()+'<small>'+MES[deYmd(a.data).getMonth()]+'</small></div><div class="q"><b>'+esc(sv(a.serv).nome)+'</b><div class="meta">'+profTag(a.prof)+(a.pacote?'<span class="st pac">Pacote</span>':'<span>'+brl(totalAg(a))+'</span>')+'</div>'+(a.fotos?'<div class="acoes"><button class="btn peq" data-act="verFotos" data-id="'+a.id+'">Ver antes e depois</button></div>':'')+'</div></div>').join('')+'</div>':'<p class="vazio">Seus atendimentos aparecem aqui.</p>')+'</section>';
+  h+='</section><section class="bloco"><h2>Meu histórico</h2>'+(pas.length?'<div class="fila">'+pas.map(a=>{const s=sv(a.serv),b=[];
+      if(s.cuidados)b.push('<button class="btn peq" data-act="verCuidados" data-id="'+a.id+'">Cuidados</button>');
+      if(a.fotos&&(a.fotos.combo||a.fotos.depois||a.fotos.antes))b.push('<button class="btn peq" data-act="verFotos" data-id="'+a.id+'">Antes e depois</button>');
+      return'<div class="at"><div class="h">'+deYmd(a.data).getDate()+'<small>'+MES[deYmd(a.data).getMonth()]+'</small></div><div class="q"><b>'+esc(s.nome)+'</b><div class="meta">'+profTag(a.prof)+(a.pacote?'<span class="st pac">Pacote</span>':'<span>'+brl(totalAg(a))+'</span>')+(a.retorno?'<span>retorno em '+a.retorno+' dias</span>':'')+'</div>'+(b.length?'<div class="acoes">'+b.join('')+'</div>':'')+'</div></div>'}).join('')+'</div>':'<p class="vazio">Seus atendimentos aparecem aqui.</p>')+'</section>';
   return h;
 }
 function cPacotes(){
   const eu=cl(S.eu);
   let h='<section class="bloco"><h1>Pacotes</h1><p class="suave">Sessões compradas juntas saem mais em conta, e você acompanha cada uma por aqui.</p></section>';
-  h+='<section class="bloco"><h2>Meus pacotes</h2>'+(eu.pacotes.length?eu.pacotes.map(k=>'<div class="cartao bloco"><div class="linha"><b>'+esc(k.nome)+'</b>'+(k.usadas>=k.sessoes?'<span class="st pago">Concluído</span>':'<span class="st pac">'+(k.sessoes-k.usadas)+(k.sessoes-k.usadas===1?' restante':' restantes')+'</span>')+'</div>'+bolinhas(k)+(k.usadas<k.sessoes?'<button class="btn pri cheio" data-act="escolherServ" data-id="'+k.serv+'">Agendar próxima sessão</button>':'')+'</div>').join(''):'<p class="vazio">Você ainda não tem pacotes.</p>')+'</section>';
-  h+='<section class="bloco"><h2>Pacotes disponíveis</h2><div class="lista">'+PACS.filter(p=>p.ativo!==false).map(p=>{const s=sv(p.serv),cheio=s.preco*p.sessoes;return'<div class="op"><span><b>'+esc(p.nome)+'</b><small>'+(cheio>p.preco?'Economia de '+brl(cheio-p.preco):'')+'</small></span><span class="acoes" style="align-items:center"><span class="preco">'+brl(p.preco)+'</span><button class="btn peq pri" data-act="pedirPacote" data-id="'+p.id+'">Quero</button></span></div>'}).join('')+'</div></section>';
+  h+='<section class="bloco"><h2>Meus pacotes</h2>'+(eu.pacotes.length?eu.pacotes.map(k=>'<div class="cartao bloco"><div class="linha"><b>'+esc(k.nome)+'</b>'+(k.usadas>=k.sessoes?'<span class="st pago">Concluído</span>':'<span class="st pac">'+restantes(k.sessoes-k.usadas)+'</span>')+'</div>'+bolinhas(k)+(k.usadas<k.sessoes?'<button class="btn pri cheio" data-act="escolherServ" data-id="'+k.serv+'">Agendar próxima sessão</button>':'')+'</div>').join(''):'<p class="vazio">Você ainda não tem pacotes.</p>')+'</section>';
+  h+='<section class="bloco"><h2>Pacotes disponíveis</h2><div class="lista">'+PACS.filter(p=>p.ativo!==false).map(p=>{const s=sv(p.serv),cheio=s.preco*p.sessoes;return'<div class="pac-op"><span><b>'+esc(p.nome)+'</b><small>'+brl(p.preco)+(cheio>p.preco?' · economia de '+brl(cheio-p.preco):'')+'</small></span><button class="btn peq pri" data-act="pedirPacote" data-id="'+p.id+'">Quero</button></div>'}).join('')+'</div></section>';
   return h;
 }
 
@@ -484,15 +571,15 @@ function dHoje(){
   S.bloqueios.filter(b=>b.data===HOJE).forEach(b=>{h+='<div class="aviso"><span>Hoje: <b>'+descBloq(b)+'</b> · '+(b.prof==='todos'?'espaço todo':esc(pf(b.prof).nome))+'</span><button class="x" data-act="tirarBloqueio" data-id="'+b.id+'">Desfazer</button></div>'});
   if(!expediente(hojeD()))return h+'<p class="vazio">Hoje o espaço fica fechado. Veja a semana na aba Agenda.</p>';
   h+='<section class="kpis"><div class="kpi"><small>Faturado</small><b>'+brl0(fat)+'</b></div><div class="kpi"><small>Atendidas</small><b>'+pagos.length+'/'+ativos.length+'</b></div><div class="kpi"><small>Próxima</small><b>'+(prox?prox.hora:'—')+'</b></div></section>';
-  if(S.avisos.length)h+='<section class="bloco"><h2>Avisos das clientes</h2>'+S.avisos.map(v=>'<div class="aviso"><span>'+esc(v.txt)+'</span><button class="x" data-act="okAviso" data-id="'+v.id+'">Ok</button></div>').join('')+'</section>';
+  if(S.avisos.length)h+='<section class="bloco"><h2>Avisos das clientes</h2>'+S.avisos.map(v=>'<div class="aviso'+(v.urgente?' urgente':'')+'"><span>'+esc(v.txt)+'</span><button class="x" data-act="okAviso" data-id="'+v.id+'">'+(v.urgente?'Resolvido':'Ok')+'</button></div>').join('')+'</section>';
   h+='<section class="acoes"><button class="btn peq" data-act="irClientes" data-id="retocar">'+nRet+' para retocar</button><button class="btn peq" data-act="irClientes" data-id="aniv">'+nAniv+' aniversariantes</button></section>';
   h+='<section class="bloco"><h2>Agenda de hoje</h2><div class="chips">'+[['todos','Todas']].concat(PROF.map(b=>[b.id,b.nome])).map(([id,n])=>'<button class="chip" aria-pressed="'+(S.filtroProf===id)+'" data-act="filtroProf" data-id="'+id+'">'+esc(n)+'</button>').join('')+'</div><div class="fila">';
   h+=l.map(a=>{const c=cl(a.cli),al=alertasSaude(c);let bt='';
     if(a.status==='agendado')bt='<button class="btn peq" data-act="status" data-st="chegou" data-id="'+a.id+'">Chegou</button><button class="btn peq" data-act="status" data-st="faltou" data-id="'+a.id+'">Não veio</button>';
-    else if(a.status==='chegou')bt='<button class="btn peq pri" data-act="status" data-st="atendendo" data-id="'+a.id+'">Começar atendimento</button>';
+    else if(a.status==='chegou')bt='<button class="btn peq pri" data-act="comecar" data-id="'+a.id+'">Começar atendimento</button>';
     else if(a.status==='atendendo')bt='<button class="btn peq ok" data-act="finalizar" data-id="'+a.id+'">Finalizar e cobrar</button>';
     return'<div class="at'+(['pago','faltou','cancelado'].includes(a.status)?' feito':'')+'"><div class="h">'+a.hora+'<small>'+sv(a.serv).min+' min</small></div><div class="q"><div class="linha"><b>'+esc(c.nome)+'</b>'+st(a.status)+'</div>'+
-      '<div class="meta"><span>'+esc(sv(a.serv).nome)+'</span>'+profTag(a.prof)+(a.pacote?'<span class="st pac">Pacote</span>':'')+(a.atraso&&a.status==='agendado'?'<span class="st atraso">+'+a.atraso+' min</span>':'')+(a.status==='pago'?'<span>'+(a.forma==='Pacote'?'':brl(totalAg(a))+' · ')+a.forma+'</span>':'')+'</div>'+
+      '<div class="meta"><span>'+esc(sv(a.serv).nome)+'</span>'+profTag(a.prof)+(a.pacote?'<span class="st pac">Pacote</span>':'')+(c.indicadaPor&&!S.ag.some(x=>x.cli===c.id&&x.status==='pago'&&x.id!==a.id)?'<span class="st pac">1ª vez · indicação</span>':'')+(a.atraso&&a.status==='agendado'?'<span class="st atraso">+'+a.atraso+' min</span>':'')+(a.status==='pago'?'<span>'+(a.forma==='Pacote'?'':brl(totalAg(a))+' · ')+a.forma+'</span>':'')+(a.status==='atendendo'&&a.fotos&&a.fotos.antes?'<span class="st ok-f">foto do antes</span>':'')+'</div>'+
       (al.length&&a.status!=='pago'?'<div class="meta">'+al.map(x=>'<span class="st alerta">'+esc(x)+'</span>').join('')+'</div>':'')+(bt?'<div class="acoes">'+bt+'</div>':'')+'</div></div>'}).join('')||'<p class="vazio">Ninguém marcado.</p>';
   return h+'</div></section>';
 }
@@ -512,17 +599,19 @@ function dAgenda(){
 function dClientes(){
   const q=S.busca.trim().toLowerCase(),F=S.filtroCli;
   let l=S.clientes.map(c=>({c,u:ultimo(c.id),rt:retoques(c.id)}));
-  const n={retocar:l.filter(x=>x.rt.length).length,aniv:l.filter(x=>anivMes(x.c)).length,pacote:l.filter(x=>pacotesAtivos(x.c).length).length,sumidas:l.filter(x=>x.u&&diasDesde(x.u)>45).length};
-  if(F==='retocar')l=l.filter(x=>x.rt.length);if(F==='aniv')l=l.filter(x=>anivMes(x.c));if(F==='pacote')l=l.filter(x=>pacotesAtivos(x.c).length);if(F==='sumidas')l=l.filter(x=>x.u&&diasDesde(x.u)>45);
+  const n={retocar:l.filter(x=>x.rt.length).length,aniv:l.filter(x=>anivMes(x.c)).length,pacote:l.filter(x=>pacotesAtivos(x.c).length).length,indicacao:l.filter(x=>x.c.indicadaPor).length,sumidas:l.filter(x=>x.u&&diasDesde(x.u)>45).length};
+  if(F==='retocar')l=l.filter(x=>x.rt.length);if(F==='aniv')l=l.filter(x=>anivMes(x.c));if(F==='pacote')l=l.filter(x=>pacotesAtivos(x.c).length);if(F==='indicacao')l=l.filter(x=>x.c.indicadaPor);if(F==='sumidas')l=l.filter(x=>x.u&&diasDesde(x.u)>45);
   if(q)l=l.filter(x=>x.c.nome.toLowerCase().includes(q)||x.c.fone.replace(/\D/g,'').includes(q.replace(/\D/g,'')||'#'));
   l.sort((a,b)=>F==='aniv'?a.c.aniv.localeCompare(b.c.aniv):(b.u||'').localeCompare(a.u||''));
   let h='<section class="bloco"><h1>Clientes</h1><input class="busca" id="busca" type="search" placeholder="Buscar por nome ou WhatsApp" value="'+esc(S.busca)+'" aria-label="Buscar cliente"><div class="chips">'+
-    [['todas','Todas · '+S.clientes.length],['retocar','Hora de retocar · '+n.retocar],['aniv','Aniversariantes · '+n.aniv],['pacote','Com pacote · '+n.pacote],['sumidas','Sumidas · '+n.sumidas]].map(([id,t])=>'<button class="chip" aria-pressed="'+(F===id)+'" data-act="filtroCli" data-id="'+id+'">'+t+'</button>').join('')+'</div></section>';
-  const dica={retocar:'Clientes cujo retoque venceu ou vence em até 3 dias. Um toque manda o convite pronto.',aniv:'Aniversariantes do mês. Um toque manda os parabéns com um mimo.',sumidas:'Sem vir há mais de 45 dias. Um toque manda um "estamos com saudade".'}[F];
+    [['todas','Todas · '+S.clientes.length],['retocar','Hora de retocar · '+n.retocar],['aniv','Aniversariantes · '+n.aniv],['indicacao','Por indicação · '+n.indicacao],['pacote','Com pacote · '+n.pacote],['sumidas','Sumidas · '+n.sumidas]].map(([id,t])=>'<button class="chip" aria-pressed="'+(F===id)+'" data-act="filtroCli" data-id="'+id+'">'+t+'</button>').join('')+'</div></section>';
+  if(F==='indicacao'){const custo=S.indicLog.reduce((s,x)=>s+x.custo,0),conc=S.indicLog.length;
+    h+='<section class="kpis"><div class="kpi"><small>Vieram</small><b>'+n.indicacao+'</b></div><div class="kpi"><small>Concluíram</small><b>'+conc+'</b></div><div class="kpi"><small>Custo</small><b>'+brl0(custo)+'</b></div></section><p class="suave" style="font-size:13.5px">A indicadora só ganha o benefício ('+esc(textoBeneficio())+') quando a amiga conclui o primeiro atendimento pago. Cadastro ou horário cancelado não contam.</p>';}
+  const dica={retocar:'Clientes cujo retorno venceu ou vence em até 3 dias. Um toque manda o convite pronto.',aniv:'Aniversariantes do mês. Um toque manda os parabéns com um mimo.',sumidas:'Sem vir há mais de 45 dias. Um toque manda um "estamos com saudade".'}[F];
   if(dica)h+='<p class="suave" style="font-size:13.5px">'+dica+'</p>';
   h+='<div class="lista">'+l.map(({c,u,rt})=>{const al=alertasSaude(c),k=pacotesAtivos(c)[0];return'<div class="cli"><span class="av">'+esc(iniciais(c.nome))+'</span><div class="q"><b>'+esc(c.nome)+'</b><small>'+
-    (F==='retocar'&&rt.length?esc(rt[0].serv.nome)+' há '+rt[0].dias+' dias':F==='aniv'?'Aniversário '+c.aniv.slice(3)+'/'+c.aniv.slice(0,2):(u?'Última visita '+(diasDesde(u)===0?'hoje':'há '+diasDesde(u)+' dias'):'Ainda não veio'))+
-    (k?'<span class="st pac">Pacote '+(k.sessoes-k.usadas)+'×</span>':'')+(al.length?'<span class="st alerta">Ficha: atenção</span>':'')+'</small></div><span class="acoes" style="flex-wrap:nowrap"><button class="btn peq" data-act="verCliente" data-id="'+c.id+'">Ficha</button><button class="btn peq pri" data-act="zapCliente" data-id="'+c.id+'">WhatsApp</button></span></div>'}).join('')+'</div>';
+    (F==='retocar'&&rt.length?esc(rt[0].serv.nome)+' há '+rt[0].dias+' dias':F==='aniv'?'Aniversário '+c.aniv.slice(3)+'/'+c.aniv.slice(0,2):F==='indicacao'?'Indicada por '+esc(primeiro(cl(c.indicadaPor).nome))+(S.indicLog.some(x=>x.nova===c.id)?' · concluiu':' · ainda não concluiu'):(u?'Última visita '+(diasDesde(u)===0?'hoje':'há '+diasDesde(u)+' dias'):'Ainda não veio'))+
+    (k?'<span class="st pac">Pacote '+(k.sessoes-k.usadas)+'×</span>':'')+(c.credito>0?'<span class="st ok-f">Crédito '+brl0(c.credito)+'</span>':'')+(al.length?'<span class="st alerta">Ficha: atenção</span>':'')+'</small></div><span class="acoes"><button class="btn peq" data-act="verCliente" data-id="'+c.id+'">Ficha</button><button class="btn peq pri" data-act="zapCliente" data-id="'+c.id+'">WhatsApp</button></span></div>'}).join('')+'</div>';
   return l.length?h:h+'<p class="vazio">Nenhuma cliente encontrada.</p>';
 }
 function dPacotes(){
@@ -531,7 +620,21 @@ function dPacotes(){
   let h='<section class="bloco"><div class="linha"><h1>Pacotes</h1><button class="btn peq pri" data-act="venderPacote">Vender pacote</button></div></section>';
   h+='<section class="kpis"><div class="kpi"><small>Ativos</small><b>'+ativos.length+'</b></div><div class="kpi"><small>Sessões a fazer</small><b>'+ativos.reduce((s,x)=>s+x.k.sessoes-x.k.usadas,0)+'</b></div><div class="kpi"><small>Vendido no mês</small><b>'+brl0(vendido)+'</b></div></section>';
   if(S.pedidos.length)h+='<section class="bloco"><h2>Pedidos pelo app</h2>'+S.pedidos.map(p=>'<div class="aviso"><span><b>'+esc(cl(p.cli).nome)+'</b> quer o pacote '+esc(pc(p.pac).nome)+'</span><button class="x" data-act="venderPacote" data-cli="'+p.cli+'" data-pac="'+p.pac+'" data-q="'+p.id+'">Vender</button></div>').join('')+'</section>';
-  h+='<section class="bloco"><h2>Em andamento</h2>'+(ativos.length?'<div class="lista">'+ativos.map(({c,k})=>'<div class="cli"><span class="av">'+esc(iniciais(c.nome))+'</span><div class="q"><b>'+esc(c.nome)+'</b><small>'+esc(k.nome)+' · '+k.usadas+' de '+k.sessoes+'</small></div>'+bolinhas(k)+'</div>').join('')+'</div>':'<p class="vazio">Nenhum pacote em andamento.</p>')+'</section>';
+  h+='<section class="bloco"><h2>Em andamento</h2>'+(ativos.length?'<div class="lista">'+ativos.map(({c,k})=>'<div class="cli"><span class="av">'+esc(iniciais(c.nome))+'</span><div class="q"><b>'+esc(c.nome)+'</b><small>'+esc(k.nome)+' · '+k.usadas+' de '+k.sessoes+'</small></div><span class="acoes">'+bolinhas(k)+'</span></div>').join('')+'</div>':'<p class="vazio">Nenhum pacote em andamento.</p>')+'</section>';
+  return h;
+}
+/* ===== Divulgar: campanhas, trabalhos autorizados e indicações ===== */
+function trabalhosAutorizados(){return S.ag.filter(a=>a.fotos&&a.fotos.divulgar&&(a.fotos.combo||a.fotos.depois)&&cl(a.cli).divulga).sort((x,y)=>y.data.localeCompare(x.data))}
+function dDivulgar(){
+  const trab=trabalhosAutorizados(),custo=S.indicLog.reduce((s,x)=>s+x.custo,0);
+  let h='<section class="bloco"><h1>Divulgar</h1><p class="suave">Campanhas no app, posts prontos com os seus trabalhos e o resultado das indicações.</p></section>';
+  h+='<section class="bloco"><div class="linha"><h2>Campanhas</h2><button class="btn peq pri" data-act="editCamp" data-id="nova">Nova campanha</button></div>'+
+    CAMP.map(c=>'<div class="camp"><img src="'+imgSrc(c.img)+'" alt=""><div class="q"><b>'+esc(c.titulo)+'</b><small>'+(c.ativa?'<span class="st pago">No app</span>':'<span class="st agendado">Pausada</span>')+(c.cat?' '+c.cat:'')+(c.brinde?' · brinde: '+esc(sv(c.brinde).nome.toLowerCase()):'')+'</small><div class="acoes"><button class="btn peq" data-act="arteCamp" data-id="'+c.id+'">Criar arte</button><button class="btn peq" data-act="editCamp" data-id="'+c.id+'">Editar</button><button class="btn peq" data-act="pausarCamp" data-id="'+c.id+'">'+(c.ativa?'Pausar':'Ativar')+'</button></div></div></div>').join('')+'</section>';
+  h+='<section class="bloco"><h2>Trabalhos autorizados para divulgar</h2><p class="suave" style="font-size:13.5px">Só aparecem fotos de clientes que autorizaram a divulgação na ficha. As demais ficam guardadas em sigilo.</p>'+
+    (trab.length?'<div class="trabalhos">'+trab.map(a=>'<div class="trab"><img src="'+imgSrc(a.fotos.combo||a.fotos.depois)+'" alt="Trabalho: '+esc(sv(a.serv).nome)+'"><b>'+esc(sv(a.serv).nome)+'</b><small>'+dataCurta(a.data)+' · '+esc(primeiro(cl(a.cli).nome))+'</small><button class="btn peq pri" data-act="preparaPost" data-id="'+a.id+'">Preparar post</button></div>').join('')+'</div>':'<p class="vazio">Nenhum trabalho autorizado ainda. Ao finalizar, marque "pode divulgar" quando a cliente autorizar.</p>')+'</section>';
+  h+='<section class="cartao bloco"><div class="linha"><h2>Indicações</h2><button class="btn peq" data-act="irClientes" data-id="indicacao">Ver clientes</button></div>'+
+    '<div class="kpis"><div class="kpi"><small>Clientes novas</small><b>'+S.clientes.filter(c=>c.indicadaPor).length+'</b></div><div class="kpi"><small>Concluíram</small><b>'+S.indicLog.length+'</b></div><div class="kpi"><small>Custo</small><b>'+brl0(custo)+'</b></div></div>'+
+    '<p class="suave" style="font-size:13.5px">'+(INDIC.ativo?'Benefício atual: <b>'+esc(textoBeneficio())+'</b> para quem indica, até '+INDIC.limiteMes+' por mês. Muda em Ajustes.':'Programa de indicação desligado. Liga em Ajustes.')+'</p></section>';
   return h;
 }
 function dCaixa(){
@@ -544,44 +647,50 @@ function dCaixa(){
     const v=dias.map(x=>l.filter(a=>a.data===x).reduce((s,a)=>s+totalAg(a),0)+lp.filter(y=>y.data===x).reduce((s,y)=>s+y.valor,0)),mx=Math.max(...v,1);
     h+='<section class="cartao bloco"><div class="linha"><h2>Por dia</h2><span class="suave num" style="font-size:13px">maior: '+brl0(mx)+'</span></div><div class="barras" role="img" aria-label="Entradas por dia">'+v.map((x,i)=>'<i class="'+(dias[i]===HOJE?'hoje':'')+'" style="height:'+(x/mx*100)+'%" title="'+rotDia(dias[i])+': '+brl(x)+'"></i>').join('')+'</div></section>';}
   const cats={};l.forEach(a=>{const c=sv(a.serv).cat;cats[c]=(cats[c]||0)+a.valor});
-  h+='<section class="cartao bloco"><h2>Por tipo de serviço</h2><table class="tab">'+CATS.filter(c=>cats[c]).map(c=>'<tr><td>'+c+'</td><td>'+brl(cats[c])+'</td></tr>').join('')+(pacV?'<tr><td>Pacotes vendidos</td><td>'+brl(pacV)+'</td></tr>':'')+'</table></section>';
-  h+='<section class="cartao bloco"><h2>Por profissional</h2><table class="tab">'+PROF.map(b=>{const v=l.filter(a=>a.prof===b.id).reduce((s,a)=>s+a.valor,0);return'<tr><td>'+profTag(b.id)+(b.com?' <span class="suave" style="font-size:12.5px">· comissão '+b.com+'%: '+brl(v*b.com/100)+'</span>':'')+'</td><td>'+brl(v)+'</td></tr>'}).join('')+'</table></section>';
+  const credUsado=l.reduce((s,a)=>s+(a.creditoUsado||0),0);
+  h+='<section class="cartao bloco"><h2>Por tipo de serviço</h2><table class="tab">'+CATS.filter(c=>cats[c]).map(c=>'<tr><td>'+c+'</td><td>'+brl(cats[c])+'</td></tr>').join('')+(pacV?'<tr><td>Pacotes vendidos</td><td>'+brl(pacV)+'</td></tr>':'')+(credUsado?'<tr><td>Créditos de indicação usados</td><td>−'+brl(credUsado)+'</td></tr>':'')+'</table></section>';
+  h+='<section class="cartao bloco"><h2>Por profissional</h2><table class="tab">'+PROF.map(b=>{const v=l.filter(a=>a.prof===b.id).reduce((s,a)=>s+a.valor,0);return'<tr><td>'+profTag(b.id)+(b.com?'<br><span class="suave" style="font-size:12.5px">comissão '+b.com+'%: '+brl(v*b.com/100)+'</span>':'')+'</td><td>'+brl(v)+'</td></tr>'}).join('')+'</table></section>';
   const fs={};l.forEach(a=>{if(a.forma!=='Pacote')fs[a.forma]=(fs[a.forma]||0)+totalAg(a)});lp.forEach(x=>fs[x.forma]=(fs[x.forma]||0)+x.valor);
   h+='<section class="cartao bloco"><h2>Formas de pagamento</h2><table class="tab">'+Object.entries(fs).sort((a,b)=>b[1]-a[1]).map(([f,v])=>'<tr><td>'+f+'</td><td>'+brl(v)+'</td></tr>').join('')+'</table></section>';
   h+='<section class="cartao bloco"><h2>Vendas de produtos</h2><table class="tab">'+EXTRAS.map(x=>{const q=l.reduce((s,a)=>s+(a.extras[x.id]||0),0);return'<tr><td>'+x.nome+' <span class="suave">× '+q+'</span></td><td>'+brl(q*x.preco)+'</td></tr>'}).join('')+'</table></section>';
   return h;
 }
-/* ===== Ajustes: a própria Wylma muda tudo ===== */
+/* ===== Ajustes ===== */
 const opHoras=(sel,min,max)=>{let o='';for(let t=min;t<=max;t+=PASSO)o+='<option value="'+t+'"'+(t===sel?' selected':'')+'>'+paraHora(t)+'</option>';return o};
 const descBloq=b=>({dia:'Não vai abrir',apos:'Só a partir das '+paraHora(b.fim),ate:'Só até as '+paraHora(b.ini),faixa:'Fechado das '+paraHora(b.ini)+' às '+paraHora(b.fim)}[b.tipo]);
 function dAjustes(){
   let h='<section class="bloco"><h1>Ajustes</h1><p class="suave">Você muda tudo daqui, na hora. O app das clientes atualiza sozinho.</p></section>';
-  h+='<section class="cartao bloco"><h2>Promoção do mês</h2><img class="foto-unica" src="'+IMG_PROMO+'" alt="Imagem da campanha"><div class="campo"><label for="prTit">Título</label><input id="prTit" value="'+esc(PROMO.titulo)+'"></div><div class="campo"><label for="prTxt">Texto que as clientes veem</label><textarea id="prTxt">'+esc(PROMO.texto)+'</textarea></div>'+
-    '<label class="marcar"><input type="checkbox" id="prAtiva"'+(PROMO.ativa?' checked':'')+'> Mostrar no app das clientes (quem agendar depilação ganha 1 sessão de clareamento)</label><button class="btn pri cheio" data-act="salvarPromo">Salvar promoção</button></section>';
   const futs=S.bloqueios.filter(b=>b.data>=HOJE).sort((x,y)=>(x.data+paraHora(x.ini)).localeCompare(y.data+paraHora(y.ini)));
   h+='<section class="cartao bloco"><h2>Folgas e imprevistos</h2><button class="btn pri cheio" data-act="novoBloqueio">Não vou atender / mudar horário</button>'+
     (futs.length?'<table class="tab">'+futs.map(b=>'<tr><td><b>'+rotDia(b.data)+'</b> · '+descBloq(b)+'<br><span class="suave" style="font-size:13px">'+(b.prof==='todos'?'Espaço todo':esc(pf(b.prof).nome))+' · '+esc(b.motivo)+'</span></td><td><button class="btn peq" data-act="tirarBloqueio" data-id="'+b.id+'">Liberar</button></td></tr>').join('')+'</table>':'<p class="suave" style="font-size:13.5px">Nenhuma folga marcada. Horário bloqueado some do app na hora, e quem já estava marcada aparece para você avisar.</p>')+'</section>';
+  h+='<section class="cartao bloco"><h2>Programa de indicação</h2><label class="marcar"><input type="checkbox" id="inAtivo"'+(INDIC.ativo?' checked':'')+'> Ligado: cada cliente recebe um convite para indicar amigas</label>'+
+    '<div class="campo"><label for="inTipo">Benefício para quem indica</label><select id="inTipo"><option value="credito"'+(INDIC.tipo==='credito'?' selected':'')+'>Crédito em reais</option><option value="servico"'+(INDIC.tipo==='servico'?' selected':'')+'>Uma sessão de um serviço</option></select></div>'+
+    '<div class="duo"><div class="campo"><label for="inValor">Valor do crédito (R$)</label><input id="inValor" type="number" min="0" inputmode="decimal" value="'+INDIC.valor+'"></div><div class="campo"><label for="inLim">Limite por mês</label><input id="inLim" type="number" min="1" inputmode="numeric" value="'+INDIC.limiteMes+'"></div></div>'+
+    '<div class="campo"><label for="inServ">Serviço de brinde (se for sessão)</label><select id="inServ">'+servAtivos().map(s=>'<option value="'+s.id+'"'+(s.id===INDIC.serv?' selected':'')+'>'+esc(s.nome)+'</option>').join('')+'</select></div>'+
+    '<p class="suave" style="font-size:13px">O benefício só é liberado quando a amiga conclui o primeiro atendimento pago.</p><button class="btn pri cheio" data-act="salvarIndic">Salvar indicação</button></section>';
   h+='<section class="cartao bloco"><h2>Horário de funcionamento</h2><table class="tab">'+[1,2,3,4,5,6,0].map(w=>{const e=EXP[w];
-    return'<tr><td>'+DSL[w]+'</td><td>'+(e?'<select class="hsel" data-exp="1" data-w="'+w+'" data-p="0" aria-label="'+DSL[w]+': abre">'+opHoras(e[0],360,1290)+'</select> – <select class="hsel" data-exp="1" data-w="'+w+'" data-p="1" aria-label="'+DSL[w]+': fecha">'+opHoras(e[1],390,1320)+'</select> ':'<span class="suave">Fechado</span> ')+'<button class="btn peq" data-act="expToggle" data-w="'+w+'">'+(e?'Fechar':'Abrir')+'</button></td></tr>'}).join('')+'</table></section>';
-  h+='<section class="cartao bloco"><h2>Serviços e preços</h2>'+CATS.map(cat=>'<p style="font:italic 700 18px/1 var(--titulo);color:var(--ameixa);margin-top:6px">'+cat+'</p><table class="tab">'+SERV.filter(s=>s.cat===cat).map(s=>'<tr><td>'+(s.ativo===false?'<span class="suave" style="text-decoration:line-through">'+esc(s.nome)+'</span>':'<b>'+esc(s.nome)+'</b>')+'<br><span class="suave" style="font-size:13px">'+s.min+' min'+(s.retorno?' · retoque em '+s.retorno+' dias':'')+'</span></td><td>'+(s.apartir?'<span class="suave" style="font-size:12px">a partir de </span>':'')+brl(s.preco)+'<br><button class="btn peq" data-act="editServ" data-id="'+s.id+'">Editar</button></td></tr>').join('')+'</table>').join('')+'<button class="btn cheio" data-act="editServ" data-id="novo">+ Cadastrar serviço</button></section>';
+    return'<tr><td>'+DSL[w]+'</td><td><span class="horario">'+(e?'<select class="hsel" data-exp="1" data-w="'+w+'" data-p="0" aria-label="'+DSL[w]+': abre">'+opHoras(e[0],360,1290)+'</select><select class="hsel" data-exp="1" data-w="'+w+'" data-p="1" aria-label="'+DSL[w]+': fecha">'+opHoras(e[1],390,1320)+'</select>':'<span class="suave">Fechado</span>')+'<button class="btn peq" data-act="expToggle" data-w="'+w+'">'+(e?'Fechar':'Abrir')+'</button></span></td></tr>'}).join('')+'</table></section>';
+  h+='<section class="cartao bloco"><h2>Serviços, preços e cuidados</h2>'+CATS.map(cat=>'<p style="font:italic 700 18px/1 var(--titulo);color:var(--ameixa);margin-top:6px">'+cat+'</p><table class="tab">'+SERV.filter(s=>s.cat===cat).map(s=>'<tr><td>'+(s.ativo===false?'<span class="suave" style="text-decoration:line-through">'+esc(s.nome)+'</span>':'<b>'+esc(s.nome)+'</b>')+'<br><span class="suave" style="font-size:13px">'+dur(s.min)+(s.retorno?' · retorno em '+s.retorno+' dias':'')+(s.cuidados?' · com cuidados':'')+'</span></td><td>'+(s.apartir?'<span class="suave" style="font-size:12px">a partir de </span>':'')+brl(s.preco)+'<br><button class="btn peq" data-act="editServ" data-id="'+s.id+'">Editar</button></td></tr>').join('')+'</table>').join('')+'<button class="btn cheio" data-act="editServ" data-id="novo">+ Cadastrar serviço</button></section>';
   h+='<section class="cartao bloco"><h2>Pacotes à venda</h2><table class="tab">'+PACS.map(p=>'<tr><td><b>'+esc(p.nome)+'</b><br><span class="suave" style="font-size:13px">'+p.sessoes+' sessões de '+esc(sv(p.serv).nome)+'</span></td><td>'+brl(p.preco)+'<br><button class="btn peq" data-act="editPac" data-id="'+p.id+'">Editar</button></td></tr>').join('')+'</table><button class="btn cheio" data-act="editPac" data-id="novo">+ Criar pacote</button></section>';
-  h+='<section class="cartao bloco"><h2>Profissionais</h2><table class="tab">'+PROF.map(b=>'<tr><td>'+profTag(b.id)+'</td><td>'+(b.com?'comissão '+b.com+'%':'sem comissão')+' <button class="btn peq" data-act="editProf" data-id="'+b.id+'">Editar</button></td></tr>').join('')+'</table><button class="btn cheio" data-act="editProf" data-id="novo">+ Profissional</button></section>';
+  h+='<section class="cartao bloco"><h2>Profissionais</h2><table class="tab">'+PROF.map(b=>'<tr><td>'+profTag(b.id)+'<br><span class="suave" style="font-size:13px">'+(b.com?'comissão '+b.com+'%':'sem comissão')+'</span></td><td><button class="btn peq" data-act="editProf" data-id="'+b.id+'">Editar</button></td></tr>').join('')+'</table><button class="btn cheio" data-act="editProf" data-id="novo">+ Profissional</button></section>';
   return h;
 }
 
 /* ---------- janelas ---------- */
-function janela(html){camada.innerHTML='<div class="fundo-modal" data-act="fechar"><div class="modal" role="dialog" aria-modal="true">'+html+'</div></div>';const b=camada.querySelector('.modal button,.modal input');if(b)b.focus()}
+function janela(html){camada.innerHTML='<div class="fundo-modal" data-act="fechar"><div class="modal" role="dialog" aria-modal="true">'+html+'</div></div>'}
 function fechar(){camada.innerHTML=''}
-function aviso(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2800)}
-function zap(c,txt){janela('<h3>Mensagem para '+esc(primeiro(c.nome))+'</h3><p class="suave" style="font-size:13.5px">No app de verdade, este botão abre o WhatsApp de '+esc(c.fone)+' com a mensagem pronta. É só tocar em enviar.</p><div class="zap"><div class="bal">'+esc(txt)+'</div></div><button class="btn cheio" data-act="fechar">Fechar</button>')}
+function aviso(t){document.querySelectorAll('.toast').forEach(e=>e.remove());const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),3000)}
+function zap(c,txt,para){janela('<h3>Mensagem para '+esc(para||primeiro(c.nome))+'</h3><p class="suave" style="font-size:13.5px">No app de verdade, este botão abre o WhatsApp '+(c?'de '+esc(c.fone):'do espaço')+' com a mensagem pronta. É só tocar em enviar.</p><div class="zap"><div class="bal">'+esc(txt)+'</div></div><button class="btn cheio" data-act="fechar">Fechar</button>')}
 function janelaFotos(a){const f=a.fotos;
-  janela('<h3>Antes e depois</h3><p class="suave">'+esc(sv(a.serv).nome)+' · '+dataCurta(a.data)+' com '+esc(pf(a.prof).nome)+'</p>'+(f.combo?'<img class="foto-unica" src="'+fotoSrc(f.combo)+'" alt="Antes e depois">':'<div class="fotos">'+(f.antes?'<figure><img src="'+f.antes+'" alt="Antes"><figcaption>Antes</figcaption></figure>':'')+(f.depois?'<figure><img src="'+f.depois+'" alt="Depois"><figcaption>Depois</figcaption></figure>':'')+'</div>')+'<p class="suave" style="font-size:13px">Fotos privadas: só a cliente e o espaço veem.</p><button class="btn cheio" data-act="fechar">Fechar</button>')}
+  janela('<h3>Antes e depois</h3><p class="suave">'+esc(sv(a.serv).nome)+' · '+dataCurta(a.data)+' com '+esc(pf(a.prof).nome)+'</p>'+(f.combo?'<img class="foto-unica" src="'+imgSrc(f.combo)+'" alt="Antes e depois">':'<div class="fotos">'+(f.antes?'<figure><img src="'+f.antes+'" alt="Antes"><figcaption>Antes</figcaption></figure>':'')+(f.depois?'<figure><img src="'+f.depois+'" alt="Depois"><figcaption>Depois</figcaption></figure>':'')+'</div>')+'<p class="suave" style="font-size:13px">Fotos privadas: só a cliente e o espaço veem.'+(f.divulgar?' Esta foi autorizada para divulgação.':'')+'</p><button class="btn cheio" data-act="fechar">Fechar</button>')}
 function janelaFicha(cid,edita){const c=cl(cid),s=c.saude||{};
   if(!edita){const al=alertasSaude(c),hist=S.ag.filter(a=>a.cli===cid&&a.status==='pago').sort((x,y)=>y.data.localeCompare(x.data)).slice(0,6);
-    janela('<h3>'+esc(c.nome)+'</h3><p class="suave">'+esc(c.fone)+' · aniversário '+c.aniv.slice(3)+'/'+c.aniv.slice(0,2)+'</p>'+
-      '<div class="cartao bloco"><h2>Ficha de cuidados</h2>'+(c.saude?(al.length?al.map(x=>'<span class="st alerta" style="align-self:flex-start">'+esc(x)+'</span>').join(''):'<p>Nada a observar.</p>')+(s.obs?'<p class="suave">Obs.: '+esc(s.obs)+'</p>':''):'<p class="suave">Ainda não preenchida. A cliente preenche pelo app.</p>')+'</div>'+
+    janela('<h3>'+esc(c.nome)+'</h3><p class="suave">'+esc(c.fone)+' · aniversário '+c.aniv.slice(3)+'/'+c.aniv.slice(0,2)+(c.indicadaPor?' · indicada por '+esc(primeiro(cl(c.indicadaPor).nome)):'')+'</p>'+
+      '<div class="cartao bloco"><h2>Ficha de cuidados</h2>'+(c.saude?(al.length?'<div class="acoes">'+al.map(x=>'<span class="st alerta">'+esc(x)+'</span>').join('')+'</div>':'<p>Nada a observar.</p>')+(s.obs?'<p class="suave">Obs.: '+esc(s.obs)+'</p>':''):'<p class="suave">Ainda não preenchida. A cliente preenche pelo app.</p>')+
+      '<p style="font-size:13.5px">'+(c.divulga?'<span class="st pago">Autoriza divulgar fotos</span>':'<span class="st agendado">Fotos só no privado</span>')+'</p></div>'+
       (c.pacotes.length?'<div class="cartao bloco"><h2>Pacotes</h2>'+c.pacotes.map(k=>'<div class="linha"><span>'+esc(k.nome)+'</span>'+bolinhas(k)+'</div>').join('')+'</div>':'')+
-      '<div class="cartao bloco"><h2>Últimos atendimentos</h2>'+(hist.length?'<table class="tab">'+hist.map(a=>'<tr><td>'+dataCurta(a.data)+' · '+esc(sv(a.serv).nome)+(a.fotos?' <button class="btn peq" data-act="verFotos" data-id="'+a.id+'">Fotos</button>':'')+'</td><td>'+(a.forma==='Pacote'?'Pacote':brl(totalAg(a)))+'</td></tr>').join('')+'</table>':'<p class="suave">Nenhum ainda.</p>')+'</div>'+
+      (c.credito>0?'<div class="cartao bloco"><h2>Crédito de indicação</h2><p><b style="color:var(--ok)">'+brl(c.credito)+'</b> para usar no próximo atendimento.</p></div>':'')+
+      '<div class="cartao bloco"><h2>Últimos atendimentos</h2>'+(hist.length?'<table class="tab">'+hist.map(a=>'<tr><td>'+dataCurta(a.data)+' · '+esc(sv(a.serv).nome)+(a.avaliacao&&a.avaliacao.nota==='desconforto'?' <span class="st alerta">desconforto</span>':'')+(a.fotos?' <button class="btn peq" data-act="verFotos" data-id="'+a.id+'">Fotos</button>':'')+'</td><td>'+(a.forma==='Pacote'?'Pacote':brl(totalAg(a)))+'</td></tr>').join('')+'</table>':'<p class="suave">Nenhum ainda.</p>')+'</div>'+
       '<button class="btn cheio" data-act="fechar">Fechar</button>');return}
   janela('<h3>Ficha de cuidados</h3><p class="suave" style="font-size:13.5px">Suas respostas ajudam a escolher os produtos certos e deixam seu atendimento mais seguro. Só você e o espaço veem.</p>'+
     '<div class="campo"><label for="fsAlergia">Tem alguma alergia?</label><input id="fsAlergia" placeholder="Ex.: cera de abelha, esmalte, látex" value="'+esc(s.alergia||'')+'"></div>'+
@@ -590,26 +699,89 @@ function janelaFicha(cid,edita){const c=cl(cid),s=c.saude||{};
     '<label class="marcar"><input type="checkbox" id="fsDiab"'+(s.diabetes?' checked':'')+'> Tenho diabetes</label>'+
     '<label class="marcar"><input type="checkbox" id="fsAcid"'+(s.acidos?' checked':'')+'> Uso ácidos ou retinoides na pele</label>'+
     '<div class="campo"><label for="fsObs">Algo mais que a gente deve saber?</label><textarea id="fsObs">'+esc(s.obs||'')+'</textarea></div>'+
-    '<label class="marcar"><input type="checkbox" id="fsOk"> Autorizo o uso destas informações para o meu atendimento</label>'+
+    '<div class="cartao bloco"><label class="marcar"><input type="checkbox" id="fsOk"> Autorizo o uso destas informações e das fotos de antes e depois para o meu atendimento (fotos privadas)</label>'+
+    '<label class="marcar"><input type="checkbox" id="fsDiv"'+(c.divulga?' checked':'')+'> Opcional: autorizo o espaço a divulgar meu antes e depois nas redes sociais. Posso mudar quando quiser.</label></div>'+
     '<button class="btn pri cheio" data-act="salvarFicha">Salvar ficha</button><button class="btn cheio" data-act="fechar">Depois</button>')}
+function janelaCuidados(a){const s=sv(a.serv);
+  janela('<h3>Cuidados depois do '+esc(s.nome.toLowerCase())+'</h3><p class="suave">Orientações da '+esc(pf(a.prof).nome)+' para o atendimento de '+dataCurta(a.data)+'.</p><div class="cartao"><p>'+esc(s.cuidados)+'</p></div>'+
+    (a.retorno?'<p>Próximo retorno indicado: <b>em '+a.retorno+' dias</b> ('+dataCurta(ymd(somaDias(deYmd(a.data),a.retorno)))+'). O app te lembra.</p>':'')+
+    '<p class="suave" style="font-size:13.5px">Sentiu algo diferente? Fale com o espaço pelo botão abaixo.</p><button class="btn cheio" data-act="falarEspaco" data-id="'+a.id+'">Falar com o espaço</button><button class="btn pri cheio" data-act="fechar">Entendi</button>')}
 
-let fin=null;
+/* ---------- começar e finalizar atendimento ---------- */
+let fin=null,ini=null;
+const slotFoto=(obj,q,rot)=>obj[q]?'<figure><img src="'+obj[q]+'" alt="'+rot+'"><figcaption>'+rot+' · <button class="btn peq mini" data-act="tirarFoto" data-id="'+q+'">trocar</button></figcaption></figure>':'<label class="sobe">'+rot+'<span>tocar para escolher a foto</span><input type="file" accept="image/*" data-foto="'+q+'"></label>';
+function janelaComecar(){const a=S.ag.find(x=>x.id===ini.id),c=cl(a.cli),al=alertasSaude(c);
+  janela('<h3>Começar · '+esc(primeiro(c.nome))+'</h3><p class="suave">'+esc(sv(a.serv).nome)+' com '+esc(pf(a.prof).nome)+'</p>'+
+    (al.length?'<div class="acoes">'+al.map(x=>'<span class="st alerta">'+esc(x)+'</span>').join('')+'</div>':'')+
+    '<div class="campo"><label>Foto do antes (opcional)</label><div class="fotos">'+slotFoto(ini,'antes','Antes')+'<p class="suave" style="font-size:13px;align-self:center">A foto do depois é pedida ao finalizar. As fotos ficam privadas.'+(c.divulga?' Esta cliente autoriza divulgação.':'')+'</p></div></div>'+
+    '<button class="btn pri cheio" data-act="comecarOk">'+(ini.antes?'Começar atendimento':'Começar sem foto')+'</button><button class="btn cheio" data-act="fechar">Voltar</button>')}
 function janelaFinalizar(){
   const a=S.ag.find(x=>x.id===fin.id),c=cl(a.cli),s=sv(a.serv),k=a.pacote?c.pacotes.find(x=>x.id===a.pacote):pacoteDoServ(c,s.id);
-  const base=fin.usaPac?0:fin.valor,ext=EXTRAS.reduce((t,x)=>t+(fin.extras[x.id]||0)*x.preco,0),tot=base+ext;
-  const slot=(q,rot)=>fin[q]?'<figure><img src="'+fin[q]+'" alt="'+rot+'"><figcaption>'+rot+' · <button class="btn peq" style="padding:3px 7px" data-act="tirarFoto" data-id="'+q+'">trocar</button></figcaption></figure>':'<label class="sobe">'+rot+'<span class="suave" style="font-weight:600;font-size:12px">tocar para escolher a foto</span><input type="file" accept="image/*" data-foto="'+q+'"></label>';
+  const base=fin.usaPac?0:fin.valor,ext=EXTRAS.reduce((t,x)=>t+(fin.extras[x.id]||0)*x.preco,0),cred=fin.usaCred?Math.min(c.credito,base+ext):0,tot=base+ext-cred;
   janela('<h3>Finalizar · '+esc(primeiro(c.nome))+'</h3>'+
-    (alertasSaude(c).length?'<div class="acoes">'+alertasSaude(c).map(x=>'<span class="st alerta">'+esc(x)+'</span>').join('')+'</div>':'')+
     '<div class="campo"><label for="fValor">'+esc(s.nome)+(s.apartir?' (a partir de '+brl(s.preco)+')':'')+'</label>'+(fin.usaPac?'<p><span class="st pac">Sessão do pacote · sem cobrança</span></p>':'<input id="fValor" type="number" step="0.01" inputmode="decimal" value="'+fin.valor+'">')+'</div>'+
-    (k?'<button class="btn peq" data-act="fPac">'+(fin.usaPac?'Cobrar normal':'Usar sessão do pacote ('+(k.sessoes-k.usadas)+' restantes)')+'</button>':'')+
-    '<div class="campo"><label>Antes e depois (opcional)</label><div class="fotos">'+slot('antes','Antes')+slot('depois','Depois')+'</div></div>'+
+    '<div class="acoes">'+(k?'<button class="btn peq" data-act="fPac">'+(fin.usaPac?'Cobrar normal':'Usar sessão do pacote ('+restantes(k.sessoes-k.usadas)+')')+'</button>':'')+(c.credito>0?'<button class="btn peq" data-act="fCred">'+(fin.usaCred?'Não usar o crédito':'Usar crédito de indicação ('+brl0(c.credito)+')')+'</button>':'')+'</div>'+
+    '<div class="campo"><label>Antes e depois</label><div class="fotos">'+slotFoto(fin,'antes','Antes')+slotFoto(fin,'depois','Depois')+'</div>'+
+    (c.divulga?'<label class="marcar"><input type="checkbox" id="fDiv"'+(fin.divulgar?' checked':'')+'> Pode usar na divulgação (a cliente autorizou na ficha)</label>':'<p class="suave" style="font-size:13px">Esta cliente não autorizou divulgação: as fotos ficam só no histórico privado.</p>')+'</div>'+
+    '<div class="campo"><label for="fRet">Próximo retorno desta cliente (dias)</label><input id="fRet" type="number" min="0" inputmode="numeric" value="'+fin.retorno+'"><span class="suave" style="font-size:12.5px">'+(s.cuidados?'Ela recebe os cuidados do serviço no app e um lembrete perto do retorno. ':'')+'0 = sem retorno.</span></div>'+
     '<div class="campo"><label>Vendeu algum produto?</label>'+EXTRAS.map(x=>'<div class="linha"><span>'+x.nome+' <span class="suave">'+brl(x.preco)+'</span></span><span class="qtd"><button data-act="fExtra" data-id="'+x.id+'" data-d="-1" aria-label="Menos">−</button><b class="num">'+(fin.extras[x.id]||0)+'</b><button data-act="fExtra" data-id="'+x.id+'" data-d="1" aria-label="Mais">+</button></span></div>').join('')+'</div>'+
     (tot>0?'<div class="campo"><label>Forma de pagamento</label><div class="chips">'+['Pix','Dinheiro','Débito','Crédito'].map(f=>'<button class="chip" aria-pressed="'+(fin.forma===f)+'" data-act="fForma" data-id="'+f+'">'+f+'</button>').join('')+'</div></div>':'')+
-    '<div class="total"><span class="suave">Total</span><b>'+brl(tot)+'</b></div>'+
+    '<div class="total"><span class="suave">Total'+(cred?' (com crédito)':'')+'</span><b>'+brl(tot)+'</b></div>'+
     '<button class="btn ok cheio" data-act="fOk"'+(tot>0&&!fin.forma?' disabled':'')+'>'+(tot>0?'Recebi '+brl(tot):'Concluir')+'</button>');
 }
 /* foto do celular: reduz para no máximo 640 px antes de guardar */
-function lerFoto(arquivo,cb){const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=()=>{const m=640,esc2=Math.min(1,m/Math.max(img.width,img.height)),cv=document.createElement('canvas');cv.width=Math.round(img.width*esc2);cv.height=Math.round(img.height*esc2);cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height);cb(cv.toDataURL('image/jpeg',0.8))};img.onerror=()=>aviso('Não deu para abrir essa imagem.');img.src=r.result};r.readAsDataURL(arquivo)}
+function lerFoto(arquivo,cb){const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=()=>{const m=640,k=Math.min(1,m/Math.max(img.width,img.height)),cv=document.createElement('canvas');cv.width=Math.round(img.width*k);cv.height=Math.round(img.height*k);cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height);cb(cv.toDataURL('image/jpeg',0.8))};img.onerror=()=>aviso('Não deu para abrir essa imagem.');img.src=r.result};r.readAsDataURL(arquivo)}
+/* benefício da indicação: só quando a amiga conclui o PRIMEIRO atendimento pago */
+function premiarIndicacao(a){const c=cl(a.cli);if(!INDIC.ativo||!c.indicadaPor||S.indicLog.some(x=>x.nova===c.id))return null;
+  if(S.ag.some(x=>x.cli===c.id&&x.status==='pago'&&x.id!==a.id))return null;
+  const ind=cl(c.indicadaPor),mes=HOJE.slice(0,7);if(!ind)return null;
+  if(S.indicLog.filter(x=>x.ind===ind.id&&x.data.slice(0,7)===mes).length>=INDIC.limiteMes)return'Limite de indicações do mês da '+primeiro(ind.nome)+' atingido: sem benefício desta vez.';
+  let custo,txt;
+  if(INDIC.tipo==='credito'){ind.credito=(ind.credito||0)+INDIC.valor;custo=INDIC.valor;txt=brl0(INDIC.valor)+' de crédito'}
+  else{const s=sv(INDIC.serv);ind.pacotes.push({id:novoId('k'),pac:null,nome:s.nome+' · indicação',serv:s.id,sessoes:1,usadas:0,em:HOJE,brinde:true});custo=s.preco;txt='1 sessão de '+s.nome.toLowerCase()}
+  S.indicLog.push({id:novoId('i'),ind:ind.id,nova:c.id,data:HOJE,beneficio:txt,custo});
+  return primeiro(ind.nome)+' ganhou '+txt+' por indicar a '+primeiro(c.nome)+'.';
+}
+
+/* ---------- artes para Instagram (desenhadas no próprio celular, sem custo) ---------- */
+function carregarImg(src){return new Promise(ok=>{if(!src)return ok(null);const i=new Image();i.onload=()=>ok(i);i.onerror=()=>ok(null);i.src=src})}
+function cobrir(g,img,x,y,w,h){const k=Math.max(w/img.width,h/img.height),iw=img.width*k,ih=img.height*k;g.save();g.beginPath();g.rect(x,y,w,h);g.clip();g.drawImage(img,x+(w-iw)/2,y+(h-ih)/2,iw,ih);g.restore()}
+function quebrar(g,txt,max){const ps=txt.split(' '),l=[];let at='';for(const p of ps){const t=at?at+' '+p:p;if(g.measureText(t).width>max&&at){l.push(at);at=p}else at=t}if(at)l.push(at);return l}
+async function desenharArte(tipo,dados){
+  try{await document.fonts.ready}catch(e){}
+  const cv=document.createElement('canvas');cv.width=1080;cv.height=1350;const g=cv.getContext('2d');
+  const gr=g.createLinearGradient(0,0,1080,1350);gr.addColorStop(0,'#4d1f59');gr.addColorStop(.6,'#6b2f7a');gr.addColorStop(1,'#b0679f');g.fillStyle=gr;g.fillRect(0,0,1080,1350);
+  g.textAlign='center';
+  if(tipo==='post'){
+    const f=dados.fotos;
+    if(f.combo){const i=await carregarImg(imgSrc(f.combo));if(i)cobrir(g,i,90,170,900,880)}
+    else{const a=await carregarImg(f.antes),d=await carregarImg(f.depois);
+      if(a&&d){cobrir(g,a,90,170,440,880);cobrir(g,d,550,170,440,880);g.fillStyle='rgba(255,255,255,.92)';g.font='800 30px "Nunito Sans",sans-serif';g.fillRect(110,990,170,44);g.fillRect(570,990,190,44);g.fillStyle='#4d1f59';g.fillText('ANTES',195,1022);g.fillText('DEPOIS',665,1022)}
+      else{const i=d||a;if(i)cobrir(g,i,90,170,900,880)}}
+    g.fillStyle='#fff';g.font='400 96px "Great Vibes",cursive';g.fillText('Wylma',540,120);
+    g.font='italic 700 58px "Cormorant Garamond",serif';g.fillText(dados.titulo,540,1140);
+    g.font='700 30px "Nunito Sans",sans-serif';g.fillStyle='#f6dcec';g.fillText('Agende pelo app · '+INSTAGRAM,540,1210);
+    g.font='800 22px "Nunito Sans",sans-serif';g.fillStyle='rgba(255,255,255,.7)';g.fillText('WYLMA ESPAÇO MULHER',540,1290);
+  }else{
+    const i=await carregarImg(imgSrc(dados.img));if(i)cobrir(g,i,0,0,1080,760);
+    g.fillStyle='#fbf6fa';g.beginPath();g.moveTo(0,700);g.quadraticCurveTo(540,640,1080,700);g.lineTo(1080,1350);g.lineTo(0,1350);g.closePath();g.fill();
+    g.fillStyle='#6b2f7a';g.font='italic 700 92px "Cormorant Garamond",serif';g.fillText(dados.titulo,540,840);
+    g.fillStyle='#2f1a36';g.font='600 40px "Nunito Sans",sans-serif';quebrar(g,dados.texto,880).slice(0,4).forEach((l,n)=>g.fillText(l,540,920+n*56));
+    g.fillStyle='#6b2f7a';const bw=560,bx=(1080-bw)/2;g.beginPath();g.roundRect?g.roundRect(bx,1150,bw,90,45):g.rect(bx,1150,bw,90);g.fill();
+    g.fillStyle='#fff';g.font='800 36px "Nunito Sans",sans-serif';g.fillText('Agende pelo app',540,1208);
+    g.fillStyle='#6b2f7a';g.font='400 64px "Great Vibes",cursive';g.fillText('Wylma',540,1310);
+  }
+  return cv;
+}
+let arteAtual=null;
+async function abrirArte(tipo,dados,legenda){
+  janela('<h3>'+(tipo==='post'?'Post pronto':'Arte da campanha')+'</h3><p class="suave">Preparando a imagem…</p>');
+  const cv=await desenharArte(tipo,dados);arteAtual={cv,nome:(tipo==='post'?'post-':'campanha-')+Date.now()+'.jpg'};
+  janela('<h3>'+(tipo==='post'?'Post pronto para o Instagram':'Arte da campanha')+'</h3><img class="foto-unica" src="'+cv.toDataURL('image/jpeg',0.86)+'" alt="Prévia da arte">'+
+    '<div class="campo"><label for="legenda">Legenda</label><textarea id="legenda" rows="6">'+esc(legenda)+'</textarea></div>'+
+    '<div class="duo"><button class="btn pri" data-act="compartilharArte">Compartilhar</button><button class="btn" data-act="copiarLegenda">Copiar legenda</button></div>'+
+    '<p class="suave" style="font-size:12.5px">No celular, "Compartilhar" abre o Instagram, o WhatsApp e outros apps com a imagem. Postar direto pelo app, sem passar pelo Instagram, fica para uma próxima etapa.</p><button class="btn cheio" data-act="fechar">Fechar</button>');
+}
 
 let blq=null;
 function janelaBloq(){
@@ -621,21 +793,32 @@ function janelaBloq(){
   janela('<h3>Mudar horário</h3><p class="suave" style="font-size:13.5px">Os horários bloqueados somem do app das clientes na hora.</p>'+
     '<div class="campo"><label for="bqData">Dia</label><select id="bqData">'+dias.map(d=>'<option value="'+d+'"'+(d===blq.data?' selected':'')+'>'+rotDia(d)+' ('+dataCurta(d)+')</option>').join('')+'</select></div>'+
     '<div class="campo"><label for="bqProf">Quem</label><select id="bqProf"><option value="todos">Espaço todo</option>'+PROF.map(b=>'<option value="'+b.id+'"'+(blq.prof===b.id?' selected':'')+'>Só '+esc(b.nome)+'</option>').join('')+'</select></div>'+
-    '<div class="campo"><label>O que muda</label><div class="chips" style="flex-wrap:wrap">'+[['dia','Não vou atender'],['apos','Só a partir de…'],['ate','Só até…'],['faixa','Fechar um intervalo']].map(([id,n])=>'<button class="chip" aria-pressed="'+(T===id)+'" data-act="bqTipo" data-id="'+id+'">'+n+'</button>').join('')+'</div></div>'+
+    '<div class="campo"><label>O que muda</label><div class="chips quebra">'+[['dia','Não vou atender'],['apos','Só a partir de…'],['ate','Só até…'],['faixa','Fechar um intervalo']].map(([id,n])=>'<button class="chip" aria-pressed="'+(T===id)+'" data-act="bqTipo" data-id="'+id+'">'+n+'</button>').join('')+'</div></div>'+
     (T==='apos'?'<div class="campo"><label for="bqH1">Começo a atender às</label><select id="bqH1">'+opHoras(blq.h1,e[0]+PASSO,e[1]-PASSO)+'</select></div>':'')+
     (T==='ate'?'<div class="campo"><label for="bqH1">Atendo até as</label><select id="bqH1">'+opHoras(blq.h1,e[0]+PASSO,e[1]-PASSO)+'</select></div>':'')+
-    (T==='faixa'?'<div class="linha"><div class="campo" style="flex:1"><label for="bqH1">De</label><select id="bqH1">'+opHoras(blq.h1,e[0],e[1]-PASSO)+'</select></div><div class="campo" style="flex:1"><label for="bqH2">Até</label><select id="bqH2">'+opHoras(blq.h2,e[0]+PASSO,e[1])+'</select></div></div>':'')+
-    '<div class="campo"><label>Motivo (só você vê)</label><div class="chips" style="flex-wrap:wrap">'+['Imprevisto','Médico','Folga','Feriado','Curso'].map(m=>'<button class="chip" aria-pressed="'+(blq.motivo===m)+'" data-act="bqMotivo" data-id="'+m+'">'+m+'</button>').join('')+'</div></div>'+
+    (T==='faixa'?'<div class="duo"><div class="campo"><label for="bqH1">De</label><select id="bqH1">'+opHoras(blq.h1,e[0],e[1]-PASSO)+'</select></div><div class="campo"><label for="bqH2">Até</label><select id="bqH2">'+opHoras(blq.h2,e[0]+PASSO,e[1])+'</select></div></div>':'')+
+    '<div class="campo"><label>Motivo (só você vê)</label><div class="chips quebra">'+['Imprevisto','Médico','Folga','Feriado','Curso'].map(m=>'<button class="chip" aria-pressed="'+(blq.motivo===m)+'" data-act="bqMotivo" data-id="'+m+'">'+m+'</button>').join('')+'</div></div>'+
     '<button class="btn pri cheio" data-act="bqOk">Bloquear</button><button class="btn cheio" data-act="fechar">Voltar</button>');
 }
 function lerBloq(){const g=id=>document.getElementById(id);if(!blq)return;if(g('bqData'))blq.data=g('bqData').value;if(g('bqProf'))blq.prof=g('bqProf').value;if(g('bqH1'))blq.h1=+g('bqH1').value;if(g('bqH2'))blq.h2=+g('bqH2').value}
 const fraseBloq=b=>({dia:'não vou abrir',apos:'só vou atender a partir das '+paraHora(b.fim),ate:'só vou atender até as '+paraHora(b.ini),faixa:'não vou atender das '+paraHora(b.ini)+' às '+paraHora(b.fim)}[b.tipo]);
 const quandoFrase=d=>{const r=rotDia(d);return r==='Hoje'||r==='Amanhã'?r:'No dia '+dataCurta(d)};
+let campEd=null;
+function janelaCamp(){const c=campEd;
+  janela('<h3>'+(c.id?'Editar campanha':'Nova campanha')+'</h3>'+
+    '<div class="campo"><label>Imagem</label>'+(c.img?'<img class="foto-unica" src="'+imgSrc(c.img)+'" alt="Imagem da campanha"><button class="btn peq" data-act="trocarImgCamp">Trocar imagem</button>':'<label class="sobe larga">Subir uma foto ou arte<span>do celular ou do computador</span><input type="file" accept="image/*" data-foto="camp"></label>')+'</div>'+
+    '<div class="campo"><label for="cpTit">Título</label><input id="cpTit" value="'+esc(c.titulo)+'" placeholder="Ex.: Outubro Rosa"></div>'+
+    '<div class="campo"><label for="cpTxt">Texto que as clientes veem</label><textarea id="cpTxt" placeholder="Ex.: Nutri Gloss com 15% de desconto até o fim do mês.">'+esc(c.texto)+'</textarea></div>'+
+    '<div class="campo"><label for="cpCat">Botão "Agendar" leva para</label><select id="cpCat"><option value="">Agenda geral</option>'+CATS.map(x=>'<option'+(x===c.cat?' selected':'')+'>'+x+'</option>').join('')+'</select></div>'+
+    '<div class="campo"><label for="cpBr">Brinde automático para quem agendar</label><select id="cpBr"><option value="">Sem brinde</option>'+servAtivos().map(s=>'<option value="'+s.id+'"'+(s.id===c.brinde?' selected':'')+'>1 sessão de '+esc(s.nome)+'</option>').join('')+'</select></div>'+
+    '<label class="marcar"><input type="checkbox" id="cpAtiva"'+(c.ativa?' checked':'')+'> Mostrar no app das clientes agora (pausa as outras)</label>'+
+    '<button class="btn pri cheio" data-act="salvarCamp">Salvar campanha</button><button class="btn cheio" data-act="fechar">Voltar</button>')}
+function lerCamp(){const g=i=>document.getElementById(i);if(!g('cpTit'))return;campEd.titulo=g('cpTit').value;campEd.texto=g('cpTxt').value;campEd.cat=g('cpCat').value;campEd.brinde=g('cpBr').value;campEd.ativa=g('cpAtiva').checked}
 
 /* ---------- ações ---------- */
 document.addEventListener('click',ev=>{
   const m=ev.target.closest('[data-modo]');if(m){S.modo=m.dataset.modo;fechar();desenhar();window.scrollTo(0,0);return}
-  const ab=ev.target.closest('[data-aba]');if(ab){S.aba[S.modo]=ab.dataset.aba;fechar();desenhar();window.scrollTo(0,0);return}
+  const ab=ev.target.closest('[data-aba],[data-aba-dono]');if(ab){S.aba[S.modo]=ab.dataset.aba||ab.dataset.abaDono;fechar();desenhar();window.scrollTo(0,0);return}
   const el=ev.target.closest('[data-act]');if(!el)return;
   const act=el.dataset.act,id=el.dataset.id,F=S.fluxo;
   if(act==='fechar'){if(el.classList.contains('fundo-modal')&&ev.target!==el)return;fechar();return}
@@ -648,41 +831,57 @@ document.addEventListener('click',ev=>{
    case'fProf':F.prof=id;F.hora=null;break;
    case'fDia':F.data=id;F.hora=null;break;
    case'fHora':F.hora=id;F.profEsc=el.dataset.p;break;
-   case'confirmar':{
-     const s=sv(F.serv),eu=cl(S.eu),k=pacoteDoServ(eu,s.id);let msg;
-     if(F.remarca){const x=S.ag.find(y=>y.id===F.remarca),antes=rotDia(x.data).toLowerCase()+' '+x.hora;Object.assign(x,{serv:F.serv,prof:F.profEsc,data:F.data,hora:F.hora,atraso:0,conflito:null});
-       S.avisos.unshift({id:'v'+Date.now(),txt:eu.nome+' remarcou pelo app: de '+antes+' para '+rotDia(F.data).toLowerCase()+' às '+F.hora});msg='Remarcado para '+rotDia(F.data).toLowerCase()+' às '+F.hora+'.';}
-     else{S.ag.push({id:'a'+(S.seq++),cli:S.eu,serv:F.serv,prof:F.profEsc,data:F.data,hora:F.hora,status:'agendado',valor:k?0:s.preco,pacote:k?k.id:null,extras:{},atraso:0,origem:'app',fotos:null});
-       S.avisos.unshift({id:'v'+Date.now(),txt:eu.nome+' agendou pelo app: '+s.nome+', '+rotDia(F.data).toLowerCase()+' às '+F.hora+' com '+pf(F.profEsc).nome});
-       msg='Agendado: '+rotDia(F.data).toLowerCase()+' às '+F.hora+'. O espaço já foi avisado.';
-       if(PROMO.ativa&&s.cat==='Depilação'&&!eu.pacotes.some(x=>x.brinde&&x.usadas<x.sessoes)){eu.pacotes.push({id:'k'+Date.now(),pac:null,nome:'Clareamento · brinde '+PROMO.titulo,serv:'clareamento',sessoes:1,usadas:0,em:HOJE,brinde:true});msg='Agendado! E você ganhou 1 sessão de clareamento. Ela já está em Pacotes.'}}
-     S.fluxo=novoF({});S.aba.cliente='inicio';desenhar();window.scrollTo(0,0);aviso(msg);return}
+   case'confirmar':case'reservaOk':{
+     const servId=act==='confirmar'?F.serv:el.dataset.serv,data=act==='confirmar'?F.data:el.dataset.d,hora=act==='confirmar'?F.hora:el.dataset.h,prof=act==='confirmar'?F.profEsc:el.dataset.p;
+     const s=sv(servId),eu=cl(S.eu),k=pacoteDoServ(eu,s.id),camp=campanhaAtiva();let msg;
+     if(act==='confirmar'&&F.remarca){const x=S.ag.find(y=>y.id===F.remarca),antes=rotDia(x.data).toLowerCase()+' '+x.hora;Object.assign(x,{serv:servId,prof,data,hora,atraso:0,conflito:null});
+       S.avisos.unshift({id:novoId('v'),txt:eu.nome+' remarcou pelo app: de '+antes+' para '+rotDia(data).toLowerCase()+' às '+hora});msg='Remarcado para '+rotDia(data).toLowerCase()+' às '+hora+'.';}
+     else{if(!livre(prof,data,paraMin(hora),s.min)){aviso('Esse horário acabou de ser ocupado. Escolha outro.');fechar();break}
+       S.ag.push({id:'a'+(S.seq++),cli:S.eu,serv:servId,prof,data,hora,status:'agendado',valor:k?0:s.preco,pacote:k?k.id:null,extras:{},atraso:0,origem:'app',fotos:null,retorno:null,avaliacao:null});
+       S.avisos.unshift({id:novoId('v'),txt:eu.nome+' agendou pelo app: '+s.nome+', '+rotDia(data).toLowerCase()+' às '+hora+' com '+pf(prof).nome});
+       msg='Agendado: '+rotDia(data).toLowerCase()+' às '+hora+'. O espaço já foi avisado.';
+       if(camp&&camp.brinde&&s.cat===camp.cat&&!eu.pacotes.some(x=>x.brinde&&x.camp===camp.id&&x.usadas<x.sessoes)){const b=sv(camp.brinde);eu.pacotes.push({id:novoId('k'),pac:null,nome:b.nome+' · brinde '+camp.titulo,serv:b.id,sessoes:1,usadas:0,em:HOJE,brinde:true,camp:camp.id});msg='Agendado! E você ganhou 1 sessão de '+b.nome.toLowerCase()+'. Ela já está em Pacotes.'}}
+     S.fluxo=novoF({});S.aba.cliente='inicio';fechar();desenhar();window.scrollTo(0,0);aviso(msg);return}
+   case'reservaRapida':{const s=sv(el.dataset.serv);janela('<h3>Confirmar horário?</h3><p><b>'+esc(s.nome)+'</b><br>'+rotDia(el.dataset.d)+' às '+el.dataset.h+' com '+esc(pf(el.dataset.p).nome)+'</p><button class="btn pri cheio" data-act="reservaOk" data-serv="'+el.dataset.serv+'" data-d="'+el.dataset.d+'" data-h="'+el.dataset.h+'" data-p="'+el.dataset.p+'">Confirmar</button><button class="btn cheio" data-act="fechar">Voltar</button>');return}
    case'remarcar':S.fluxo=novoF({serv:a.serv,cat:sv(a.serv).cat,prof:a.prof,data:a.data,remarca:a.id});S.aba.cliente='agendar';break;
-   case'cancelar':janela('<h3>Cancelar o horário?</h3><p>'+esc(sv(a.serv).nome)+', '+rotDia(a.data).toLowerCase()+' às '+a.hora+'.</p><div class="campo"><label>Motivo</label><div class="chips" style="flex-wrap:wrap">'+['Imprevisto','Trabalho','Vou remarcar depois'].map(t=>'<button class="chip" data-act="cancelarOk" data-id="'+a.id+'" data-m="'+t+'">'+t+'</button>').join('')+'</div></div><button class="btn cheio" data-act="fechar">Manter horário</button>');return;
-   case'cancelarOk':a.status='cancelado';S.avisos.unshift({id:'v'+Date.now(),txt:cl(a.cli).nome+' cancelou '+rotDia(a.data).toLowerCase()+' às '+a.hora+' ('+el.dataset.m.toLowerCase()+'). O horário ficou livre.'});fechar();aviso('Horário cancelado. A vaga foi liberada.');break;
-   case'atrasar':janela('<h3>Quanto vai atrasar?</h3><div class="acoes">'+[10,15,20].map(n=>'<button class="btn" data-act="atrasoOk" data-id="'+a.id+'" data-n="'+n+'">'+n+' min</button>').join('')+'</div><button class="btn cheio" data-act="fechar">Voltar</button>');return;
-   case'atrasoOk':a.atraso=+el.dataset.n;S.avisos.unshift({id:'v'+Date.now(),txt:cl(a.cli).nome+' avisou que vai atrasar '+a.atraso+' min ('+rotDia(a.data).toLowerCase()+', '+a.hora+')'});fechar();aviso('Avisamos a '+pf(a.prof).nome+'.');break;
+   case'cancelar':janela('<h3>Cancelar o horário?</h3><p>'+esc(sv(a.serv).nome)+', '+rotDia(a.data).toLowerCase()+' às '+a.hora+'.</p><div class="campo"><label>Motivo</label><div class="chips quebra">'+['Imprevisto','Trabalho','Vou remarcar depois'].map(t=>'<button class="chip" data-act="cancelarOk" data-id="'+a.id+'" data-m="'+t+'">'+t+'</button>').join('')+'</div></div><button class="btn cheio" data-act="fechar">Manter horário</button>');return;
+   case'cancelarOk':a.status='cancelado';S.avisos.unshift({id:novoId('v'),txt:cl(a.cli).nome+' cancelou '+rotDia(a.data).toLowerCase()+' às '+a.hora+' ('+el.dataset.m.toLowerCase()+'). O horário ficou livre.'});fechar();aviso('Horário cancelado. A vaga foi liberada.');break;
+   case'atrasar':janela('<h3>Quanto vai atrasar?</h3><div class="duo">'+[10,15,20].map(n=>'<button class="btn" data-act="atrasoOk" data-id="'+a.id+'" data-n="'+n+'">'+n+' min</button>').join('')+'</div><button class="btn cheio" data-act="fechar">Voltar</button>');return;
+   case'atrasoOk':a.atraso=+el.dataset.n;S.avisos.unshift({id:novoId('v'),txt:cl(a.cli).nome+' avisou que vai atrasar '+a.atraso+' min ('+rotDia(a.data).toLowerCase()+', '+a.hora+')'});fechar();aviso('Avisamos a '+pf(a.prof).nome+'.');break;
+   case'avaliar':{const n=el.dataset.n;if(n==='desconforto'){janela('<h3>Sentimos muito</h3><p class="suave">Conte o que você sentiu. A '+esc(pf(a.prof).nome)+' recebe na hora e vai falar com você.</p><div class="campo"><label for="dsTxt">O que aconteceu?</label><textarea id="dsTxt" placeholder="Ex.: está ardendo mais do que o normal"></textarea></div><button class="btn pri cheio" data-act="desconfortoOk" data-id="'+a.id+'">Avisar o espaço</button><button class="btn cheio" data-act="fechar">Voltar</button>');return}
+     a.avaliacao={nota:n};aviso(n==='amei'?'Que bom! Obrigada pelo carinho.':'Obrigada! Sua opinião ajuda o espaço a melhorar.');break}
+   case'desconfortoOk':{const t=document.getElementById('dsTxt').value.trim();a.avaliacao={nota:'desconforto',texto:t};
+     S.avisos.unshift({id:novoId('v'),urgente:true,txt:cl(a.cli).nome+' relatou desconforto depois de '+sv(a.serv).nome+' ('+dataCurta(a.data)+')'+(t?': "'+t+'"':'')+'. Fale com ela.'});
+     zap(null,'Oi! Aqui é a '+primeiro(cl(a.cli).nome)+'. Fiz '+sv(a.serv).nome.toLowerCase()+' no dia '+dataCurta(a.data)+' e senti desconforto'+(t?': '+t:'')+'. Pode me orientar?','o espaço');desenhar();return}
+   case'falarEspaco':zap(null,'Oi! Aqui é a '+primeiro(cl(a.cli).nome)+'. Fiz '+sv(a.serv).nome.toLowerCase()+' no dia '+dataCurta(a.data)+' e queria tirar uma dúvida.','o espaço');return;
+   case'verCuidados':janelaCuidados(a);return;
+   case'convidar':{const eu=cl(S.eu);zap(null,'Oi, amiga! 💜 Eu faço meus cuidados no Wylma Espaço Mulher e amo. Agenda pelo meu convite: wylma.app/convite/'+eu.codigo+' (link de exemplo). Seu primeiro horário fica marcadinho em poucos toques!','sua amiga');return}
    case'ficha':janelaFicha(S.eu,true);return;
-   case'salvarFicha':{if(!document.getElementById('fsOk').checked){aviso('Marque a autorização para salvar.');return}
-     const g=i=>document.getElementById(i);cl(S.eu).saude={alergia:g('fsAlergia').value.trim(),gestante:g('fsGest').checked,sensivel:g('fsSens').checked,diabetes:g('fsDiab').checked,acidos:g('fsAcid').checked,obs:g('fsObs').value.trim(),em:HOJE};
+   case'salvarFicha':{if(!document.getElementById('fsOk').checked){aviso('Marque a autorização do atendimento para salvar.');return}
+     const g=i=>document.getElementById(i),eu=cl(S.eu);eu.saude={alergia:g('fsAlergia').value.trim(),gestante:g('fsGest').checked,sensivel:g('fsSens').checked,diabetes:g('fsDiab').checked,acidos:g('fsAcid').checked,obs:g('fsObs').value.trim(),em:HOJE};eu.divulga=g('fsDiv').checked;
      fechar();aviso('Ficha salva. Obrigada por cuidar da sua segurança!');break}
    case'verFotos':janelaFotos(a);return;
-   case'pedirPacote':{const p=pc(id);if(!S.pedidos.some(q=>q.cli===S.eu&&q.pac===id))S.pedidos.push({id:'q'+Date.now(),cli:S.eu,pac:id});S.avisos.unshift({id:'v'+Date.now(),txt:cl(S.eu).nome+' pediu o pacote '+p.nome+' pelo app'});aviso('Pedido enviado! A Wylma confirma com você o pagamento.');break}
+   case'pedirPacote':{const p=pc(id);if(!S.pedidos.some(q=>q.cli===S.eu&&q.pac===id))S.pedidos.push({id:novoId('q'),cli:S.eu,pac:id});S.avisos.unshift({id:novoId('v'),txt:cl(S.eu).nome+' pediu o pacote '+p.nome+' pelo app'});aviso('Pedido enviado! A Wylma confirma com você o pagamento.');break}
    case'okAviso':S.avisos=S.avisos.filter(v=>v.id!==id);break;
    case'filtroProf':S.filtroProf=id;break;
    case'irClientes':S.filtroCli=id;S.aba.dono='clientes';window.scrollTo(0,0);break;
-   case'status':a.status=el.dataset.st;if(a.status==='atendendo')a.atraso=0;break;
-   case'finalizar':{const c=cl(a.cli),k=a.pacote?c.pacotes.find(x=>x.id===a.pacote):pacoteDoServ(c,a.serv);fin={id:a.id,valor:a.pacote?sv(a.serv).preco:a.valor,usaPac:!!(a.pacote||k),extras:Object.assign({},a.extras),forma:null,antes:null,depois:null};janelaFinalizar();return}
-   case'fPac':fin.usaPac=!fin.usaPac;janelaFinalizar();return;
-   case'tirarFoto':fin[id]=null;janelaFinalizar();return;
-   case'fExtra':fin.extras[id]=Math.max(0,(fin.extras[id]||0)+(+el.dataset.d));janelaFinalizar();return;
-   case'fForma':fin.forma=id;janelaFinalizar();return;
-   case'fOk':{const x=S.ag.find(y=>y.id===fin.id),c=cl(x.cli),s=sv(x.serv);
+   case'status':a.status=el.dataset.st;break;
+   case'comecar':fin=null;ini={id:a.id,antes:null};janelaComecar();return;
+   case'comecarOk':{const x=S.ag.find(y=>y.id===ini.id);x.status='atendendo';x.atraso=0;x.fotos={antes:ini.antes,depois:null};fechar();aviso(ini.antes?'Atendimento começou. Foto do antes guardada.':'Atendimento começou.');break}
+   case'finalizar':{ini=null;const c=cl(a.cli),k=a.pacote?c.pacotes.find(x=>x.id===a.pacote):pacoteDoServ(c,a.serv);fin={id:a.id,valor:a.pacote?sv(a.serv).preco:a.valor,usaPac:!!(a.pacote||k),usaCred:false,extras:Object.assign({},a.extras),forma:null,antes:a.fotos&&a.fotos.antes||null,depois:null,divulgar:c.divulga,retorno:sv(a.serv).retorno||0};janelaFinalizar();return}
+   case'fPac':lerFin();fin.usaPac=!fin.usaPac;janelaFinalizar();return;
+   case'fCred':lerFin();fin.usaCred=!fin.usaCred;janelaFinalizar();return;
+   case'tirarFoto':if(campEd&&id==='camp'){campEd.img=null;janelaCamp();return}if(ini&&!fin){ini[id]=null;janelaComecar();return}lerFin();fin[id]=null;janelaFinalizar();return;
+   case'fExtra':lerFin();fin.extras[id]=Math.max(0,(fin.extras[id]||0)+(+el.dataset.d));janelaFinalizar();return;
+   case'fForma':lerFin();fin.forma=id;janelaFinalizar();return;
+   case'fOk':{lerFin();const x=S.ag.find(y=>y.id===fin.id),c=cl(x.cli),s=sv(x.serv);
      const k=fin.usaPac?(x.pacote?c.pacotes.find(y=>y.id===x.pacote):pacoteDoServ(c,s.id)):null;
-     const base=k?0:fin.valor,ext=EXTRAS.reduce((t,e)=>t+(fin.extras[e.id]||0)*e.preco,0);
+     const base=k?0:fin.valor,ext=EXTRAS.reduce((t,e)=>t+(fin.extras[e.id]||0)*e.preco,0),cred=fin.usaCred?Math.min(c.credito,base+ext):0;
      if(k){k.usadas=Math.min(k.sessoes,k.usadas+1);x.pacote=k.id}else x.pacote=null;
-     Object.assign(x,{status:'pago',valor:base,extras:fin.extras,forma:base+ext>0?fin.forma:'Pacote',fotos:fin.antes||fin.depois?{antes:fin.antes,depois:fin.depois}:x.fotos});
-     fechar();aviso(base+ext>0?'Recebido '+brl(base+ext)+'.'+(x.fotos&&!x.fotos.combo?' Fotos salvas no histórico da '+primeiro(c.nome)+'.':''):'Sessão do pacote registrada ('+k.usadas+' de '+k.sessoes+').');break}
+     if(cred)c.credito-=cred;
+     Object.assign(x,{status:'pago',valor:base,extras:fin.extras,creditoUsado:cred,forma:base+ext-cred>0?fin.forma:(k?'Pacote':'Crédito'),retorno:fin.retorno,fotos:fin.antes||fin.depois?{antes:fin.antes,depois:fin.depois,divulgar:!!(fin.divulgar&&c.divulga&&(fin.depois||fin.antes))}:null});
+     const pr=premiarIndicacao(x);fin=null;ini=null;fechar();
+     aviso((base+ext-cred>0?'Recebido '+brl(base+ext-cred)+'.':k?'Sessão do pacote registrada ('+k.usadas+' de '+k.sessoes+').':'Atendimento concluído.')+(pr?' '+pr:''));break}
    case'diaAgenda':S.diaAgenda=id;break;
    case'verAg':{const c=cl(a.cli);janela('<h3>'+esc(c.nome)+'</h3><p>'+esc(sv(a.serv).nome)+' · '+rotDia(a.data)+' às '+a.hora+' com '+esc(pf(a.prof).nome)+'</p><div class="acoes">'+st(a.status)+(a.pacote?'<span class="st pac">Pacote</span>':'')+alertasSaude(c).map(x=>'<span class="st alerta">'+esc(x)+'</span>').join('')+'</div>'+
      (a.status==='agendado'?'<button class="btn cheio" data-act="zapLembrete" data-id="'+a.id+'">Mandar lembrete no WhatsApp</button><button class="btn cheio" data-act="desmarcar" data-id="'+a.id+'">Desmarcar (avisa a cliente)</button>':'')+'<button class="btn cheio" data-act="fechar">Fechar</button>');return}
@@ -693,14 +892,14 @@ document.addEventListener('click',ev=>{
      '<div class="campo"><label for="nbServ">Serviço</label><select id="nbServ">'+CATS.map(cat=>'<optgroup label="'+cat+'">'+servAtivos().filter(s=>s.cat===cat).map(s=>'<option value="'+s.id+'">'+esc(s.nome)+' · '+s.min+' min</option>').join('')+'</optgroup>').join('')+'</select></div>'+
      '<button class="btn pri cheio" data-act="novoBalcaoOk" data-p="'+p+'" data-h="'+h+'">Marcar horário</button><button class="btn cheio" data-act="fechar">Voltar</button>');return}
    case'novoBalcaoOk':{const cid=document.getElementById('nbCli').value,s=sv(document.getElementById('nbServ').value),p=el.dataset.p,h=el.dataset.h,c=cl(cid);
-     if(!livre(p,S.diaAgenda,paraMin(h),s.min)){aviso(s.nome+' leva '+s.min+' min e não cabe nesse horário.');return}
-     const k=pacoteDoServ(c,s.id);S.ag.push({id:'a'+(S.seq++),cli:cid,serv:s.id,prof:p,data:S.diaAgenda,hora:h,status:'agendado',valor:k?0:s.preco,pacote:k?k.id:null,extras:{},atraso:0,origem:'balcao',fotos:null});
+     if(!livre(p,S.diaAgenda,paraMin(h),s.min)){aviso(s.nome+' leva '+dur(s.min)+' e não cabe nesse horário.');return}
+     const k=pacoteDoServ(c,s.id);S.ag.push({id:'a'+(S.seq++),cli:cid,serv:s.id,prof:p,data:S.diaAgenda,hora:h,status:'agendado',valor:k?0:s.preco,pacote:k?k.id:null,extras:{},atraso:0,origem:'balcao',fotos:null,retorno:null,avaliacao:null});
      desenhar();zap(c,'Oi, '+primeiro(c.nome)+'! Tá marcado: '+s.nome+' '+rotDia(S.diaAgenda).toLowerCase()+' às '+h+' com a '+pf(p).nome+' 💜 Qualquer coisa, remarca pelo app.');return}
    case'filtroCli':S.filtroCli=id;break;
    case'verCliente':janelaFicha(id,false);return;
    case'zapCliente':{const c=cl(id),rt=retoques(id),u=ultimo(id);let t;
      if(S.filtroCli==='aniv'||(anivMes(c)&&S.filtroCli!=='retocar'))t='Feliz aniversário, '+primeiro(c.nome)+'! 🎉 Para comemorar, seu próximo atendimento aqui no Wylma Espaço Mulher tem 10% de desconto neste mês. Escolha seu horário no app 💜';
-     else if(rt.length)t='Oi, '+primeiro(c.nome)+'! Já faz '+rt[0].dias+' dias '+deRetoque(rt[0].serv)+' aqui no Wylma Espaço Mulher 💜 Que tal agendar o retoque? É só escolher o horário no app.';
+     else if(rt.length)t='Oi, '+primeiro(c.nome)+'! Já faz '+rt[0].dias+' dias '+deRetoque(rt[0].serv)+' aqui no Wylma Espaço Mulher 💜 Que tal agendar o retorno? É só escolher o horário no app.';
      else if(u&&diasDesde(u)>45)t='Oi, '+primeiro(c.nome)+'! Estamos com saudade de você por aqui 💜 Bora tirar um tempinho pra você? Tem horário essa semana, é só escolher no app.';
      else t='Oi, '+primeiro(c.nome)+'! Tudo bem? 💜';
      zap(c,t);return}
@@ -710,66 +909,87 @@ document.addEventListener('click',ev=>{
        '<div class="campo"><label for="vpForma">Forma de pagamento</label><select id="vpForma">'+['Pix','Dinheiro','Débito','Crédito'].map(f=>'<option>'+f+'</option>').join('')+'</select></div>'+
        '<button class="btn pri cheio" data-act="venderPacoteOk" data-q="'+pre.q+'">Registrar venda</button><button class="btn cheio" data-act="fechar">Voltar</button>');return}
    case'venderPacoteOk':{const c=cl(document.getElementById('vpCli').value),p=pc(document.getElementById('vpPac').value),f=document.getElementById('vpForma').value;
-     c.pacotes.push({id:'k'+Date.now(),pac:p.id,nome:p.nome,serv:p.serv,sessoes:p.sessoes,usadas:0,em:HOJE});
-     S.lanc.push({id:'l'+Date.now(),data:HOJE,tipo:'Pacote',desc:p.nome+' · '+c.nome,valor:p.preco,forma:f});
+     c.pacotes.push({id:novoId('k'),pac:p.id,nome:p.nome,serv:p.serv,sessoes:p.sessoes,usadas:0,em:HOJE});
+     S.lanc.push({id:novoId('l'),data:HOJE,tipo:'Pacote',desc:p.nome+' · '+c.nome,valor:p.preco,forma:f});
      if(el.dataset.q)S.pedidos=S.pedidos.filter(q=>q.id!==el.dataset.q);else S.pedidos=S.pedidos.filter(q=>!(q.cli===c.id&&q.pac===p.id));
      fechar();aviso('Pacote vendido para '+primeiro(c.nome)+': '+brl(p.preco)+' no caixa.');break}
    case'periodo':S.periodo=id;break;
-   case'salvarPromo':PROMO.titulo=document.getElementById('prTit').value.trim()||PROMO.titulo;PROMO.texto=document.getElementById('prTxt').value.trim()||PROMO.texto;PROMO.ativa=document.getElementById('prAtiva').checked;aviso(PROMO.ativa?'Promoção no ar no app das clientes.':'Promoção escondida.');break;
+   /* divulgar */
+   case'editCamp':campEd=id==='nova'?{id:null,titulo:'',texto:'',img:null,cat:'',brinde:'',ativa:true}:Object.assign({},CAMP.find(c=>c.id===id));janelaCamp();return;
+   case'trocarImgCamp':lerCamp();campEd.img=null;janelaCamp();return;
+   case'salvarCamp':{lerCamp();if(!campEd.titulo.trim()||!campEd.texto.trim()){aviso('Preencha o título e o texto.');return}if(!campEd.img){aviso('Suba uma imagem para a campanha.');return}
+     if(campEd.ativa)CAMP.forEach(c=>c.ativa=false);
+     if(campEd.id)Object.assign(CAMP.find(c=>c.id===campEd.id),campEd);else CAMP.unshift(Object.assign(campEd,{id:novoId('cp'),criada:HOJE}));
+     campEd=null;fechar();aviso('Campanha salva.'+(CAMP.some(c=>c.ativa)?' Já aparece no app das clientes.':''));break}
+   case'pausarCamp':{const c=CAMP.find(x=>x.id===id);if(!c.ativa)CAMP.forEach(x=>x.ativa=false);c.ativa=!c.ativa;aviso(c.ativa?'Campanha no ar no app das clientes.':'Campanha pausada.');break}
+   case'arteCamp':{const c=CAMP.find(x=>x.id===id);abrirArte('camp',c,c.titulo+' 💜\n\n'+c.texto+'\n\nAgende pelo app ou chame no WhatsApp.\n\n#wylmaespacomulher #estetica #uberlandia #autocuidado');return}
+   case'preparaPost':{const s=sv(a.serv);abrirArte('post',{fotos:a.fotos,titulo:s.nome},'Antes e depois: '+s.nome+' 💜\n\n'+(s.cat==='Estética'?'Cuidado de verdade, resultado natural.':s.cat==='Cabelo'?'Fio alinhado, brilho e autoestima lá em cima.':'Pele lisinha e bem cuidada.')+' Feito com carinho aqui no Wylma Espaço Mulher.\n\nAgende o seu pelo app ou chame no WhatsApp.\n\n#wylmaespacomulher #antesedepois #'+s.nome.toLowerCase().normalize('NFD').replace(/[^a-z]/g,'')+' #uberlandia');return}
+   case'compartilharArte':{if(!arteAtual)return;const leg=(document.getElementById('legenda')||{}).value||'';
+     arteAtual.cv.toBlob(async b=>{const f=new File([b],arteAtual.nome,{type:'image/jpeg'});
+       try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],text:leg});return}}catch(e){if(e&&e.name==='AbortError')return}
+       const u=URL.createObjectURL(b),l=document.createElement('a');l.href=u;l.download=arteAtual.nome;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);aviso('Imagem baixada. Copie a legenda e poste no Instagram.')},'image/jpeg',0.9);return}
+   case'copiarLegenda':{const t=document.getElementById('legenda');try{navigator.clipboard.writeText(t.value).then(()=>aviso('Legenda copiada.'),()=>{t.select();aviso('Legenda selecionada: copie.')})}catch(e){t.select();aviso('Legenda selecionada: copie.')}return}
+   /* ajustes */
+   case'salvarIndic':{const g=i=>document.getElementById(i);Object.assign(INDIC,{ativo:g('inAtivo').checked,tipo:g('inTipo').value,valor:Math.max(0,parseFloat(g('inValor').value)||0),limiteMes:Math.max(1,parseInt(g('inLim').value)||1),serv:g('inServ').value});aviso('Indicação salva: '+textoBeneficio()+' para quem indica.');break}
    case'novoBloqueio':blq={data:HOJE,prof:'todos',tipo:'apos',h1:null,h2:null,motivo:'Imprevisto'};janelaBloq();return;
    case'bqTipo':lerBloq();blq.tipo=id;janelaBloq();return;
    case'bqMotivo':lerBloq();blq.motivo=id;janelaBloq();return;
-   case'bqOk':{lerBloq();const e=expediente(deYmd(blq.data));let ini,fim;
-     if(blq.tipo==='dia'){ini=e[0];fim=e[1]}else if(blq.tipo==='apos'){ini=e[0];fim=blq.h1}else if(blq.tipo==='ate'){ini=blq.h1;fim=e[1]}else{ini=blq.h1;fim=blq.h2}
-     if(!(ini<fim)){aviso('O fim precisa ser depois do começo.');return}
-     const b={id:'b'+Date.now(),data:blq.data,prof:blq.prof,ini,fim,tipo:blq.tipo,diaTodo:blq.tipo==='dia',motivo:blq.motivo};S.bloqueios.push(b);
-     const afet=S.ag.filter(x=>x.data===b.data&&x.status==='agendado'&&(b.prof==='todos'||x.prof===b.prof)&&paraMin(x.hora)<fim&&ini<paraMin(x.hora)+sv(x.serv).min);
+   case'bqOk':{lerBloq();const e=expediente(deYmd(blq.data));let i0,f0;
+     if(blq.tipo==='dia'){i0=e[0];f0=e[1]}else if(blq.tipo==='apos'){i0=e[0];f0=blq.h1}else if(blq.tipo==='ate'){i0=blq.h1;f0=e[1]}else{i0=blq.h1;f0=blq.h2}
+     if(!(i0<f0)){aviso('O fim precisa ser depois do começo.');return}
+     const b={id:novoId('b'),data:blq.data,prof:blq.prof,ini:i0,fim:f0,tipo:blq.tipo,diaTodo:blq.tipo==='dia',motivo:blq.motivo};S.bloqueios.push(b);
+     const afet=S.ag.filter(x=>x.data===b.data&&x.status==='agendado'&&(b.prof==='todos'||x.prof===b.prof)&&paraMin(x.hora)<f0&&i0<paraMin(x.hora)+sv(x.serv).min);
      afet.forEach(x=>x.conflito=b.id);fechar();desenhar();
      if(afet.length)janela('<h3>Bloqueado. '+afet.length+(afet.length===1?' cliente estava marcada':' clientes estavam marcadas')+'</h3><p class="suave" style="font-size:13.5px">Avise cada uma: o horário é desmarcado e a mensagem sai pronta no WhatsApp. Elas também ficam na tela Hoje até você avisar.</p>'+
-       afet.map(x=>'<div class="cli"><span class="av">'+esc(iniciais(cl(x.cli).nome))+'</span><div class="q"><b>'+esc(cl(x.cli).nome)+'</b><small>'+x.hora+' · '+esc(sv(x.serv).nome)+'</small></div><button class="btn peq pri" data-act="avisarConflito" data-id="'+x.id+'">Avisar</button></div>').join('')+'<button class="btn cheio" data-act="fechar">Depois</button>');
+       afet.map(x=>'<div class="cli"><span class="av">'+esc(iniciais(cl(x.cli).nome))+'</span><div class="q"><b>'+esc(cl(x.cli).nome)+'</b><small>'+x.hora+' · '+esc(sv(x.serv).nome)+'</small></div><span class="acoes"><button class="btn peq pri" data-act="avisarConflito" data-id="'+x.id+'">Avisar</button></span></div>').join('')+'<button class="btn cheio" data-act="fechar">Depois</button>');
      else aviso(descBloq(b)+' · '+rotDia(b.data).toLowerCase()+'. Ninguém estava marcada.');return}
    case'avisarConflito':{const c=cl(a.cli),b=S.bloqueios.find(y=>y.id===a.conflito);a.status='cancelado';a.conflito=null;desenhar();
      zap(c,'Oi, '+primeiro(c.nome)+'! Aqui é a Wylma 💜 '+(b?quandoFrase(b.data)+' '+fraseBloq(b)+', então precisei desmarcar seu horário das '+a.hora+'.':'Precisei desmarcar seu horário de '+rotDia(a.data).toLowerCase()+' às '+a.hora+'.')+' Me desculpe! Já escolhe outro horário pelo app.');return}
    case'tirarBloqueio':S.bloqueios=S.bloqueios.filter(b=>b.id!==id);S.ag.forEach(x=>{if(x.conflito===id)x.conflito=null});aviso('Horário liberado de novo.');break;
    case'expToggle':{const w=+el.dataset.w;EXP[w]=EXP[w]?null:(w===6?[480,960]:[540,1140]);break}
-   case'editServ':{const s=id==='novo'?{nome:'',cat:CATS[0],min:60,preco:0,apartir:false,retorno:0,ativo:true}:sv(id);
+   case'editServ':{const s=id==='novo'?{nome:'',cat:CATS[0],min:60,preco:0,apartir:false,retorno:0,cuidados:'',ativo:true}:sv(id);
      janela('<h3>'+(id==='novo'?'Novo serviço':'Editar serviço')+'</h3><div class="campo"><label for="esNome">Nome</label><input id="esNome" value="'+esc(s.nome)+'" placeholder="Ex.: Design de sobrancelhas"></div>'+
        '<div class="campo"><label for="esCat">Tipo</label><select id="esCat">'+CATS.map(c=>'<option'+(c===s.cat?' selected':'')+'>'+c+'</option>').join('')+'</select></div>'+
-       '<div class="linha"><div class="campo" style="flex:1"><label for="esPreco">Preço (R$)</label><input id="esPreco" type="number" step="0.01" min="0" inputmode="decimal" value="'+s.preco+'"></div><div class="campo" style="flex:1"><label for="esMin">Duração</label><select id="esMin">'+[30,60,90,120,150,180,240].map(m=>'<option value="'+m+'"'+(m===s.min?' selected':'')+'>'+(m<60?m+' min':(m/60+'').replace('.',',')+' h')+'</option>').join('')+'</select></div></div>'+
-       '<div class="campo"><label for="esRet">Lembrar de retocar depois de (dias)</label><input id="esRet" type="number" min="0" inputmode="numeric" value="'+(s.retorno||0)+'" placeholder="0 = não lembrar"></div>'+
+       '<div class="duo"><div class="campo"><label for="esPreco">Preço (R$)</label><input id="esPreco" type="number" step="0.01" min="0" inputmode="decimal" value="'+s.preco+'"></div><div class="campo"><label for="esMin">Duração</label><select id="esMin">'+[30,60,90,120,150,180,240].map(m=>'<option value="'+m+'"'+(m===s.min?' selected':'')+'>'+dur(m)+'</option>').join('')+'</select></div></div>'+
+       '<div class="campo"><label for="esRet">Retorno padrão (dias)</label><input id="esRet" type="number" min="0" inputmode="numeric" value="'+(s.retorno||0)+'"><span class="suave" style="font-size:12.5px">Ao finalizar, você ainda ajusta para cada cliente. 0 = sem retorno.</span></div>'+
+       '<div class="campo"><label for="esCuid">Cuidados depois do atendimento</label><textarea id="esCuid" placeholder="O que a cliente deve fazer e evitar nos próximos dias">'+esc(s.cuidados||'')+'</textarea></div>'+
        '<label class="marcar"><input type="checkbox" id="esApartir"'+(s.apartir?' checked':'')+'> Preço "a partir de" (você ajusta na hora de cobrar)</label><label class="marcar"><input type="checkbox" id="esAtivo"'+(s.ativo!==false?' checked':'')+'> Aparece para as clientes</label>'+
        '<button class="btn pri cheio" data-act="salvarServ" data-id="'+id+'">Salvar</button><button class="btn cheio" data-act="fechar">Voltar</button>');return}
    case'salvarServ':{const g=i=>document.getElementById(i),nome=g('esNome').value.trim();if(!nome){aviso('Dê um nome ao serviço.');return}
-     const d={nome,cat:g('esCat').value,preco:Math.max(0,parseFloat(g('esPreco').value)||0),min:+g('esMin').value,retorno:Math.max(0,parseInt(g('esRet').value)||0),apartir:g('esApartir').checked,ativo:g('esAtivo').checked};
-     if(id==='novo')SERV.push(Object.assign({id:'s'+Date.now()},d));else Object.assign(sv(id),d);fechar();aviso('Serviço salvo. Já aparece assim no app das clientes.');break}
+     const d={nome,cat:g('esCat').value,preco:Math.max(0,parseFloat(g('esPreco').value)||0),min:+g('esMin').value,retorno:Math.max(0,parseInt(g('esRet').value)||0),cuidados:g('esCuid').value.trim(),apartir:g('esApartir').checked,ativo:g('esAtivo').checked};
+     if(id==='novo')SERV.push(Object.assign({id:novoId('s')},d));else Object.assign(sv(id),d);fechar();aviso('Serviço salvo. Já aparece assim no app das clientes.');break}
    case'editPac':{const p=id==='novo'?{nome:'',serv:'clareamento',sessoes:4,preco:0}:pc(id);
      janela('<h3>'+(id==='novo'?'Novo pacote':'Editar pacote')+'</h3><div class="campo"><label for="epNome">Nome</label><input id="epNome" value="'+esc(p.nome)+'" placeholder="Ex.: Spa dos pés · 4 sessões"></div>'+
        '<div class="campo"><label for="epServ">Serviço</label><select id="epServ">'+servAtivos().map(s=>'<option value="'+s.id+'"'+(s.id===p.serv?' selected':'')+'>'+esc(s.nome)+'</option>').join('')+'</select></div>'+
-       '<div class="linha"><div class="campo" style="flex:1"><label for="epSes">Sessões</label><input id="epSes" type="number" min="1" max="30" inputmode="numeric" value="'+p.sessoes+'"></div><div class="campo" style="flex:1"><label for="epPreco">Preço (R$)</label><input id="epPreco" type="number" step="0.01" min="0" inputmode="decimal" value="'+p.preco+'"></div></div>'+
+       '<div class="duo"><div class="campo"><label for="epSes">Sessões</label><input id="epSes" type="number" min="1" max="30" inputmode="numeric" value="'+p.sessoes+'"></div><div class="campo"><label for="epPreco">Preço (R$)</label><input id="epPreco" type="number" step="0.01" min="0" inputmode="decimal" value="'+p.preco+'"></div></div>'+
        '<button class="btn pri cheio" data-act="salvarPac" data-id="'+id+'">Salvar</button><button class="btn cheio" data-act="fechar">Voltar</button>');return}
    case'salvarPac':{const g=i=>document.getElementById(i),nome=g('epNome').value.trim();if(!nome){aviso('Dê um nome ao pacote.');return}
      const d={nome,serv:g('epServ').value,sessoes:Math.max(1,parseInt(g('epSes').value)||1),preco:Math.max(0,parseFloat(g('epPreco').value)||0)};
-     if(id==='novo')PACS.push(Object.assign({id:'p'+Date.now()},d));else Object.assign(pc(id),d);fechar();aviso('Pacote salvo.');break}
+     if(id==='novo')PACS.push(Object.assign({id:novoId('p')},d));else Object.assign(pc(id),d);fechar();aviso('Pacote salvo.');break}
    case'editProf':{const b=id==='novo'?{nome:'',com:40}:pf(id);
      janela('<h3>'+(id==='novo'?'Nova profissional':'Editar profissional')+'</h3><div class="campo"><label for="ebNome">Nome</label><input id="ebNome" value="'+esc(b.nome)+'"></div><div class="campo"><label for="ebCom">Comissão (%)</label><input id="ebCom" type="number" min="0" max="100" inputmode="numeric" value="'+b.com+'"></div>'+
        '<button class="btn pri cheio" data-act="salvarProf" data-id="'+id+'">Salvar</button><button class="btn cheio" data-act="fechar">Voltar</button>');return}
    case'salvarProf':{const nome=document.getElementById('ebNome').value.trim(),com=Math.min(100,Math.max(0,parseInt(document.getElementById('ebCom').value)||0));if(!nome){aviso('Coloque o nome.');return}
-     if(id==='novo')PROF.push({id:'b'+Date.now(),nome,com,cor:CORES_PROF[(PROF.length-2+CORES_PROF.length)%CORES_PROF.length]});else Object.assign(pf(id),{nome,com});fechar();aviso('Profissional salva.');break}
+     if(id==='novo')PROF.push({id:novoId('b'),nome,com,cor:CORES_PROF[PROF.length%CORES_PROF.length]});else Object.assign(pf(id),{nome,com});fechar();aviso('Profissional salva.');break}
    default:return;
   }
   desenhar();
 });
+/* guarda o que já foi digitado na janela de finalizar antes de redesenhá-la */
+function lerFin(){if(!fin)return;const v=document.getElementById('fValor'),r=document.getElementById('fRet'),d=document.getElementById('fDiv');
+  if(v)fin.valor=Math.max(0,parseFloat(v.value)||0);if(r)fin.retorno=Math.max(0,parseInt(r.value)||0);if(d)fin.divulgar=d.checked}
 document.addEventListener('change',ev=>{const t=ev.target;
-  if(t.dataset.foto&&t.files&&t.files[0]){lerFoto(t.files[0],url=>{fin[t.dataset.foto]=url;janelaFinalizar()});return}
+  if(t.dataset.foto&&t.files&&t.files[0]){const q=t.dataset.foto;lerFoto(t.files[0],url=>{if(q==='camp'){lerCamp();campEd.img=url;janelaCamp()}else if(fin){lerFin();fin[q]=url;janelaFinalizar()}else if(ini){ini[q]=url;janelaComecar()}});return}
   if(t.dataset.exp){const w=+t.dataset.w,p=+t.dataset.p;EXP[w][p]=+t.value;if(EXP[w][0]>=EXP[w][1]){if(p)EXP[w][0]=EXP[w][1]-PASSO;else EXP[w][1]=EXP[w][0]+PASSO;aviso('Ajustei: o fechamento precisa ser depois da abertura.')}desenhar();return}
   if(['bqData','bqProf','bqH1','bqH2'].includes(t.id)){lerBloq();janelaBloq()}
 });
 document.addEventListener('input',ev=>{
   if(ev.target.id==='busca'){S.busca=ev.target.value;const p=ev.target.selectionStart;desenhar();const b=document.getElementById('busca');b.focus();b.setSelectionRange(p,p)}
-  if(ev.target.id==='fValor'&&fin){fin.valor=Math.max(0,parseFloat(ev.target.value)||0);const t=fin.valor+EXTRAS.reduce((s,x)=>s+(fin.extras[x.id]||0)*x.preco,0);const tb=camada.querySelector('.total b');if(tb)tb.textContent=brl(t);const ok=camada.querySelector('[data-act="fOk"]');if(ok){ok.textContent=t>0?'Recebi '+brl(t):'Concluir';ok.disabled=t>0&&!fin.forma}}
+  if(ev.target.id==='fValor'&&fin){lerFin();const c=cl(S.ag.find(x=>x.id===fin.id).cli),base=fin.usaPac?0:fin.valor,t0=base+EXTRAS.reduce((s,x)=>s+(fin.extras[x.id]||0)*x.preco,0),t=t0-(fin.usaCred?Math.min(c.credito,t0):0);
+    const tb=camada.querySelector('.total b');if(tb)tb.textContent=brl(t);const ok=camada.querySelector('[data-act="fOk"]');if(ok){ok.textContent=t>0?'Recebi '+brl(t):'Concluir';ok.disabled=t>0&&!fin.forma}}
 });
 document.addEventListener('keydown',ev=>{if(ev.key==='Escape')fechar()});
-document.getElementById('recomecar').addEventListener('click',()=>{try{localStorage.removeItem('wylma-demo1')}catch(e){}S=gerar();ligar();fechar();desenhar();window.scrollTo(0,0);aviso('Demonstração recomeçada.')});
+document.getElementById('recomecar').addEventListener('click',()=>{try{localStorage.removeItem('wylma-demo2')}catch(e){}S=gerar();ligar();fechar();desenhar();window.scrollTo(0,0);aviso('Demonstração recomeçada.')});
 desenhar();
 })();
 </script>
