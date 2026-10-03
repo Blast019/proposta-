@@ -362,8 +362,8 @@ const campanhasAtivas=()=>CAMP.filter(c=>c.ativa);
 const tipoBrinde=c=>c.brindeTipo||(c.brinde?'sessao':'');
 const temBrinde=c=>{const t=tipoBrinde(c);return t==='sessao'?!!(c.brinde&&sv(c.brinde)):t==='desconto'?c.pct>0:t==='produto'?!!EXTRAS.find(x=>x.id===c.prod):false};
 function textoBrinde(c){const t=tipoBrinde(c);return t==='sessao'?'1 sessão de '+sv(c.brinde).nome.toLowerCase():t==='desconto'?c.pct+'% de desconto no procedimento':t==='produto'?EXTRAS.find(x=>x.id===c.prod).nome.toLowerCase()+' de presente':''}
-const alvoBrinde=c=>c.regra==='servico'&&c.serv&&sv(c.serv)?sv(c.serv).nome.toLowerCase():(c.cat||'').toLowerCase();
-const campanhasDoServ=s=>CAMP.filter(c=>c.ativa&&temBrinde(c)&&c.cat===s.cat&&(c.regra!=='servico'||c.serv===s.id));
+const alvoBrinde=c=>c.regra==='servico'&&c.serv&&sv(c.serv)?sv(c.serv).nome.toLowerCase():c.cat?c.cat.toLowerCase():'qualquer procedimento';
+const campanhasDoServ=s=>CAMP.filter(c=>c.ativa&&temBrinde(c)&&(!c.cat||c.cat===s.cat)&&(c.regra!=='servico'||c.serv===s.id));
 const imgSrc=f=>f==='@labios'?IMG_LABIOS:f==='@promo'?IMG_PROMO:f;
 const textoBeneficio=()=>INDIC.tipo==='credito'?brl0(INDIC.valor)+' de crédito':'1 sessão de '+sv(INDIC.serv).nome.toLowerCase();
 
@@ -549,9 +549,9 @@ function cAgendar(){
   const veio=F.camp&&CAMP.find(c=>c.id===F.camp&&c.ativa);
   if(F.serv&&!F.data)F.data=diasAbertos().find(d=>horasLivres(d,F.serv,F.prof,F.remarca).length);
   let h='<section class="bloco"><h1>'+(F.remarca?'Remarcar horário':'Agendar')+'</h1>'+(F.remarca?'<p class="suave">Escolha o novo dia e horário. O antigo é liberado quando você confirmar.</p>':'')+'</section>';
-  if(veio)h+='<section class="camp-topo"><img src="'+imgSrc(veio.img)+'" alt=""><div><span class="tag">Campanha</span><b>'+esc(veio.titulo)+'</b><p>'+esc(veio.texto)+'</p>'+(temBrinde(veio)?'<p class="brinde">Agendando '+esc(alvoBrinde(veio))+', você ganha '+esc(textoBrinde(veio))+'.</p>':'')+'</div></section>';
+  if(veio)h+='<section class="camp-topo"><img src="'+imgSrc(veio.img)+'" alt=""><div><span class="tag">Campanha</span><b>'+esc(veio.titulo)+'</b><p>'+esc(veio.texto)+'</p></div></section>';
   h+='<section class="bloco"><h2>1 · O que você quer fazer</h2><div class="chips">'+CATS.map(c=>'<button class="chip" aria-pressed="'+(F.cat===c)+'" data-act="fCat" data-id="'+c+'">'+c+'</button>').join('')+'</div>'+
-    campanhasAtivas().filter(c=>c.cat===F.cat&&c.id!==F.camp).map(c=>'<p class="aviso" style="border-left-color:'+(temBrinde(c)?'var(--ok)':'var(--lilas)')+'"><span><b class="'+(temBrinde(c)?'brinde':'')+'">'+esc(c.titulo)+':</b> '+(temBrinde(c)?'agendando '+esc(alvoBrinde(c))+' você ganha '+esc(textoBrinde(c))+'.':esc(c.texto))+'</span></p>').join('')+
+    campanhasAtivas().filter(c=>c.id===F.camp?temBrinde(c)&&(!c.cat||c.cat===F.cat):(c.cat===F.cat||(!c.cat&&temBrinde(c)))).sort((x,y)=>(y.id===F.camp)-(x.id===F.camp)).map(c=>'<p class="aviso" style="border-left-color:'+(temBrinde(c)?'var(--ok)':'var(--lilas)')+'"><span><b class="'+(temBrinde(c)?'brinde':'')+'">'+esc(c.titulo)+':</b> '+(temBrinde(c)?'agendando '+esc(alvoBrinde(c))+' você ganha '+esc(textoBrinde(c))+'.':esc(c.texto))+'</span></p>').join('')+
     '<div class="lista">'+servAtivos().filter(s=>s.cat===F.cat).map(s=>opServ(s,'fServ',F.serv)).join('')+'</div></section>';
   if(F.serv){
     h+='<section class="bloco"><h2>2 · Com quem</h2><div class="chips">'+[['qualquer','Tanto faz']].concat(PROF.map(b=>[b.id,b.nome])).map(([id,n])=>'<button class="chip" aria-pressed="'+(F.prof===id)+'" data-act="fProf" data-id="'+id+'">'+esc(n)+'</button>').join('')+'</div></section>';
