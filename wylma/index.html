@@ -210,6 +210,12 @@ p{margin:0}
 .pe-modal .total{padding-top:10px}
 .campo label.sobe{font:800 13px/1.3 var(--corpo);letter-spacing:0;text-transform:none;color:var(--ameixa)}
 .campo label.sobe span{text-transform:none;letter-spacing:0}
+.camp-topo{display:flex;gap:12px;align-items:flex-start;background:linear-gradient(150deg,#fff,var(--blush));border:1px solid #f3cfe2;border-radius:18px;padding:12px}
+.camp-topo img{width:88px;height:88px;object-fit:cover;border-radius:12px;flex:none}
+.camp-topo>div{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.camp-topo .tag{align-self:flex-start;font:800 10.5px/1 var(--corpo);letter-spacing:.14em;text-transform:uppercase;color:var(--ameixa);background:#fff;padding:5px 8px;border-radius:99px}
+.camp-topo b{font:italic 700 22px/1.1 var(--titulo);color:var(--ameixa-esc)}
+.camp-topo p{font-size:14px;line-height:1.4}
 .vazio{text-align:center;color:var(--suave);padding:20px 10px;border:1px dashed var(--linha);border-radius:14px}
 @media (prefers-reduced-motion:no-preference){.st.atendendo{animation:pulsa 1.6s ease-in-out infinite}}
 @keyframes pulsa{50%{opacity:.65}}
@@ -512,7 +518,7 @@ function cInicio(){
     h+='<section class="cartao bloco"><div class="linha"><h2>Hora de retocar</h2><span class="ic-mini">'+IC.retoque+'</span></div><p>Já faz <b>'+r.dias+' dias</b> '+esc(deRetoque(r.serv))+'. A '+esc(pf(r.ultimo.prof).nome)+' indicou voltar a cada '+r.prazo+' dias.</p>'+
       (sug.length?'<p class="suave" style="font-size:13.5px">Horários livres para você:</p><div class="sugs">'+sug.map(x=>'<button class="sug" data-act="reservaRapida" data-serv="'+r.serv.id+'" data-d="'+x.data+'" data-h="'+x.hora+'" data-p="'+x.prof+'"><b>'+rotDia(x.data)+'</b><span>'+x.hora+' · '+esc(pf(x.prof).nome)+'</span></button>').join('')+'</div>':'')+
       '<button class="btn cheio" data-act="escolherServ" data-id="'+r.serv.id+'">Ver outros horários</button></section>';}
-  camps.forEach(camp=>{h+='<section class="promo" aria-label="Campanha"><img src="'+imgSrc(camp.img)+'" alt="Campanha '+esc(camp.titulo)+'"><div class="txt"><span class="tag">'+esc(camp.titulo)+'</span><p>'+esc(camp.texto)+'</p>'+(camp.cat?'<button class="btn pri cheio" data-act="escolherCat" data-id="'+camp.cat+'">Agendar '+camp.cat.toLowerCase()+'</button>':'<button class="btn pri cheio" data-aba="agendar">Agendar</button>')+'</div></section>'});
+  camps.forEach(camp=>{h+='<section class="promo" aria-label="Campanha"><img src="'+imgSrc(camp.img)+'" alt="Campanha '+esc(camp.titulo)+'"><div class="txt"><span class="tag">'+esc(camp.titulo)+'</span><p>'+esc(camp.texto)+'</p>'+'<button class="btn pri cheio" data-act="abrirCamp" data-id="'+camp.id+'">Agendar '+esc(camp.serv&&sv(camp.serv)?sv(camp.serv).nome.toLowerCase():camp.cat?camp.cat.toLowerCase():'pela campanha')+'</button>'+'</div></section>'});
   if(pac.length)h+='<section class="cartao bloco"><div class="linha"><h2>Meus pacotes</h2><button class="btn peq" data-aba="pacotes">Ver</button></div>'+pac.map(k=>'<div class="linha"><span><b>'+esc(k.nome)+'</b><br><span class="suave" style="font-size:13px">'+restantes(k.sessoes-k.usadas)+' de '+k.sessoes+'</span></span>'+bolinhas(k)+'</div>').join('')+'</section>';
   if(INDIC.ativo){const feitas=S.clientes.filter(c=>c.indicadaPor===S.eu);
     h+='<section class="indica"><div class="linha"><h2>Indique uma amiga</h2><span class="ic-mini">'+IC.presente+'</span></div><p>Ela agenda pelo seu convite e, quando concluir o primeiro atendimento, você ganha <b>'+esc(textoBeneficio())+'</b>.</p>'+
@@ -533,10 +539,12 @@ function horasLivres(data,serv,prof,ignora){
 }
 function cAgendar(){
   const F=S.fluxo;if(!F.cat)F.cat=F.serv?sv(F.serv).cat:CATS[0];
+  const veio=F.camp&&CAMP.find(c=>c.id===F.camp&&c.ativa);
   if(F.serv&&!F.data)F.data=diasAbertos().find(d=>horasLivres(d,F.serv,F.prof,F.remarca).length);
   let h='<section class="bloco"><h1>'+(F.remarca?'Remarcar horário':'Agendar')+'</h1>'+(F.remarca?'<p class="suave">Escolha o novo dia e horário. O antigo é liberado quando você confirmar.</p>':'')+'</section>';
+  if(veio)h+='<section class="camp-topo"><img src="'+imgSrc(veio.img)+'" alt=""><div><span class="tag">Campanha</span><b>'+esc(veio.titulo)+'</b><p>'+esc(veio.texto)+'</p>'+(veio.brinde?'<p class="brinde">Agendando, você ganha 1 sessão de '+esc(sv(veio.brinde).nome.toLowerCase())+'.</p>':'')+'</div></section>';
   h+='<section class="bloco"><h2>1 · O que você quer fazer</h2><div class="chips">'+CATS.map(c=>'<button class="chip" aria-pressed="'+(F.cat===c)+'" data-act="fCat" data-id="'+c+'">'+c+'</button>').join('')+'</div>'+
-    campanhasAtivas().filter(c=>c.cat===F.cat).map(c=>'<p class="aviso" style="border-left-color:'+(c.brinde?'var(--ok)':'var(--lilas)')+'"><span><b class="'+(c.brinde?'brinde':'')+'">'+esc(c.titulo)+':</b> '+(c.brinde?'agendando '+c.cat.toLowerCase()+' você ganha uma sessão de '+esc(sv(c.brinde).nome.toLowerCase())+'.':esc(c.texto))+'</span></p>').join('')+
+    campanhasAtivas().filter(c=>c.cat===F.cat&&c.id!==F.camp).map(c=>'<p class="aviso" style="border-left-color:'+(c.brinde?'var(--ok)':'var(--lilas)')+'"><span><b class="'+(c.brinde?'brinde':'')+'">'+esc(c.titulo)+':</b> '+(c.brinde?'agendando '+c.cat.toLowerCase()+' você ganha uma sessão de '+esc(sv(c.brinde).nome.toLowerCase())+'.':esc(c.texto))+'</span></p>').join('')+
     '<div class="lista">'+servAtivos().filter(s=>s.cat===F.cat).map(s=>opServ(s,'fServ',F.serv)).join('')+'</div></section>';
   if(F.serv){
     h+='<section class="bloco"><h2>2 · Com quem</h2><div class="chips">'+[['qualquer','Tanto faz']].concat(PROF.map(b=>[b.id,b.nome])).map(([id,n])=>'<button class="chip" aria-pressed="'+(F.prof===id)+'" data-act="fProf" data-id="'+id+'">'+esc(n)+'</button>').join('')+'</div></section>';
@@ -817,11 +825,12 @@ function janelaCamp(){const c=campEd;
     '<div class="campo"><label>Imagem</label>'+(c.img?'<img class="foto-unica" src="'+imgSrc(c.img)+'" alt="Imagem da campanha"><button class="btn peq" data-act="trocarImgCamp">Trocar imagem</button>':'<label class="sobe larga">Subir uma foto ou arte<span>do celular ou do computador</span><input type="file" accept="image/*" data-foto="camp"></label>')+'</div>'+
     '<div class="campo"><label for="cpTit">Título</label><input id="cpTit" value="'+esc(c.titulo)+'" placeholder="Ex.: Outubro Rosa"></div>'+
     '<div class="campo"><label for="cpTxt">Texto que as clientes veem</label><textarea id="cpTxt" placeholder="Ex.: Nutri Gloss com 15% de desconto até o fim do mês.">'+esc(c.texto)+'</textarea></div>'+
-    '<div class="campo"><label for="cpCat">Botão "Agendar" leva para</label><select id="cpCat"><option value="">Agenda geral</option>'+CATS.map(x=>'<option'+(x===c.cat?' selected':'')+'>'+x+'</option>').join('')+'</select></div>'+
+    '<div class="campo"><label for="cpServ">Serviço em destaque (opcional)</label><select id="cpServ"><option value="">Nenhum: só o tipo de serviço</option>'+servAtivos().map(s=>'<option value="'+s.id+'"'+(s.id===c.serv?' selected':'')+'>'+esc(s.nome)+'</option>').join('')+'</select></div>'+
+    '<div class="campo"><label for="cpCat">Tipo de serviço da campanha</label><select id="cpCat"><option value="">Agenda geral</option>'+CATS.map(x=>'<option'+(x===c.cat?' selected':'')+'>'+x+'</option>').join('')+'</select></div>'+
     '<div class="campo"><label for="cpBr">Brinde automático para quem agendar</label><select id="cpBr"><option value="">Sem brinde</option>'+servAtivos().map(s=>'<option value="'+s.id+'"'+(s.id===c.brinde?' selected':'')+'>1 sessão de '+esc(s.nome)+'</option>').join('')+'</select></div>'+
     '<label class="marcar"><input type="checkbox" id="cpAtiva"'+(c.ativa?' checked':'')+'> Mostrar no app das clientes agora</label>'+
     '<button class="btn pri cheio" data-act="salvarCamp">Salvar campanha</button><button class="btn cheio" data-act="fechar">Voltar</button>','camp')}
-function lerCamp(){const g=i=>document.getElementById(i);if(!g('cpTit'))return;campEd.titulo=g('cpTit').value;campEd.texto=g('cpTxt').value;campEd.cat=g('cpCat').value;campEd.brinde=g('cpBr').value;campEd.ativa=g('cpAtiva').checked}
+function lerCamp(){const g=i=>document.getElementById(i);if(!g('cpTit'))return;campEd.serv=g('cpServ').value;campEd.titulo=g('cpTit').value;campEd.texto=g('cpTxt').value;campEd.cat=g('cpCat').value;campEd.brinde=g('cpBr').value;if(campEd.serv)campEd.cat=sv(campEd.serv).cat;campEd.ativa=g('cpAtiva').checked}
 
 /* ---------- ações ---------- */
 document.addEventListener('click',ev=>{
@@ -830,8 +839,9 @@ document.addEventListener('click',ev=>{
   const el=ev.target.closest('[data-act]');if(!el)return;
   const act=el.dataset.act,id=el.dataset.id,F=S.fluxo;
   if(act==='fechar'){if(el.classList.contains('fundo-modal')&&ev.target!==el)return;fechar();return}
-  const a=id?S.ag.find(x=>x.id===id):null,novoF=o=>Object.assign({cat:null,serv:null,prof:'qualquer',data:null,hora:null,remarca:null},o);
+  const a=id?S.ag.find(x=>x.id===id):null,novoF=o=>Object.assign({cat:null,serv:null,prof:'qualquer',data:null,hora:null,remarca:null,camp:null},o);
   switch(act){
+   case'abrirCamp':{const c=CAMP.find(x=>x.id===id);const s=c.serv&&sv(c.serv);S.fluxo=novoF({camp:c.id,cat:s?s.cat:(c.cat||CATS[0]),serv:s?s.id:null});S.aba.cliente='agendar';window.scrollTo(0,0);break}
    case'escolherCat':S.fluxo=novoF({cat:id});S.aba.cliente='agendar';window.scrollTo(0,0);break;
    case'escolherServ':S.fluxo=novoF({serv:id,cat:sv(id).cat});S.aba.cliente='agendar';window.scrollTo(0,0);break;
    case'fCat':F.cat=id;F.serv=null;F.hora=null;F.data=null;break;
@@ -931,7 +941,7 @@ document.addEventListener('click',ev=>{
      fechar();aviso('Pacote vendido para '+primeiro(c.nome)+': '+brl(p.preco)+' no caixa.');break}
    case'periodo':S.periodo=id;break;
    /* divulgar */
-   case'editCamp':campEd=id==='nova'?{id:null,titulo:'',texto:'',img:null,cat:'',brinde:'',ativa:true}:Object.assign({},CAMP.find(c=>c.id===id));janelaCamp();return;
+   case'editCamp':campEd=id==='nova'?{id:null,titulo:'',texto:'',img:null,cat:'',serv:'',brinde:'',ativa:true}:Object.assign({},CAMP.find(c=>c.id===id));janelaCamp();return;
    case'trocarImgCamp':lerCamp();campEd.img=null;janelaCamp();return;
    case'salvarCamp':{lerCamp();if(!campEd.titulo.trim()||!campEd.texto.trim()){aviso('Preencha o título e o texto.');return}if(!campEd.img){aviso('Suba uma imagem para a campanha.');return}
      if(campEd.id)Object.assign(CAMP.find(c=>c.id===campEd.id),campEd);else CAMP.unshift(Object.assign(campEd,{id:novoId('cp'),criada:HOJE}));
